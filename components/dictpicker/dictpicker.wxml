@@ -1,0 +1,4 @@
+<picker bindchange="bindChange" range="{{range}}" value="{{index}}" range-key="{{rangeKey}}">
+<text wx:if="{{name}}">{{name}}</text>
+<text wx:else>点击选择</text>
+</picker>

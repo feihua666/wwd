@@ -1,0 +1,30 @@
+var getYear = function (birthDay) {
+    if (birthDay) {
+        return birthDay.substring(0, 4)
+    }
+    return ''
+}
+var getGender = function (gender,isWord) {
+    if ('male' == gender) {
+        return isWord ? '男':'icon-nan'
+    } else if ('female' == gender) {
+        return isWord? '女':'icon-nv'
+    } else {
+        return ''
+    }
+}
+var getDictLabelByValue = function(value,dicts){
+    if (dicts){
+        var i = 0;
+        for (; i < dicts.length; i++) {
+            if (dicts[i].value == value) {
+                return dicts[i].name
+            }
+        }
+    }
+
+    return ''
+}
+module.exports.getYear = getYear
+module.exports.getGender = getGender
+module.exports.getDictLabelByValue = getDictLabelByValue

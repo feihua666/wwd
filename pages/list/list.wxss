@@ -1,0 +1,74 @@
+
+@import "../../resources/common.wxss";
+.container-box{
+        background-color: #F8F8F8;
+}
+.container-box .view-item-box{
+    margin: 13px 5px;
+    background-color: #ffffff;
+}
+.container-box .view-item-img-box{
+    padding: 10px;
+}
+.container-box .view-item-img{
+    width:100%;
+    border-radius:3px;
+}
+.container-box .view-item-info-box{
+    padding: 0 10px 10px 10px;
+
+}
+.iconfont,.view-item-info-box{
+    font-size: 0.7rem;
+}
+.container-box .view-item-info-box view{
+    margin: 0 0 5px 0; 
+}
+.container-box .profile-box{
+    position: fixed;
+    width: 30px;
+    right:3px;
+    top:5px;
+    z-index: 1000;
+    text-align: center;
+    box-shadow:1px 1px 1px #aaaaaa;
+    padding: 2px 0;
+}
+
+.profile-info-box{
+    margin-top: 5px;
+}
+.profile-line{
+    margin: 2px 4px;
+    border-radius: 1px;
+}
+
+.icon-nan:before{
+    color: #73A6FF;
+}
+.icon-nv{
+    color: #FA8CEC;
+}
+.icon-weizhi:before{
+    color: #E36554;
+}
+.icon-fl-jia:before{
+    color: #1ACAD8;
+}
+.icon-shengri:before{
+    color: #84B51E;
+}
+.icon-xingzuo{
+    color: #FFBD5A;
+}
+.icon-daxuemingcheng{
+    color: #D81E06;
+}
+.view-item-info-nickname{
+    font-weight: bold;
+}
+.load-more{
+    font-size: 0.7rem;
+    text-align: center;
+}
+@import "../../resources/icon/iconfont.wxss";

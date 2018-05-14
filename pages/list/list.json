@@ -1,0 +1,6 @@
+{
+    
+    "navigationBarTitleText": "汪汪队",
+    "enablePullDownRefresh": true,
+    "onReachBottomDistance":30
+}

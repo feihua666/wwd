@@ -1,0 +1,39 @@
+@import "../../resources/common.wxss";
+@import "../../resources/icon/iconfont.wxss";
+page{
+    background-color: #FAFAFA;
+}
+.container-box{
+    font-size: 0.7rem;
+}
+.header-info-box{
+    height: 50px;
+    line-height: 50px;
+}
+.header-info-photo{
+    width:50px;
+    height: 50px;
+    border-radius: 50%;
+
+}
+.header-info-photo-box,.header-info-name-box{
+    width:50px;
+    height: 50px;
+    float: left;
+}
+.header-info-name-box{
+    margin-left:  15px;
+}
+
+.arrow-box{
+    float: right;
+}
+.info-label{
+    font-size: 0.7rem;
+    color: #C3C3C3;
+}
+.container-box>view{
+    margin-top: 5px;
+    background-color: #fff;
+    padding: 15px 15px;
+}

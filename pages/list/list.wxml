@@ -1,0 +1,54 @@
+<wxs src="../../resources/common.wxs" module="common" />
+<view class="container-box">
+    <view class="profile-box">
+        <view class='profile-tab-box'>
+            <text class='iconfont icon-liebiao' bindtap='toggleProfileInfoBox'></text>
+        </view>
+        
+        <view class='profile-info-box'hidden='{{!profileInfoBoxShow}}'>
+            <view class='profile-line horizontal-line'></view>
+            <navigator url='../my/my'>
+            <view class='profile-info-my-box'>
+                <text class='iconfont icon-xingmingyonghumingnicheng'></text>
+            </view>
+            </navigator>
+            <view class='profile-line horizontal-line'></view>
+            <view class='profile-info-search-box'>
+             <text class='iconfont icon-sousuo'></text>
+            </view>
+           
+        </view>
+    </view>
+    <scroll-view scroll-y class="scroll-view-container-box">
+
+
+        <view wx:for="{{listData}}" wx:for-index="userIndex" wx:for-item="userItem" wx:key="{{userItem.id}}" class="view-item-box">
+            <navigator url='../detail/detail?wwdUserId={{userItem.id}}'>
+            <view class="view-item-img-box" wx:for="{{listPic}}" wx:for-index="picIndex" wx:key="{{userItem.id}}" wx:for-item="picItem" wx:if="{{picItem.wwdUserId == userItem.id}}">
+                <image src="{{picItem.picUrl}}" class="view-item-img" mode="aspectFill" lazy-load="{{true}}"></image>
+            </view>
+            <view class="view-item-info-box">
+                <view>
+                <text class="view-item-info-gender iconfont {{common.getGender(userItem.gender)}}"></text>
+                <text class="view-item-info-nickname"> {{userItem.nickname}}</text>
+                </view>
+                <view>
+                <text class=' iconfont icon-weizhi'></text><text class="view-item-info-nowPosition"> 北京</text>
+                <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <text class=' iconfont icon-fl-jia'></text>
+                <text class="view-item-info-homePosition"> 河北省 保定市</text>
+                </view>
+                <view>
+                <text class=' iconfont icon-shengri'></text><text class="view-item-info-birthday">{{common.getYear(userItem.birthDay)}}年</text>
+                <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <text class=' iconfont icon-xingzuo'></text><text class="view-item-info-constellation"> {{userItem.constellation}}</text>
+                <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;</text>
+                <text class='iconfont icon-daxuemingcheng'></text><text class="view-item-info-college"> {{userItem.college}}</text>
+                </view>
+            </view>
+            </navigator>
+        </view>
+
+        <view class="load-more" hidden="{{!loadMoreShow}}">正在载入...</view>
+    </scroll-view>
+</view>

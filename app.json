@@ -1,0 +1,14 @@
+{
+    "pages": [
+                "pages/login/login",
+        "pages/list/list",
+        "pages/detail/detail",
+        "pages/my/my",
+        "pages/info/info"
+    ],
+    "window": {
+        "navigationBarBackgroundColor": "#fff",
+        "backgroundColor": "#F8F8F8",
+        "navigationBarTextStyle": "black"
+    }
+}

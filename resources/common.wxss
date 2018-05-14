@@ -1,0 +1,9 @@
+
+.container-box{
+    font-family: "微软雅黑", "宋体", Arial, sans-serif;
+	font-size: 0.8rem;
+}
+.horizontal-line{
+    height: 1px;
+    background-color: #aaaaaa;
+}

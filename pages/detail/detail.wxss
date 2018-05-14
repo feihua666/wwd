@@ -1,0 +1,11 @@
+@import "../../resources/common.wxss";
+.info-box{
+    padding: .5rem;
+    font-size: 0.7rem;
+}
+.info-box view{
+    margin: 5px 0;
+}
+.info-name{
+    font-weight: bold;
+}

@@ -1,0 +1,13 @@
+
+@import "../../resources/common.wxss";
+@import "../../resources/icon/iconfont.wxss";
+.container-box{
+    padding: 15px;
+}
+.form-item-box{
+    margin: 15px 0;
+}
+.invite-code-input{
+    border: 1px #F8F8F8 solid;
+    padding: 5px 10px;
+}

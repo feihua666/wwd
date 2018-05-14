@@ -1,0 +1,55 @@
+<wxs src="../../resources/common.wxs" module="common" />
+<view class="container-box">
+    <view class='pic-box'>
+        <swiper autoplay="{{true}}" indicator-dots="{{true}}" style='height:250px;'>
+            <block wx:for="{{picUrls}}" wx:for-index="picUrlIndex" wx:for-item="picUrlItem" wx:key="{{picUrlItem.id}}">
+            <swiper-item>
+            <image bindtap="imagePreview" src="{{picUrlItem.picOriginUrl}}" data-src="{{picUrlItem.picOriginUrl}}" class="slide-image" mode="aspectFill" style='width:100%;'/>
+            </swiper-item>
+        </block>
+        </swiper>
+
+    </view>
+    <view class='info-box'>
+        <view class='info-name-box'>
+            <text class='info-gender'>{{common.getGender(wwdUser.gender,true)}}</text><text class='info-name'> {{wwdUser.nickname}}</text>
+        </view>
+        <view class='info-marital-status-box'>
+            <text>{{wwdUser.maritalStatus}} 车：{{wwdUser.hasCar}} 房：{{wwdUser.hasHourse}}</text>
+        </view>
+        <view class='info-salary-box'>
+            <text>月薪：{{wwdUser.monthSalary}} 年薪：{{wwdUser.yearSalary}}</text>
+        </view>
+        <view class='info-position-box'>
+            <text>目前在北京 家乡是河北保定市</text>
+        </view>
+        <view class='info-birthday-box'>
+        <text>生于{{common.getYear(wwdUser.birthDay)}}年 {{wwdUser.constellation}}</text>
+        </view>
+        <view class='info-college-box'>
+        <text>毕业于{{wwdUser.college}} {{wwdUser.major}}专业 学历{{wwdUser.education}} 职业是{{wwdUser.profession}}</text>
+        </view>
+        <view class='info-shape-box'>
+            <text>{{wwdUser.height}}cm {{wwdUser.weight}}kg 相貌{{wwdUser.Looks}} 体型{{wwdUser.shape}}</text>
+        </view>
+        <view class='info-smoking-box'>
+            <text>{{wwdUser.smoking}}抽烟 {{wwdUser.drinking}}喝酒</text>
+        </view>
+        <view class='info-description-box'>
+            <view class='info-description-label-box'>
+                <text>个人介绍</text>
+            </view>
+            <view class='info-description-value-box'>
+                <text>{{wwdUser.description}}</text>
+            </view>
+        </view>
+        <view class='info-standard-box'>
+            <view class='info-standard-label-box'>
+                <text>择偶标准</text>
+            </view>
+            <view class='info-standard-value-box'>
+                <text>{{wwdUser.standard}}</text>
+            </view>
+        </view>
+    </view>
+</view>

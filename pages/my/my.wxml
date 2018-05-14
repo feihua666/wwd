@@ -1,0 +1,29 @@
+<wxs src="../../resources/common.wxs" module="common" />
+<view class='container-box'>
+    <view class='header-info-box'>
+        <view class='header-info-photo-box'>
+            <image class='header-info-photo' src='http://pic-cdn.bixinapp.com/boardPic/40f035850ffb446aa530906135c49959ZUTzKVB6_origin.jpg'mode="aspectFill" lazy-load="{{true}}"></image>
+        </view>
+        <view class='header-info-name-box'>
+
+            <text>飞华 {{common.getGender(userItem.gender,true)}}</text>
+
+        </view>
+        <navigator url='../info/info'>
+        <view class='arrow-box'>
+            <text class='info-label'>完善资料</text>
+            <text class='iconfont icon-youjiantou'></text>
+        </view>
+        </navigator>
+    </view>
+    <view class='invite-code-box'>
+        <text>我的邀请码</text>
+        <text> 25844rfg</text>
+    </view>
+    <view class='invited-friends-box'>
+        <text>我邀请的朋友</text>
+        <view class='arrow-box'>
+            <text class='iconfont icon-youjiantou'></text>
+        </view>
+    </view>
+</view>

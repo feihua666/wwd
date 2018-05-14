@@ -1,0 +1,6 @@
+{
+    "usingComponents": {
+        "dictpicker": "/components/dictpicker/dictpicker",
+        "areapicker":"/components/areapicker/areapicker"
+    }
+}

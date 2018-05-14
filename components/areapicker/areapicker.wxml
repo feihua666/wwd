@@ -1,0 +1,4 @@
+<picker bindchange="bindChange" mode="multiSelector" bindcolumnchange="bindColumnChange"  range="{{range}}" value="{{index}}" range-key="{{rangeKey}}">
+<text wx:if="{{name && name.length > 0}}">{{name[0]}} {{name[1]}} {{name[2]}}</text>
+<text wx:else>点击选择</text>
+</picker>
