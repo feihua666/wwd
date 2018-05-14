@@ -4,7 +4,7 @@
         <input type='text' placeholder="邀请码" class='invite-code-input'></input>
     </view>
     <view class='form-item-box'>
-        <button open-type='getUserInfo'>授权微信登录并开始使用</button>
+        <button open-type='getUserInfo' bindgetuserinfo='bindgetuserinfo'>授权微信登录并开始使用</button>
     </view>
     </view>
 </view>

@@ -1,5 +1,4 @@
 const config = require('../config/config.js')
-const authAndLogin = require('./authorizeAndLogin.js')
 const cookieKey = 'cookiekey'
 
 const request = function (url, data, success, fail, header, method) {
@@ -22,11 +21,7 @@ const request = function (url, data, success, fail, header, method) {
                 }
 
             } else {
-                let status = res.statusCode
-                if(status == 401){
-                    authAndLogin.login()
-                }
-                else if (fail && typeof fail == 'function') {
+                if (fail && typeof fail == 'function') {
                     fail(res)
                 }
             }
