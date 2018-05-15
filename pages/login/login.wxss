@@ -3,6 +3,7 @@
 @import "../../resources/icon/iconfont.wxss";
 .container-box{
     padding: 15px;
+    font-size: 0.7rem;
 }
 .form-item-box{
     margin: 15px 0;

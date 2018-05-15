@@ -1,28 +1,35 @@
 <wxs module="ablum">
 var getMainPic = function(picData){
-    return picData[0];
+        
+    for(var i = 0;i < picData.length; i++){
+        if('main' == picData[i].type){
+            return picData[i]
+        }
+    }
+    return null
 }
-var getPic_1 = function (picData) {
-        return picData[1];
+var getNormalPic = function (picData) {
+    var r = []
+    
+    for(var i = 0;i < picData.length; i++){
+        if('normal' == picData[i].type){
+            r.push(picData[i])
+        }
     }
-var getPic_2 = function (picData) {
-        return picData[2];
+    var length = r.length
+    for(var j=0; j < (4 - length); j++){
+        r.push({})
     }
-var getPic_3 = function (picData) {
-        return picData[3];
-    }
-var getPic_4 = function (picData) {
-        return picData[4];
-    }
+    return r
+}
 
 var getBirthDayEnd = function(date){
     return '1996-12-30';
 }
+
 module.exports.getMainPic = getMainPic
-module.exports.getPic_1 = getPic_1
-module.exports.getPic_2 = getPic_2
-module.exports.getPic_3 = getPic_3
-module.exports.getPic_4 = getPic_4
+module.exports.getNormalPic = getNormalPic
+
 module.exports.getBirthDayEnd = getBirthDayEnd
 </wxs>
 <wxs src="../../resources/common.wxs" module="common" />
@@ -34,54 +41,24 @@ module.exports.getBirthDayEnd = getBirthDayEnd
         </view>
         <view class='album-box'>
             <view class='img-item-main-box'>
-                <image src='{{ablum.getMainPic(picData).url}}' mode="aspectFill"></image>
+                <image src='{{ablum.getMainPic(picData).picOriginUrl}}' bindtap='imagePreview' data-src="{{ablum.getMainPic(picData).picOriginUrl}}" mode="aspectFill"></image>
 
-                <view class='img-delete' bindtap='deleteImage' hidden='{{!ablum.getMainPic(picData).url}}' data-pic-id='{{ablum.getMainPic(picData).id}}'>
+                <view class='img-delete' bindtap='deleteImage' hidden='{{!ablum.getMainPic(picData).picOriginUrl}}' data-pic-id='{{ablum.getMainPic(picData).id}}'>
                 <text class='iconfont icon-shanchu'></text>
                 </view>
-                <view class='img-add' hidden='{{ablum.getMainPic(picData).url}}' bindtap='chooseImage' data-pic-id='{{ablum.getMainPic(picData).id}}'>
+                <view class='img-add' hidden='{{ablum.getMainPic(picData).picOriginUrl}}' bindtap='chooseImage' data-type='main' data-pic-id='{{ablum.getMainPic(picData).id}}'>
                     <text class='iconfont icon-jia'></text>
                 </view>
                 
             </view>
             <view class='img-item-other-box'>
-                <view class='img-item-box'>
-                    <image src='{{ablum.getPic_1(picData).url}}' mode="aspectFill"></image>
+                <view class='img-item-box' wx:for="{{ablum.getNormalPic(picData)}}" wx:for-index="picIndex" wx:for-item="picItem" wx:key="{{picIndex.id}}">
+                    <image src='{{picItem.picOriginUrl}}' bindtap='imagePreview' data-src="{{picItem.picOriginUrl}}" mode="aspectFill"></image>
 
-                    <view class='img-delete' bindtap='deleteImage' hidden='{{!ablum.getPic_1(picData).url}}' data-pic-id='{{ablum.getPic_1(picData).id}}'>
+                    <view class='img-delete' bindtap='deleteImage' hidden='{{!picItem.picOriginUrl}}' data-pic-id='{{picItem.id}}'>
                     <text class='iconfont icon-shanchu'></text>
                     </view>
-                    <view class='img-add' hidden='{{ablum.getPic_1(picData).url}}' bindtap='chooseImage' data-pic-id='{{ablum.getPic_1(picData).id}}'>
-                        <text class='iconfont icon-jia'></text>
-                    </view>
-                </view>
-                <view class='img-item-box'>
-                    <image src='{{ablum.getPic_2(picData).url}}' mode="aspectFill"></image>
-
-                    <view class='img-delete' bindtap='deleteImage' hidden='{{!ablum.getPic_2(picData).url}}' data-pic-id='{{ablum.getPic_2(picData).id}}'>
-                    <text class='iconfont icon-shanchu'></text>
-                    </view>
-                    <view class='img-add' hidden='{{ablum.getPic_2(picData).url}}' bindtap='chooseImage' data-pic-id='{{ablum.getPic_2(picData).id}}'>
-                        <text class='iconfont icon-jia'></text>
-                    </view>
-                </view>
-                <view class='img-item-box'>
-                    <image src='{{ablum.getPic_3(picData).url}}' mode="aspectFill"></image>
-
-                    <view class='img-delete' bindtap='deleteImage' hidden='{{!ablum.getPic_3(picData).url}}' data-pic-id='{{ablum.getPic_3(picData).id}}'>
-                        <text class='iconfont icon-shanchu'></text>
-                    </view>
-                    <view class='img-add' hidden='{{ablum.getPic_3(picData).url}}' bindtap='chooseImage' data-pic-id='{{ablum.getPic_3(picData).id}}'>
-                        <text class='iconfont icon-jia'></text>
-                    </view>
-                </view>
-                <view class='img-item-box'>
-                    <image src='{{ablum.getPic_4(picData).url}}' mode="aspectFill"></image>
-
-                    <view class='img-delete' bindtap='deleteImage' hidden='{{!ablum.getPic_4(picData).url}}' data-pic-id='{{ablum.getPic_4(picData).id}}'>
-                    <text class='iconfont icon-shanchu'></text>
-                    </view>
-                    <view class='img-add' hidden='{{ablum.getPic_4(picData).url}}' bindtap='chooseImage' data-pic-id='{{ablum.getPic_4(picData).id}}'>
+                    <view class='img-add' hidden='{{picItem.picOriginUrl}}' bindtap='chooseImage' data-type='normal' data-pic-id='{{picItem.id}}'>
                         <text class='iconfont icon-jia'></text>
                     </view>
                 </view>

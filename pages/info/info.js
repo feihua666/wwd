@@ -1,5 +1,6 @@
 // pages/info/info.js
 const dictUtil = require('../../utils/dicUtil.js')
+const httpUtil = require('../../utils/httpUtil.js')
 Page({
 
   /**
@@ -7,17 +8,6 @@ Page({
    */
   data: {
       picData:[
-          {
-              id:1,
-              url:'http://pic-cdn.bixinapp.com/boardPic/183efc5fca9c4e40a9f8059cdb0005aaVMN5yQp7_origin.jpg'
-          },
-          {
-              id: 2,
-              url: 'http://pic-cdn.bixinapp.com/boardPic/183efc5fca9c4e40a9f8059cdb0005aaVMN5yQp7_origin.jpg'
-          }, {
-              id: 3,
-              url: 'http://tmp/wx66be83d17ee00f28.o6zAJs7QzCZAR0E-P9Eq….p3WAOWTGZ4Uz54d5283ba0cce138bbaf64d09357a706.png'
-          }
       ],
       areaData:{
           nowProvinceId:'',
@@ -49,10 +39,18 @@ Page({
           shape:'',
           smoking:'',
           drinking:'',
-      },
-      dict:{}
+      }
   
     }, 
+  imagePreview: function (e) {
+      let self = this
+      let src = e.currentTarget.dataset.src
+      console.log(src)
+      wx.previewImage({
+          current: src, // 当前显示图片的http链接
+          urls: [src]
+      })
+  },
   bindGenderPickerChange: function (e) {
       console.log(e.detail)
       this.setData({
@@ -99,8 +97,8 @@ Page({
   },
   // 选择照片并上传
   chooseImage: function (event) {
-      let picId = event.currentTarget.dataset.picId;
-      console.log(picId)
+      let picId = event.currentTarget.dataset.picId
+      let type = event.currentTarget.dataset.type
       wx.chooseImage({
           count: 1, // 默认9
           sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
@@ -132,6 +130,15 @@ Page({
   onLoad: function (options) {
 
     let self = this;
-    
+    //加载图片
+    httpUtil.get('/wwd/user/current/pic',{
+        data:{orderby:'sequence'},
+        success:res =>{
+            let content = res.data.data.content
+            self.setData({
+                picData:content
+            })
+        }
+    })
   }
 })

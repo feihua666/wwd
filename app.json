@@ -6,6 +6,7 @@
         "pages/detail/detail",
         "pages/my/my",
         "pages/info/info"
+        
     ],
     "window": {
         "navigationBarBackgroundColor": "#fff",

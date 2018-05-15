@@ -7,7 +7,13 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+      //邀请码
+      inviteCode:''
+  },
+  bindInviteCodeInput:function(e){
+    this.setData({
+        inviteCode:e.detail.value
+    })
   },
   doLogin(param){
       param.loginType = 'WX_MINIPROGRAM'
@@ -24,6 +30,12 @@ Page({
               wx.redirectTo({
                   url: '/pages/list/list'
               })
+          },
+          fail:function(res){
+              wx.showToast({
+                  title: '登录失败，邀请码不正确',
+                  icon: 'none'
+              })
           }
       })
   },
@@ -32,7 +44,14 @@ Page({
         // 同意获取用户信息
         if (userinfoRes.detail.errMsg == 'getUserInfo:ok'){
             let userInfo = userinfoRes.detail.userInfo
-
+            // 判断有没有填写邀请码
+            if (self.data.inviteCode == '' || self.data.inviteCode == null) {
+                wx.showToast({
+                    title: '请输入邀请码',
+                    icon: 'none'
+                })
+                return
+            }
             // 调用登录接口，获取 code
             wx.login({
                 success: loginRes => {

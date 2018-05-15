@@ -56,10 +56,32 @@ const _delete = function (url, options) {
     }
     request(url, options.data, options.success, options.fail, header, 'DELETE')
 }
+const _uploadFile = function(url,options){
+    wx.uploadFile({
+        url: url, 
+        filePath: options.filePath,
+        name: 'file',
+        formData: options.data,
+        success: function (res) {
+            var data = res.data
+            let status = res.statusCode
+            if (status >= 200 && status < 300) {
+                if (options.success && typeof options.success == 'function') {
+                    options.success(res)
+                }
 
+            } else {
+                if (options.fail && typeof options.fail == 'function') {
+                    options.fail(res)
+                }
+            }
+        }
+    })
+}
 module.exports = {
     get: _get,
     post: _post,
     put: _put,
-    delete: _delete
+    delete: _delete,
+    uploadFile: _uploadFile
 }
