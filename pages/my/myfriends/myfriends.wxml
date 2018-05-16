@@ -1,0 +1,22 @@
+<wxs src="../../../resources/common.wxs" module="common" />
+<view class='container-box'>
+  <view wx:for="{{listData}}" wx:for-index="userIndex" wx:for-item="userItem" wx:key="{{userItem.id}}" class="view-item-box">
+    <view class='view-item-info-box'>
+      <view class='view-item-info-photo-box' wx:for="{{listPic}}" wx:for-index="picIndex" wx:key="{{userItem.id}}" wx:for-item="picItem" wx:if="{{picItem.wwdUserId == userItem.id}}">
+        <image class='view-item-info-photo' src='{{picItem.picUrl}}' mode="aspectFill" lazy-load="{{true}}"></image>
+      </view>
+      <view class='view-item-info-nickname-box'>
+        <text class='view-item-text-nickname'>{{userItem.nickname}}</text>
+      </view>
+      <view class='view-item-info-gender-box'>
+       <text class='view-item-gender'> {{common.getGender(userItem.gender,true)}}</text>
+      </view>
+      <navigator url='../../detail/detail?wwdUserId={{userItem.id}}' class='view-item-arrow-box'>
+        <view class='view-item-arrow-box-1'>
+          <text class='info-label'>查看资料</text>
+          <text class='iconfont icon-youjiantou'></text>
+        </view>
+      </navigator>
+    </view>
+  </view>
+</view>

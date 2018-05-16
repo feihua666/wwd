@@ -1,31 +1,33 @@
 <wxs src="../../resources/common.wxs" module="common" />
 <view class='container-box'>
-    <view class='header-info-box'>
-        <view class='header-info-photo-box'>
-            <image class='header-info-photo' src='{{photoUrl}}'mode="aspectFill" lazy-load="{{true}}"></image>
-        </view>
-        <view class='header-info-name-box'>
+  <view class='header-info-box'>
+    <view class='header-info-photo-box'>
+      <image class='header-info-photo' src='{{photoUrl}}' mode="aspectFill" lazy-load="{{true}}"></image>
+    </view>
+    <view class='header-info-name-box'>
 
-            <text>{{nickname}} {{common.getGender(gender,true)}}</text>
+      <text>{{nickname}}</text>
+      <text> {{common.getGender(gender,true)}}</text>
 
-        </view>
-        <navigator url='../info/info'>
-        <view class='arrow-box'>
-            <text class='info-label'>完善资料</text>
-            <text class='iconfont icon-youjiantou'></text>
-        </view>
-        </navigator>
     </view>
-    <view class='invite-code-box'>
-        <text class='invite-code-label'>我的邀请码</text>
-        <text class='invite-code'> {{inviteCode}}</text>
-        <button hidden='{{!!inviteCode}}' style='display:inline;float:right;' size='mini'>点击生成邀请码</button>
-        <button hidden='{{!inviteCode}}' bindtap='setClipboard' style='display:inline;float:right;' size='mini'>复制</button>
-    </view>
-    <view class='invited-friends-box'>
-        <text>我邀请的朋友</text>
-        <view class='arrow-box'>
-            <text class='iconfont icon-youjiantou'></text>
-        </view>
-    </view>
+    <navigator url='../info/info'>
+      <view class='arrow-box'>
+        <text class='info-label'>完善资料</text>
+        <text class='iconfont icon-youjiantou'></text>
+      </view>
+    </navigator>
+  </view>
+  <view class='invite-code-box'>
+    <text class='invite-code-label'>我的邀请码</text>
+    <text class='invite-code'> {{inviteCode}}</text>
+    <button hidden='{{!inviteCode}}' bindtap='setClipboard' style='display:inline;float:right;' size='mini'>复制</button>
+  </view>
+  <view class='invited-friends-box'>
+    <navigator url='../my/myfriends/myfriends'>
+      <text>我邀请的朋友</text>
+      <view class='arrow-box'>
+        <text class='iconfont icon-youjiantou'></text>
+      </view>
+    </navigator>
+  </view>
 </view>

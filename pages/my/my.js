@@ -30,5 +30,14 @@ Page({
                 })
             }
         })
+        //获取邀请码
+        httpUtil.get('/wwd/user/current/invitation', {
+          success: function (res) {
+            let content = res.data.data.content
+            self.setData({
+              inviteCode: content[0].code
+            })
+          }
+        })
     }
 })

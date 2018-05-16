@@ -1,0 +1,74 @@
+@import "../../../resources/common.wxss";
+@import "../../../resources/icon/iconfont.wxss";
+
+page {
+  background-color: #fafafa;
+}
+
+.container-box {
+  font-size: 0.7rem;
+  width: 100%;
+  height: 100%;
+}
+
+.view-item-info-box, .view-item-box {
+  height: 100rpx;
+  line-height: 100rpx;
+  width: 100%;
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.view-item-info-photo-box {
+  width: 14%;
+  height: 100%;
+}
+
+.view-item-info-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.view-item-info-nickname-box {
+  width: 45%;
+  height: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.view-item-text-nickname {
+  padding-left: 1rem;
+  width: 90%;
+  height: 100%;
+}
+
+.view-item-info-gender-box {
+  width: 5%;
+  height: 100%;
+   display: flex;
+  display: -webkit-flex;
+  justify-content: center;
+}
+
+.view-item-arrow-box {
+  width: 35%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.info-label {
+  font-size: 0.8rem;
+  color: #c3c3c3;
+}
+
+.container-box>view {
+  margin-top: 5px;
+  background-color: #fff;
+  padding: 15px 15px;
+}
