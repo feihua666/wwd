@@ -1,42 +1,121 @@
 @import "../../resources/common.wxss";
 @import "../../resources/icon/iconfont.wxss";
-page{
-    background-color: #FAFAFA;
-}
-.container-box{
-    font-size: 0.7rem;
-}
-.header-info-box{
-    height: 50px;
-    line-height: 50px;
-}
-.header-info-photo{
-    width:50px;
-    height: 50px;
-    border-radius: 50%;
 
+page {
+  background-color: #fafafa;
 }
 
-.header-info-photo-box,.header-info-name-box{
-    width:50px;
-    height: 50px;
-    float: left;
+.container-box {
+  font-size: 0.7rem;
 }
-.header-info-name-box{
-    margin-left:  15px;
+
+.header-info-box {
+  height: 100rpx;
+  line-height: 100rpx;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
 }
-.header-info-name-box text{
-   white-space:nowrap;
+
+.header-info-photo-box {
+  width: 14%;
+  height: 100%;
+  float: left;
 }
-.arrow-box{
-    float: right;
+
+.header-info-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
 }
-.info-label{
-    font-size: 0.7rem;
-    color: #C3C3C3;
+
+.header-info-name-box {
+  width: 45%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
-.container-box>view{
-    margin-top: 5px;
-    background-color: #fff;
-    padding: 15px 15px;
+
+.header-info-name-box text {
+  padding-left: 0.5rem;
+  width: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 1rem;
+}
+
+.view-item-info-gender-box {
+  width: 15%;
+  height: 100%;
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
+}
+
+.navigator-arrow-box {
+  width: 25%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.info-label {
+  font-size: 0.8rem;
+  color: #c3c3c3;
+}
+
+.view-item {
+  height: 50rpx;
+  width: 90%;
+  font-size: 0.8rem;
+}
+
+.invite-code-box {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.invite-code-box .invite-code-label {
+  width: 25%;
+  height: 100%;
+}
+
+.invite-code-box .invite-code {
+  width: 50%;
+  height: 100%;
+}
+
+.invite-code-copy{
+  width: 25%;
+  height: 100%;
+}
+
+.invite-code-box button {
+  font-size: 0.65rem;
+  text-align: center;
+}
+
+.navigator-invited-friends {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navigator-invited-friends .invited-friends-text {
+  width: 80%;
+  height: 100%;
+}
+
+.navigator-invited-friends .arrow-box {
+  width: 20%;
+  height: 100%;
+  text-align: right;
+}
+
+.container-box>view {
+  margin-top: 5px;
+  background-color: #fff;
+  padding: 15px 15px;
 }
