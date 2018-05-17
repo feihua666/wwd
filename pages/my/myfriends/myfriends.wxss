@@ -73,3 +73,19 @@ page {
   background-color: #fff;
   padding: 15px 15px;
 }
+
+.container-invite-box {
+  font-size: 0.7rem;
+  width: 90%;
+  height: 100%;
+}
+.invite-box{
+  font-size: 0.7rem;
+  width: 100%;
+  height: 100%;
+}
+
+.invite-box button{
+  width: 60%;
+  height: 100%;
+}

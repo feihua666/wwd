@@ -21,8 +21,9 @@
   <view class='view-item invite-code-box'>
     <text class='invite-code-label'>我的邀请码</text>
     <text class='invite-code'> {{inviteCode}}</text>
-    <view class='invite-code-copy'>
-      <button hidden='{{!inviteCode}}' bindtap='setClipboard' style='display:inline;float:right;' size='mini'>复制</button>
+    <view class='invite-btn'>
+      <button hidden='{{!inviteCode}}' bindtap='setClipboard'  size='mini'>复制</button>
+      <button open-type='share' bindtap='invitedFriendsBtn' size='mini'>邀请</button>
     </view>
   </view>
   <view class='view-item  invited-friends-box'>
