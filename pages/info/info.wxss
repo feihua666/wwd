@@ -83,7 +83,9 @@
 .item-smoking-box,
 .item-drinking-box,
 .item-now-position-box,
-.item-home-position-box
+.item-home-position-box,
+.item-wechat-number-box,
+.item-cardno-box
 {
     padding: 10px 0;
 }
@@ -102,4 +104,18 @@
 }
 .submit-btn{
     margin: 15px auto;
+}
+.item-input-textarea{
+    border:1px solid #fafafa;width:100%;
+}
+.item-sport-box,
+.item-trip-box,
+.item-movie-box,
+.item-food-box,
+.item-nature-box,
+.item-hobby-box{
+    margin: 15px 0;
+}
+.arrow-box{
+    float: right;
 }

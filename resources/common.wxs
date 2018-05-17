@@ -25,6 +25,18 @@ var getDictLabelByValue = function(value,dicts){
 
     return ''
 }
+var getFileUrl = function(path,downloadUrl){
+    if (path){
+        if (path.indexOf('http') == 0) {
+            return path
+        } else {
+            return downloadUrl + path
+        }
+    }
+    return ''
+
+}
 module.exports.getYear = getYear
 module.exports.getGender = getGender
 module.exports.getDictLabelByValue = getDictLabelByValue
+module.exports.getFileUrl = getFileUrl

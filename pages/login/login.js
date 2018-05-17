@@ -1,5 +1,4 @@
 const httpUtil = require('../../utils/httpUtil.js')
-const config = require('../../config/config.js')
 const app = getApp()
 Page({
 
@@ -15,30 +14,6 @@ Page({
         inviteCode:e.detail.value
     })
   },
-  doLogin(param){
-      param.loginType = 'WX_MINIPROGRAM'
-      param.type = "wwd"
-      param.action = 'addAndLogin'
-      httpUtil.post('/login',{
-          data:param,
-          success:function(res){
-              var content = res.data.token;
-              app.globalData.token = content.token;
-              wx.setStorageSync(config.cookieKey, res.header["Set-Cookie"])
-
-              //登录完成，跳转到列表页面
-              wx.redirectTo({
-                  url: '/pages/list/list'
-              })
-          },
-          fail:function(res){
-              wx.showToast({
-                  title: '登录失败，邀请码不正确',
-                  icon: 'none'
-              })
-          }
-      })
-  },
     bindgetuserinfo:function(userinfoRes){
         let self = this
         // 同意获取用户信息
@@ -52,25 +27,31 @@ Page({
                 })
                 return
             }
-            // 调用登录接口，获取 code
-            wx.login({
-                success: loginRes => {
-                    let code = loginRes.code
-
-                    let param = {}
-                    param.code = code
-                    param.nickname = userInfo.nickName
-                    param.photo = userInfo.avatarUrl
-                    let gender = userInfo.gender
-                    if (gender == '1') {
-                        param.gender = 'male'
-                    } else if (gender == '2') {
-                        param.gender = 'female'
-                    } else {
-                        param.gender = 'unknown'
-                    }
-
-                    self.doLogin(param)
+            let param = {}
+            param.nickname = userInfo.nickName
+            param.photo = userInfo.avatarUrl
+            let gender = userInfo.gender
+            if (gender == '1') {
+                param.gender = 'male'
+            } else if (gender == '2') {
+                param.gender = 'female'
+            } else {
+                param.gender = 'unknown'
+            }
+            param.action = 'addAndLogin'
+            httpUtil.login({
+                data:param,
+                success:res => {
+                    //登录完成，跳转到列表页面
+                    wx.redirectTo({
+                        url: '/pages/list/list'
+                    })
+                },
+                fail: res => {
+                    wx.showToast({
+                        title: '登录失败，邀请码不正确',
+                        icon: 'none'
+                    })
                 }
             })
         }

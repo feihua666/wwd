@@ -31,7 +31,8 @@ Component({
 
           //加载省
           areaUtil.getAreas({
-              type: 'province'
+              type: 'province',
+              t:new Date().getTime()
           }, function (r) {
               let content = r.data.data.content
               self.data.range[0] = content
@@ -48,6 +49,7 @@ Component({
           //加载市
           areaUtil.getAreas({
               type: 'city',
+              t:new Date().getTime(),
               parentId: parentId
           }, function (r) {
               let content = r.data.data.content
@@ -65,6 +67,7 @@ Component({
           //加载区
           areaUtil.getAreas({
               type: 'district',
+              t: new Date().getTime(),
               parentId: parentId
           }, function (r) {
               let content = r.data.data.content
@@ -94,8 +97,11 @@ Component({
                   this.data.range[2][this.data.index[2]][this.data.rangeKey]
               ]
           })
-          var myEventDetail = { value: this.properties.value } // detail对象，提供给事件监听函数
-          var myEventOption = { name: this.data.name } // 触发事件的选项
+          var myEventDetail = {
+               value: this.properties.value ,
+               name: this.data.name
+             } // detail对象，提供给事件监听函数
+          var myEventOption = { } // 触发事件的选项
           this.triggerEvent('change', myEventDetail, myEventOption)
       },
       bindColumnChange:function(e){
@@ -128,6 +134,7 @@ Component({
           }
       }
   },
+
   ready: function () {
       let self = this
       this.loadProvince(function (parentId){

@@ -41,24 +41,32 @@ module.exports.getBirthDayEnd = getBirthDayEnd
         </view>
         <view class='album-box'>
             <view class='img-item-main-box'>
-                <image src='{{ablum.getMainPic(picData).picOriginUrl}}' bindtap='imagePreview' data-src="{{ablum.getMainPic(picData).picOriginUrl}}" mode="aspectFill"></image>
+                <image
+                 src='{{common.getFileUrl(ablum.getMainPic(picData).picOriginUrl,appConfig.file.downloadUrl)}}'
+                 bindtap='imagePreview'
+                 data-src="{{common.getFileUrl(ablum.getMainPic(picData).picOriginUrl,appConfig.file.downloadUrl)}}"
+                 mode="aspectFill"></image>
 
                 <view class='img-delete' bindtap='deleteImage' hidden='{{!ablum.getMainPic(picData).picOriginUrl}}' data-pic-id='{{ablum.getMainPic(picData).id}}'>
                 <text class='iconfont icon-shanchu'></text>
                 </view>
-                <view class='img-add' hidden='{{ablum.getMainPic(picData).picOriginUrl}}' bindtap='chooseImage' data-type='main' data-pic-id='{{ablum.getMainPic(picData).id}}'>
+                <view class='img-add' hidden='{{ablum.getMainPic(picData).picOriginUrl}}' data-seq='{{0}}' bindtap='chooseImage' data-type='main' data-pic-id='{{ablum.getMainPic(picData).id}}'>
                     <text class='iconfont icon-jia'></text>
                 </view>
                 
             </view>
             <view class='img-item-other-box'>
                 <view class='img-item-box' wx:for="{{ablum.getNormalPic(picData)}}" wx:for-index="picIndex" wx:for-item="picItem" wx:key="{{picIndex.id}}">
-                    <image src='{{picItem.picOriginUrl}}' bindtap='imagePreview' data-src="{{picItem.picOriginUrl}}" mode="aspectFill"></image>
+                    <image
+                    src='{{common.getFileUrl(picItem.picOriginUrl,appConfig.file.downloadUrl)}}' 
+                    bindtap='imagePreview' 
+                    data-src="{{common.getFileUrl(picItem.picOriginUrl,appConfig.file.downloadUrl)}}" 
+                    mode="aspectFill"></image>
 
                     <view class='img-delete' bindtap='deleteImage' hidden='{{!picItem.picOriginUrl}}' data-pic-id='{{picItem.id}}'>
                     <text class='iconfont icon-shanchu'></text>
                     </view>
-                    <view class='img-add' hidden='{{picItem.picOriginUrl}}' bindtap='chooseImage' data-type='normal' data-pic-id='{{picItem.id}}'>
+                    <view class='img-add' hidden='{{picItem.picOriginUrl}}' data-seq='{{1}}' bindtap='chooseImage' data-type='normal' data-pic-id='{{picItem.id}}'>
                         <text class='iconfont icon-jia'></text>
                     </view>
                 </view>
@@ -66,17 +74,27 @@ module.exports.getBirthDayEnd = getBirthDayEnd
         </view>
 
     </view>
+    <view class='horizontal-line'></view>
+
     <view class='basic-info-box'>
+            <view class='item-wechat-number-box'>
+            <label>微信号</label>
+            <input class='item-input' type='text' bindinput='reverseBindWwdUserValue' data-attr-name='wechatNumber' placeholder="未填写" value="{{wwdUser.wechatNumber}}"></input>
+        </view>
+        <view class='item-cardno-box'>
+            <label>汪汪队卡号</label>
+            <input class='item-input' type='text' bindinput='reverseBindWwdUserValue' data-attr-name='cardNo' placeholder="未填写" value="{{wwdUser.cardNo}}"></input>
+        </view>
         <view class='item-title-box'>
             <text class='item-title'>我的基本信息</text>
         </view>
         <view class='item-name-box'>
             <label>姓名</label>
-            <input class='item-input' type='text' placeholder="未填写" value="{{wwdUser.name}}" maxlength="7"></input>
+            <input class='item-input' type='text' bindinput='reverseBindWwdUserValue' data-attr-name='name' placeholder="未填写" value="{{wwdUser.name}}" maxlength="7"></input>
         </view>
         <view class='item-gender-box'>
             <label>性别</label>
-            <dictpicker  class='item-input' bindchange="bindGenderPickerChange" dict-type="gender" value="{{wwdUser.gender}}">
+            <dictpicker  class='item-input' bindchange='reverseBindWwdUserValue' data-attr-name='gender' dict-type="gender" value="{{wwdUser.gender}}">
             </dictpicker>
         </view>
 
@@ -84,15 +102,15 @@ module.exports.getBirthDayEnd = getBirthDayEnd
 
         <view class='item-birthday-box'>
             <label>生日</label>
-            <picker  class='item-input' mode="date" bindchange="bindBirthdayPickerChange" start="1973-01-01" end="{{ablum.getBirthDayEnd()}}" value="{{wwdUser.birthday}}">
-                <text wx:if="{{wwdUser.birthday}}">{{wwdUser.birthday}}</text>
+            <picker  class='item-input' mode="date" bindchange='reverseBindWwdUserValue' data-attr-name='birthDay' start="1973-01-01" end="{{ablum.getBirthDayEnd()}}" value="{{wwdUser.birthDay}}">
+                <text wx:if="{{wwdUser.birthDay}}">{{wwdUser.birthDay}}</text>
                 <text wx:else>点击选择</text>
             </picker>
         </view>
 
         <view class='item-constellation-box'>
             <label>星座</label>
-            <dictpicker  class='item-input' dict-type='constellation_type' bindchange="bindConstellationPickerChange" value="{{wwdUser.constellation}}">
+            <dictpicker  class='item-input' dict-type='constellation_type' bindchange='reverseBindWwdUserValue' data-attr-name='constellation' value="{{wwdUser.constellation}}">
             </dictpicker>
         </view>
 
@@ -100,41 +118,41 @@ module.exports.getBirthDayEnd = getBirthDayEnd
 
         <view class='item-college-box'>
             <label>学校</label>
-            <input class='item-input' type='text' placeholder="未填写" value="{{wwdUser.college}}" maxlength="25"></input>
+            <input class='item-input' type='text' bindinput='reverseBindWwdUserValue' data-attr-name='college' placeholder="未填写" value="{{wwdUser.college}}" maxlength="25"></input>
         </view>
         <view class='item-major-box'>
             <label>专业</label>
-            <input class='item-input' type='text' placeholder="未填写" value="{{wwdUser.major}}" maxlength="25"></input>
+            <input class='item-input' type='text' bindinput='reverseBindWwdUserValue' data-attr-name='major' placeholder="未填写" value="{{wwdUser.major}}" maxlength="25"></input>
         </view>
         <view class='item-education-box'>
             <label>学历</label>
-            <dictpicker  class='item-input' dict-type='education_level' bindchange="bindEducationPickerChange" value="{{wwdUser.education}}">
+            <dictpicker  class='item-input' dict-type='education_level' bindchange='reverseBindWwdUserValue' data-attr-name='education' value="{{wwdUser.education}}">
             </dictpicker>
         </view>
         <view class='item-profession-box'>
             <label>职业</label>
-            <input class='item-input' type='text' placeholder="未填写" value="{{wwdUser.profession}}" maxlength="25"></input>
+            <input class='item-input' type='text' bindinput='reverseBindWwdUserValue' data-attr-name='profession' placeholder="未填写" value="{{wwdUser.profession}}" maxlength="25"></input>
         </view>
 
         <view class='horizontal-line'></view>
         
         <view class='item-height-box'>
             <label>身高(cm)</label>
-            <input class='item-input' type='number' placeholder="未填写" value="{{wwdUser.height}}" maxlength="3"></input>
+            <input class='item-input' type='number' bindinput='reverseBindWwdUserValue' data-attr-name='height' placeholder="未填写" value="{{wwdUser.height}}" maxlength="3"></input>
         </view>
         <view class='item-weight-box'>
             <label>体重(kg)</label>
-            <input class='item-input' type='number' placeholder="未填写" value="{{wwdUser.weight}}" maxlength="4"></input>
+            <input class='item-input' type='number' bindinput='reverseBindWwdUserValue' data-attr-name='weight' placeholder="未填写" value="{{wwdUser.weight}}" maxlength="4"></input>
         </view>
         <view class='item-looks-box'>
             <label>相貌</label>
-            <dictpicker  class='item-input' dict-type='looks_type' bindchange="bindLooksPickerChange" value="{{wwdUser.looks}}">
+            <dictpicker  class='item-input' dict-type='looks_type' bindchange='reverseBindWwdUserValue' data-attr-name='looks' value="{{wwdUser.looks}}">
                 
             </dictpicker>
         </view>
         <view class='item-shape-box'>
             <label>体型</label>
-            <dictpicker  class='item-input' dict-type='shape_status' bindchange="bindShapePickerChange" value="{{wwdUser.shape}}">
+            <dictpicker  class='item-input' dict-type='shape_status' bindchange='reverseBindWwdUserValue' data-attr-name='shape' value="{{wwdUser.shape}}">
             </dictpicker>
         </view>
 
@@ -142,13 +160,13 @@ module.exports.getBirthDayEnd = getBirthDayEnd
 
         <view class='item-smoking-box'>
             <label>抽烟</label>
-            <dictpicker  class='item-input' dict-type='smoking_status' bindchange="bindSmokingPickerChange" value="{{wwdUser.smoking}}">
+            <dictpicker  class='item-input' dict-type='smoking_status' bindchange='reverseBindWwdUserValue' data-attr-name='smoking' value="{{wwdUser.smoking}}">
                 
             </dictpicker>
         </view>
         <view class='item-drinking-box'>
             <label>喝酒</label>
-            <dictpicker  class='item-input' dict-type='drinking_status' bindchange="bindDrinkingPickerChange" value="{{wwdUser.drinking}}">
+            <dictpicker  class='item-input' dict-type='drinking_status' bindchange='reverseBindWwdUserValue' data-attr-name='drinking' value="{{wwdUser.drinking}}">
                
             </dictpicker>
         </view>
@@ -157,13 +175,13 @@ module.exports.getBirthDayEnd = getBirthDayEnd
 
         <view class='item-now-position-box'>
             <label>目前在</label>
-            <areapicker  class='item-input'  bindchange="bindNowPickerChange" value='{{["16e00c91fb3611e794174439c4325934", "194b5a34fb3611e794174439c4325934", "19798ea6fb3611e794174439c4325934"]}}'>
+            <areapicker  class='item-input'  bindchange="bindNowPickerChange" value='{{areaData.nowIds}}'>
             
             </areapicker>
         </view>
         <view class='item-home-position-box'>
             <label>家乡在</label>
-            <areapicker  class='item-input'  bindchange="bindHomePickerChange" value=''>
+            <areapicker  class='item-input'  bindchange="bindHomePickerChange" value='{{areaData.homeIds}}'>
             
             </areapicker>
         </view>
@@ -175,36 +193,73 @@ module.exports.getBirthDayEnd = getBirthDayEnd
         </view>
         <view class='item-nature-box'>
             <label>性格</label>
-            <text class='item-input'>sss sws sfsfs fsdfsd sdsd</text>
+
+            <view class='arrow-box'>
+                <text class='iconfont icon-youjiantou'></text>
+            </view>
+            <text class='item-input'>{{tag.nature}}</text>
+
+
+        </view>
+        <view class='item-hobby-box'>
+            <label>爱好</label>
+
+            <view class='arrow-box'>
+                <text class='iconfont icon-youjiantou'></text>
+            </view>
+            <text class='item-input'>sss sws sfsfs fsdfsd sdsdsss sws sfsfs fsdfsd sdsdsss sws sfsfs fsdfsd sdsdsss sws sfsfs fsdfsd sdsd</text>
+
+
         </view>
         <view class='item-food-box'>
             <label>食物</label>
+
+            <view class='arrow-box'>
+                <text class='iconfont icon-youjiantou'></text>
+            </view>
             <text class='item-input'>sss sws sfsfs fsdfsd sdsd</text>
+
         </view>
         <view class='item-movie-box'>
             <label>电影</label>
+
+            <view class='arrow-box'>
+                <text class='iconfont icon-youjiantou'></text>
+            </view>
             <text class='item-input'>sss sws sfsfs fsdfsd sdsd</text>
+
         </view>
-        <view class='item-home-trip-box'>
+        <view class='item-trip-box'>
             <label>旅游</label>
+
+            <view class='arrow-box'>
+                <text class='iconfont icon-youjiantou'></text>
+            </view>
             <text class='item-input'>sss sws sfsfs fsdfsd sdsd</text>
+
         </view>
         <view class='item-sport-box'>
             <label>运动</label>
+
+            <view class='arrow-box'>
+                <text class='iconfont icon-youjiantou'></text>
+            </view>
             <text class='item-input'>sss sws sfsfs fsdfsd sdsd</text>
+
         </view>
     </view>
+    <view class='horizontal-line'></view>
     <view class='about-me-box'>
         <view class='item-title-box'>
             <text class='item-title'>关于我</text>
         </view>
-        <textarea class='item-input-textarea' placeholder="关于我自己的人生" maxlength="1000" style='border:1px solid #fafafa;width:100%;'></textarea>
+        <textarea class='item-input-textarea' placeholder="关于我自己的人生" maxlength="1000" bindinput='reverseBindWwdUserValue' data-attr-name='description' value="{{wwdUser.description}}"></textarea>
     </view>
     <view class='about-you-box'>
         <view class='item-title-box'>
             <text class='item-title'>关于你</text>
         </view>
-        <textarea class='item-input-textarea' placeholder="关于理想中的他/她" maxlength="1000" style='border:1px solid #fafafa;width:100%;'></textarea>
+        <textarea class='item-input-textarea' placeholder="关于理想中的他/她" maxlength="1000" bindinput='reverseBindWwdUserValue' data-attr-name='standard' value="{{wwdUser.standard}}"></textarea>
     </view>
-    <button class='submit-btn'>完 成</button>
+    <button class='submit-btn' bindtap='completeSubmitBtn' disabled='{{submitBtnDisable}}'>完 成</button>
 </view>

@@ -1,6 +1,4 @@
-const httpUtil = require('../../utils/httpUtil.js')
-const config = require('../../config/config.js')
-const app = getApp()
+// pages/tagedit/tagedit.js
 Page({
 
   /**
@@ -9,26 +7,12 @@ Page({
   data: {
   
   },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-      let self = this
-      //获取当前登录用户信息,并保证自动登录
-
-    httpUtil.get('/base/user/current',{
-        success:function(res){
-            wx.redirectTo({
-                url: '/pages/list/list'
-            })
-        },
-        loginSuccess: res => {
-            wx.redirectTo({
-                url: '/pages/list/list'
-            })
-        }
-    })
-
+  
   },
 
   /**

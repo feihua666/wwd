@@ -1,16 +1,35 @@
-const config = require('../config/config.js')
-const cookieKey = 'cookiekey'
-
-const request = function (url, data, success, fail, header, method) {
+const app = getApp()
+const isArray = function(obj) {
+    if (Array.isArray) {
+        return Array.isArray(obj);
+    } else {
+        return Object.prototype.toString.call(obj) === "[object Array]";
+    }
+}  
+const request = function (url, data, success, fail, header,loginSuccess, method) {
     let _url = url
     if(_url.indexOf('http') !== 0){
-        _url = config.host + url
+        _url = app.globalData.config.host + url
     }
 
-    header.cookie = wx.getStorageSync(config.cookieKey)//读取cookie
+    if (!header.cookie){
+        header.cookie = wx.getStorageSync(app.globalData.config.cookieKey)//读取cookie
+    }
+    let _data = null
+    //如果是个对象，把对象为空的不提交，因为encodeURIComponent 会把null转为null字符串
+    if (data && (typeof data != 'string' && !isArray(data)) && 'application/x-www-form-urlencoded' == header['Content-Type']){
+        _data = {}
+        for(let key in data){
+            if (data[key] != null){
+                _data[key] = data[key]
+            }
+        }
+    }else{
+        _data = data
+    }
     wx.request({
         url: _url, 
-        data: data,
+        data: _data,
         header: header,
         method: method,
         success: function (res) {
@@ -21,9 +40,35 @@ const request = function (url, data, success, fail, header, method) {
                 }
 
             } else {
-                if (fail && typeof fail == 'function') {
-                    fail(res)
+                // 需要登录
+                if (status == 401 && 'E401_100002' == res.data.code) {
+                    _login({
+                        data: {
+                            action: 'login'
+                        },
+                        success:function(res){
+                            wx.showToast({
+                                title: '登录成功',
+                                icon:'none'
+                            })
+                            if (typeof loginSuccess == 'function'){
+                                loginSuccess(res)
+                            }
+                        },
+                        fail:function(res){
+                            //登录失败，绑定邀请码
+                            wx.redirectTo({
+                                url: '/pages/login/login'
+                            })
+                        }
+                    })
+                } else {
+                    if (fail && typeof fail == 'function') {
+                        fail(res)
+
+                    }
                 }
+
             }
         }
     })
@@ -33,37 +78,78 @@ const _get = function(url,options){
     let header = {
         "accept": "application/json"
     }
-    request(url, options.data, options.success, options.fail, header,'GET')
+    if (!options){
+        options = {}
+    }
+    if (options.header) {
+        for (let key in options.header) {
+            header[key] = options.header[key]
+        }
+    }
+    request(url, options.data, options.success, options.fail, header, options.loginSuccess,'GET')
 }
 const _post = function (url, options) {
     let header = {
         "Content-Type": "application/x-www-form-urlencoded",
         "accept": "application/json"
     }
-    request(url, options.data, options.success, options.fail, header, 'POST')
+    if (!options) {
+        options = {}
+    }
+    if (options.header){
+        for (let key in options.header){
+            header[key] = options.header[key]
+        }
+    }
+    request(url, options.data, options.success, options.fail, header, options.loginSuccess, 'POST')
 }
 const _put = function (url, options) {
     let header = {
         "Content-Type": "application/x-www-form-urlencoded",
         "accept": "application/json"
     }
-    request(url, options.data, options.success, options.fail, header, 'PUT')
+    if (!options) {
+        options = {}
+    }
+    if (options.header) {
+        for (let key in options.header) {
+            header[key] = options.header[key]
+        }
+    }
+    request(url, options.data, options.success, options.fail, header, options.loginSuccess, 'PUT')
 }
 const _delete = function (url, options) {
     let header = {
         "Content-Type": "application/x-www-form-urlencoded",
         "accept": "application/json"
     }
-    request(url, options.data, options.success, options.fail, header, 'DELETE')
+    if (!options) {
+        options = {}
+    }
+    if (options.header) {
+        for (let key in options.header) {
+            header[key] = options.header[key]
+        }
+    }
+    request(url, options.data, options.success, options.fail, header, options.loginSuccess, 'DELETE')
 }
 const _uploadFile = function(url,options){
+    let _url = url
+    if (_url.indexOf('http') !== 0) {
+        _url = app.globalData.config.host + url
+    }
+    let header = {
+        "accept": "application/json",
+        cookie : wx.getStorageSync(app.globalData.config.cookieKey)//读取cookie
+    }
+
     wx.uploadFile({
-        url: url, 
+        url: _url, 
         filePath: options.filePath,
         name: 'file',
+        header: header,
         formData: options.data,
         success: function (res) {
-            var data = res.data
             let status = res.statusCode
             if (status >= 200 && status < 300) {
                 if (options.success && typeof options.success == 'function') {
@@ -78,10 +164,46 @@ const _uploadFile = function(url,options){
         }
     })
 }
+const _login = function(options){
+    wx.showLoading({
+        title: '登录中...'
+    })
+    // 调用登录接口，获取 code
+    wx.login({
+        success: loginRes => {
+            let code = loginRes.code
+            options.data.loginType = 'WX_MINIPROGRAM'
+            options.data.type = "wwd"
+            options.data.code = code
+            _post('/login', {
+                data: options.data,
+                header:{
+                    cookie:{}
+                },
+                success: function (res) {
+                    var content = res.data.token;
+                    app.globalData.token = content.token;
+                    wx.setStorageSync(app.globalData.config.cookieKey, res.header["Set-Cookie"])
+                    wx.hideLoading()
+                    if (typeof options.success == 'function'){
+                        options.success(res)
+                    }
+                },
+                fail: function (res) {
+                    wx.hideLoading()
+                    if (typeof options.fail == 'function') {
+                        options.fail(res)
+                    }
+                }
+            })
+        }
+    })
+}
 module.exports = {
     get: _get,
     post: _post,
     put: _put,
     delete: _delete,
-    uploadFile: _uploadFile
+    uploadFile: _uploadFile,
+    login:_login
 }

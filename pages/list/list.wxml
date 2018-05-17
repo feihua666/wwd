@@ -25,7 +25,7 @@
         <view wx:for="{{listData}}" wx:for-index="userIndex" wx:for-item="userItem" wx:key="{{userItem.id}}" class="view-item-box">
             <navigator url='../detail/detail?wwdUserId={{userItem.id}}'>
             <view class="view-item-img-box" wx:for="{{listPic}}" wx:for-index="picIndex" wx:key="{{userItem.id}}" wx:for-item="picItem" wx:if="{{picItem.wwdUserId == userItem.id}}">
-                <image src="{{picItem.picUrl}}" class="view-item-img" mode="aspectFill" lazy-load="{{true}}"></image>
+                <image src="{{common.getFileUrl(picItem.picUrl,appConfig.file.downloadUrl)}}" class="view-item-img" mode="aspectFill" lazy-load="{{true}}"></image>
             </view>
             <view class="view-item-info-box">
                 <view>

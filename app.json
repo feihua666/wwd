@@ -6,8 +6,8 @@
         "pages/detail/detail",
         "pages/my/my",
         "pages/my/myfriends/myfriends",
-        "pages/info/info"
-        
+        "pages/info/info",
+        "pages/tagedit/tagedit"
     ],
     "window": {
         "navigationBarBackgroundColor": "#fff",

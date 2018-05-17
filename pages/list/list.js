@@ -5,6 +5,7 @@ const app = getApp()
 
 Page({
   data: {
+      appConfig: getApp().globalData.config,
         listData: [],
         listPic:[],
         searchForm:{
@@ -84,11 +85,11 @@ Page({
       self.setData({
           loadMoreShow: true
       })
-      console.log("show")
       this.loadData(this.data.searchForm.pageNo + 1)
   },
   onLoad: function () {
 
       this.loadData(1)
+
   }
 })
