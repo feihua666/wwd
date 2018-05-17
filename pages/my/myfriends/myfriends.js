@@ -7,11 +7,19 @@ Page({
   data: {
     listData: [],
     listPic: [],
-    userInfo: {}
+    userInfo: {},
+    isHidden: true
   },
-  //事件处理函数
-  bindViewTap: function () {
-
+  onShareAppMessage: function (res) {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      title: '汪汪队',
+      path: '/pages/index/index'
+      // , imageUrl: '/resources/images/yy.jpg'
+    }
   },
   loadData: function (complete) {
     let self = this
@@ -25,9 +33,11 @@ Page({
 
         let content = response.data.data.content
         let listPic = response.data.data.pic
+        let isHidden = (content == null || content.length == 0) ? false : true
         self.setData({
           listData: content,
-          listPic: listPic
+          listPic: listPic,
+          isHidden: isHidden
         })
       }
     })

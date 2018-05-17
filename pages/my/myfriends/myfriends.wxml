@@ -1,5 +1,5 @@
 <wxs src="../../../resources/common.wxs" module="common" />
-<view class='container-box'>
+<view class='container-box' hidden='{{!isHidden}}'>
   <view wx:for="{{listData}}" wx:for-index="userIndex" wx:for-item="userItem" wx:key="{{userItem.id}}" class="view-item-box">
     <view class='view-item-info-box'>
       <view class='view-item-info-photo-box' wx:for="{{listPic}}" wx:for-index="picIndex" wx:key="{{userItem.id}}" wx:for-item="picItem" wx:if="{{picItem.wwdUserId == userItem.id}}">
@@ -9,7 +9,7 @@
         <text class='view-item-text-nickname'>{{userItem.nickname}}</text>
       </view>
       <view class='view-item-info-gender-box'>
-       <text class='view-item-gender'> {{common.getGender(userItem.gender,true)}}</text>
+        <text class='view-item-gender'> {{common.getGender(userItem.gender,true)}}</text>
       </view>
       <navigator url='../../detail/detail?wwdUserId={{userItem.id}}' class='view-item-arrow-box'>
         <view class='view-item-arrow-box-1'>
@@ -18,5 +18,10 @@
         </view>
       </navigator>
     </view>
+  </view>
+</view>
+<view class='container-box invite-box' hidden='{{isHidden}}'>
+  <view>
+    <button open-type='share'>邀请朋友</button>
   </view>
 </view>

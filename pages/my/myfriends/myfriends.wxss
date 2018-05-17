@@ -7,7 +7,7 @@ page {
 
 .container-box {
   font-size: 0.7rem;
-  width: 100%;
+  width: 90%;
   height: 100%;
 }
 
@@ -36,15 +36,16 @@ page {
 .view-item-info-nickname-box {
   width: 45%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.view-item-info-nickname-box text{
+  padding-left: 0.5rem;
+  width: 80%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.view-item-text-nickname {
-  padding-left: 1rem;
-  width: 90%;
-  height: 100%;
 }
 
 .view-item-info-gender-box {
@@ -59,7 +60,7 @@ page {
   width: 35%;
   height: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
 .info-label {
@@ -71,4 +72,20 @@ page {
   margin-top: 5px;
   background-color: #fff;
   padding: 15px 15px;
+}
+
+.container-invite-box {
+  font-size: 0.7rem;
+  width: 90%;
+  height: 100%;
+}
+.invite-box{
+  font-size: 0.7rem;
+  width: 100%;
+  height: 100%;
+}
+
+.invite-box button{
+  width: 60%;
+  height: 100%;
 }
