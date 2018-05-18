@@ -43,6 +43,39 @@
     border-radius: 1px;
 }
 
+.view-item-info-box-2, .view-item-info-box-3, .view-item-info-box-1 {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+
+.view-item-info-box-2 .homePosition {
+  width: 70%;
+}
+
+.view-item-info-box-2 .nowPosition, .view-item-info-box-3 .birthday,
+.view-item-info-box-3 .constellation {
+  width: 22%;
+}
+
+.view-item-info-box-3 .college {
+  white-space: nowrap;
+  width: 47%;
+  display: flex;
+  justify-content: flex-start;
+}
+.view-item-info-box-3 .college .view-item-info-college {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 85%;
+  margin-left: 7rpx;
+}
+
+.view-item-info-box-3 .education {
+  width: 10%;
+}
+
 .icon-nan:before{
     color: #73A6FF;
 }

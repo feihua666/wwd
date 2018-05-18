@@ -1,17 +1,18 @@
 {
-    "pages": [
-        "pages/index/index",
-        "pages/login/login",
-        "pages/list/list",
-        "pages/detail/detail",
-        "pages/my/my",
-        "pages/my/myfriends/myfriends",
-        "pages/info/info",
-        "pages/tagedit/tagedit"
-    ],
-    "window": {
-        "navigationBarBackgroundColor": "#fff",
-        "backgroundColor": "#F8F8F8",
-        "navigationBarTextStyle": "black"
-    }
+  "pages": [
+    "pages/index/index",
+    "pages/search-list/search-list",
+    "pages/login/login",
+    "pages/list/list",
+    "pages/detail/detail",
+    "pages/my/my",
+    "pages/my/myfriends/myfriends",
+    "pages/info/info",
+    "pages/tagedit/tagedit"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#fff",
+    "backgroundColor": "#F8F8F8",
+    "navigationBarTextStyle": "black"
+  }
 }

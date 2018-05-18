@@ -4,7 +4,6 @@
     <view class='profile-tab-box'>
       <text class='iconfont icon-liebiao' bindtap='toggleProfileInfoBox'></text>
     </view>
-
     <view class='profile-info-box' hidden='{{!profileInfoBoxShow}}'>
       <view class='profile-line horizontal-line'></view>
       <navigator url='../my/my'>
@@ -13,11 +12,9 @@
         </view>
       </navigator>
       <view class='profile-line horizontal-line'></view>
-      <navigator url='../search-list/search-list'>
-        <view class='profile-info-search-box'>
-          <text class='iconfont icon-sousuo'></text>
-        </view>
-      </navigator>
+      <view class='profile-info-search-box' bindtap='bindFilterToggle'>
+        <text class='iconfont icon-sousuo'></text>
+      </view>
     </view>
   </view>
   <scroll-view scroll-y class="scroll-view-container-box">
@@ -54,10 +51,10 @@
             </view>
             <view class='college'>
               <text class='iconfont icon-daxuemingcheng'></text>
-               <text class="view-item-info-college"> {{userItem.wwdUserDto.college}} </text> 
+              <text class="view-item-info-college"> {{userItem.wwdUserDto.college}} </text>
             </view>
             <view class='education'>
-               <text class="view-item-info-education">{{common.getDictLabelByValue(userItem.wwdUserDto.education,educations)}}</text> 
+              <text class="view-item-info-education">{{common.getDictLabelByValue(userItem.wwdUserDto.education,educations)}}</text>
             </view>
           </view>
         </view>
@@ -65,4 +62,50 @@
     </view>
     <view class="load-more" hidden="{{!loadMoreShow}}">正在载入...</view>
   </scroll-view>
+</view>
+<view wx:if="{{isFilterExpanded}}" class="filter-expand">
+  <view class="filter-expand-shadow" bindtap='bindFilterToggle'></view>
+  <view class="filter-expand-body">
+    <view class="filter-section">
+      <view class="filter-section-title">性别:</view>
+      <view wx:for="{{genders}}" wx:key="id" data-id="{{currentGender.value}}" wx:for-item="currentGender" class="filter-item {{gender == currentGender.value ? 'active' : ''}}" bindtap="bindGenderChange">
+        {{currentGender.name}}
+      </view>
+    </view>
+    <view class="filter-section">
+      <view class="filter-section-title">年龄:</view>
+      <picker mode="multiSelector" bindchange="bindMultiAgeChange" value="{{ageMultiIndex}}" range="{{ageMultiArray}}">
+        <view class="picker">
+          {{ageMultiArray[0][ageMultiIndex[0]]}} 岁 -- {{ageMultiArray[1][ageMultiIndex[1]]}} 岁
+        </view>
+      </picker>
+
+    </view>
+    <view class="filter-section">
+      <view class="filter-section-title">学历:</view>
+      <view wx:for="{{educations}}" wx:key="id" data-id="{{currentEducation.value}}" wx:for-item="currentEducation" class="filter-item {{education == currentEducation.value ? 'active' : ''}}" bindtap="bindEducationChange">
+        {{currentEducation.name}}
+      </view>
+    </view>
+    <view class="filter-section">
+      <view class="filter-section-title">目前在:</view>
+      <areapicker class='item-input' bindchange="bindNowPickerChange" value='{{nowArea}}'>
+
+      </areapicker>
+    </view>
+    <view class="filter-section">
+      <view class="filter-section-title">家乡在:</view>
+      <areapicker class='item-input' bindchange="bindHomePickerChange" value='{{homeArea}}'>
+
+      </areapicker>
+    </view>
+    <view class="filter-section filter-op">
+      <view class="filter-cancel" bindtap="filterCancel">
+        取消
+      </view>
+      <view class="filter-confirm" bindtap="filterChanged">
+        确认
+      </view>
+    </view>
+  </view>
 </view>
