@@ -33,11 +33,16 @@ Page({
 
         let content = response.data.data.content
         let listPic = response.data.data.pic
-        let isHidden = (content == null || content.length == 0) ? false : true
         self.setData({
           listData: content,
           listPic: listPic,
-          isHidden: isHidden
+          isHidden: true
+        })
+      },
+      fail: function (e) {
+        console.log(e)
+        self.setData({
+          isHidden: false
         })
       }
     })

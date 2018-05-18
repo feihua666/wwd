@@ -11,8 +11,13 @@ Page({
     wx.setClipboardData({
       data: self.data.inviteCode,
       success: function (res) {
-        wx.showToast({
-          title: '复制成功'
+        wx.showModal({
+          title: '复制成功',
+          content: '一个邀请码只能邀请一个人',
+          showCancel:false,
+          success: function (res) {
+      
+          }
         })
       }
     })
