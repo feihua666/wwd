@@ -19,12 +19,12 @@ Page({
     httpUtil.get('/base/user/current',{
         success:function(res){
             wx.redirectTo({
-                url: '/pages/list/list'
+                url: '/pages/search-list/search-list'
             })
         },
         loginSuccess: res => {
             wx.redirectTo({
-                url: '/pages/list/list'
+                url: '/pages/search-list/search-list'
             })
         }
     })
