@@ -1,1 +1,13 @@
-/* pages/tagedit/tagedit.wxss */
+@import "../../resources/common.wxss";
+@import "../../resources/icon/iconfont.wxss";
+.container-box{
+    padding: 15px;
+    color: #D1D1D1;
+}
+.tag-item{
+    margin: 5px;
+    padding: 5px;
+    display:inline-block;
+    border:1px solid #D1D1D1;
+    border-radius: 2px;
+}

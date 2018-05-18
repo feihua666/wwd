@@ -193,20 +193,22 @@ module.exports.getBirthDayEnd = getBirthDayEnd
         </view>
         <view class='item-nature-box'>
             <label>性格</label>
-
-            <view class='arrow-box'>
-                <text class='iconfont icon-youjiantou'></text>
-            </view>
+            <navigator url='../tagedit/tagedit?type=nature_type'>
+                <view class='arrow-box'>
+                    <text class='iconfont icon-youjiantou'></text>
+                </view>
+            </navigator>
             <text class='item-input'>{{tag.nature}}</text>
 
 
         </view>
         <view class='item-hobby-box'>
             <label>爱好</label>
-
+            <navigator url='../tagedit/tagedit'>
             <view class='arrow-box'>
                 <text class='iconfont icon-youjiantou'></text>
             </view>
+            </navigator>
             <text class='item-input'>sss sws sfsfs fsdfsd sdsdsss sws sfsfs fsdfsd sdsdsss sws sfsfs fsdfsd sdsdsss sws sfsfs fsdfsd sdsd</text>
 
 

@@ -168,7 +168,7 @@ Page({
       data.homeAreaIds = this.data.areaData.homeIds
       data.homeAreaNames = this.data.areaData.homeNames
       
-      httpUtil.put('/wwd/user/current', {
+      httpUtil.get('/wwd/user/current', {
           data: data,
           success: function (res) {
               wx.showToast({

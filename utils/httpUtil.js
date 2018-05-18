@@ -80,6 +80,21 @@ const _get = function(url,options){
     }
     if (!options){
         options = {}
+    }else{
+        if (options.data){
+            for(let key in options.data){
+                if (isArray(options.data[key])){
+                    let arrayStr = ''
+                    for (let i = 0; i < options.data[key].length;i++){
+                        arrayStr += options.data[key][i]
+                        if (i < options.data[key].length-1){
+                            arrayStr += ','
+                        }
+                    }
+                    options.data[key] = arrayStr
+                }
+            }
+        }
     }
     if (options.header) {
         for (let key in options.header) {
