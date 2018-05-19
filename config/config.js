@@ -1,4 +1,4 @@
-const host = 'http://localhost:8080'
+const host = 'https://h.xhlang.com'
 module.exports = {
     host: host,
     cookieKey:'cookieKey',
@@ -6,6 +6,6 @@ module.exports = {
         // 文件上传地址
         uploadUrl: host + '/upload/file',
         // 文件下载地址
-        downloadUrl: host + '/file'
+        downloadUrl: 'https://h.xhlang.com' + '/file'
     }
 }

@@ -151,6 +151,7 @@ Page({
             loadMoreShow: true
           })
         }
+        wx.stopPullDownRefresh();
       },
       fail: function () {
           if (searchtype == 'pullup'){
@@ -164,6 +165,7 @@ Page({
                   icon: 'none'
               })
           }
+          wx.stopPullDownRefresh();
       }
     })
   },
