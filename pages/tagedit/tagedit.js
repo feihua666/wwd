@@ -6,11 +6,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tag:null,
-    dict:null
+      tag: null, // 已保存的
+      dict: null // 待选择的
   },
     checkboxChange: function (e) {
-        console.log('checkbox发生change事件，携带value值为：', e.detail.value)
+        //选中的数组
+        let value = e.detail.value
     },
   /**
    * 生命周期函数--监听页面加载
