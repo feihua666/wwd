@@ -1,11 +1,96 @@
 @import "../../resources/common.wxss";
-.info-box{
-    padding: .5rem;
-    font-size: 0.7rem;
+@import "../../resources/icon/iconfont.wxss";
+
+.info-box {
+  padding: 0.5rem;
+  font-size: 0.7rem;
 }
-.info-box view{
-    margin: 5px 0;
+
+.info-box view {
+  margin: 5px 0;
 }
-.info-name{
-    font-weight: bold;
+
+.icon-nan:before {
+  color: #73a6ff;
+}
+
+.icon-nv {
+  color: #fa8cec;
+}
+
+.icon-weizhi:before {
+  color: #e36554;
+}
+
+.icon-fl-jia:before {
+  color: #1acad8;
+}
+
+.icon-shengri:before {
+  color: #84b51e;
+}
+
+.icon-xingzuo {
+  color: #ffbd5a;
+}
+
+.icon-daxuemingcheng {
+  color: #d81e06;
+}
+
+.base-info-box,.other-info-box,.description-info-box,.standard-info-box{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  border-bottom: groove;
+}
+
+.info-name {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.info-position-box, .info-box-item-2,.info-box-item-3{
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.info-position-box-item {
+  display: flex;
+  justify-content: flex-start;
+  width: 50%;
+}
+
+.info-box-item-2 .info-item {
+  width: 24%;
+}
+
+.icon-text-lable {
+  margin-left: 0.4rem;
+}
+.standard-info-box{
+  border-bottom: none;
+}
+.info-label-title{
+  border-left: groove greenyellow;
+   font-weight: bold;
+  
+}
+.info-label-title text{
+  margin-left: 0.5rem;
+}
+
+.other-info-box,.description-info-box,.standard-info-box{
+  padding-bottom: 0.5rem;
+}
+.other-info-box .info-marital-status-box
+,.other-info-box .info-salary-box
+,.other-info-box .info-smoking-box{
+    display: flex;
+}
+.other-info-box .info-marital-status-box view
+,.other-info-box .info-salary-box view
+,.other-info-box .info-smoking-box view{
+    width: 50%;
 }

@@ -47,14 +47,14 @@
             </view>
             <view class='constellation'>
               <text class=' iconfont icon-xingzuo'></text>
-              <text class="view-item-info-constellation"> {{userItem.wwdUserDto.constellation}}</text>
+              <text class="view-item-info-constellation"> {{common.getDictLabelByValue(userItem.wwdUserDto.constellation,constellations)}}</text>
             </view>
             <view class='college'>
               <text class='iconfont icon-daxuemingcheng'></text>
               <text class="view-item-info-college"> {{userItem.wwdUserDto.college}} </text>
             </view>
             <view class='education'>
-              <text class="view-item-info-education">{{common.getDictLabelByValue(userItem.wwdUserDto.education,educations)}}</text>
+              <text class="view-item-info-education"> {{common.getDictLabelByValue(userItem.wwdUserDto.education,educations)}}</text>
             </view>
           </view>
         </view>

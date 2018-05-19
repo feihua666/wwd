@@ -90,7 +90,7 @@ module.exports.getBirthDayEnd = getBirthDayEnd
         </view>
         <view class='item-name-box'>
             <label>姓名</label>
-            <input class='item-input' type='text' bindinput='reverseBindWwdUserValue' data-attr-name='name' placeholder="未填写" value="{{wwdUser.name}}" maxlength="7"></input>
+            <input class='item-input' type='text' bindinput='reverseBindWwdUserValue' data-attr-name='name' placeholder="未填写" value="{{wwdUser.name}}" maxlength="20"></input>
         </view>
         <view class='item-gender-box'>
             <label>性别</label>
