@@ -77,6 +77,12 @@ module.exports.getBirthDayEnd = getBirthDayEnd
     <view class='horizontal-line'></view>
 
     <view class='basic-info-box'>
+        <view class='item-wechat-number-box'>
+            <label>婚姻状况</label>
+                <dictpicker  class='item-input' bindchange='reverseBindWwdUserValue' data-attr-name='maritalStatus' dict-type="married_status" value="{{wwdUser.maritalStatus}}">
+                </dictpicker>
+        </view>
+
             <view class='item-wechat-number-box'>
             <label>微信号</label>
             <input class='item-input' type='text' bindinput='reverseBindWwdUserValue' data-attr-name='wechatNumber' placeholder="未填写" value="{{wwdUser.wechatNumber}}"></input>
@@ -113,7 +119,11 @@ module.exports.getBirthDayEnd = getBirthDayEnd
             <dictpicker  class='item-input' dict-type='constellation_type' bindchange='reverseBindWwdUserValue' data-attr-name='constellation' value="{{wwdUser.constellation}}">
             </dictpicker>
         </view>
-
+        <view class='item-constellation-box'>
+            <label>血型</label>
+            <dictpicker  class='item-input' dict-type='blood_type' bindchange='reverseBindWwdUserValue' data-attr-name='bloodType' value="{{wwdUser.bloodType}}">
+            </dictpicker>
+        </view>
         <view class='horizontal-line'></view>
 
         <view class='item-college-box'>
@@ -132,6 +142,27 @@ module.exports.getBirthDayEnd = getBirthDayEnd
         <view class='item-profession-box'>
             <label>职业</label>
             <input class='item-input' type='text' bindinput='reverseBindWwdUserValue' data-attr-name='profession' placeholder="未填写" value="{{wwdUser.profession}}" maxlength="25"></input>
+        </view>
+
+         <view class='horizontal-line'></view>
+
+        <view class='item-profession-box'>
+            <label>月薪</label>
+            <input class='item-input' type='text' bindinput='reverseBindWwdUserValue' data-attr-name='monthSalary' placeholder="未填写" value="{{wwdUser.monthSalary}}" maxlength="25"></input>
+        </view>
+        <view class='item-profession-box'>
+            <label>年薪</label>
+            <input class='item-input' type='text' bindinput='reverseBindWwdUserValue' data-attr-name='yearSalary' placeholder="未填写" value="{{wwdUser.yearSalary}}" maxlength="25"></input>
+        </view>
+        <view class='item-education-box'>
+            <label>车</label>
+            <dictpicker  class='item-input' dict-type='has_car_status' bindchange='reverseBindWwdUserValue' data-attr-name='hasCar' value="{{wwdUser.hasCar}}">
+            </dictpicker>
+        </view>
+                <view class='item-education-box'>
+            <label>房</label>
+            <dictpicker  class='item-input' dict-type='has_hourse_status' bindchange='reverseBindWwdUserValue' data-attr-name='hasHourse' value="{{wwdUser.hasHourse}}">
+            </dictpicker>
         </view>
 
         <view class='horizontal-line'></view>

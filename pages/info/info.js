@@ -35,7 +35,14 @@ Page({
           description:null,
           wechatNumber:null,
           cardNo:null,
-          standard:null
+          standard:null,
+          yearSalary:null,
+          monthSalary:null,
+          hasCar:null,
+          hasHourse:null,
+          bloodType:null,
+          maritalStatus:null
+
       },
       tag:{
           natureText:[],
@@ -265,7 +272,73 @@ Page({
           }
       })
   },
+  //检查表单是否全部填写
+  checkForm:function(){
+      // 图片
+      let isMainPic = false
+      for (let i = 0; i < this.data.picData.length; i++) {
+          if ('main' == this.data.picData[i].type) {
+              isMainPic = true
+              break
+          }
+      }
+      if (!isMainPic){
+          wx.showToast({
+              title: '至少上传一张主图呢',
+              icon:'none'
+          })
+          return false
+      }
+      //用户信息,汪汪队卡片号不验证
+      let isUserComplete = true
+      for (let key in this.data.wwdUser){
+          if (this.data.wwdUser[key] || key =='cardNo'){}
+            else{
+                isUserComplete = false
+                break
+            }
+      }
+      if (!isUserComplete){
+          wx.showToast({
+              title: '还有信息没有填写哦',
+              icon: 'none'
+          })
+          return false
+      }
+
+    //区域
+      if (this.data.areaData.nowIds && this.data.areaData.nowIds.length > 0
+          && this.data.areaData.homeIds && this.data.areaData.homeIds.length > 0){}
+          else{
+            wx.showToast({
+                title: '区域信息还没有填写哦',
+                icon: 'none'
+            })
+            return false
+          }
+
+    //标签
+
+      if (
+          this.data.tag.natureText && this.data.tag.natureText.length > 0
+          && this.data.tag.foodText && this.data.tag.foodText.length > 0
+          && this.data.tag.movieText && this.data.tag.movieText.length > 0
+          && this.data.tag.tripText && this.data.tag.tripText.length > 0
+          && this.data.tag.sportText && this.data.tag.sportText.length > 0
+          && this.data.tag.hobbyText && this.data.tag.hobbyText.length > 0
+          ) { }
+      else {
+          wx.showToast({
+              title: '标签信息还没有填写哦',
+              icon: 'none'
+          })
+          return false
+      }
+
+    return true
+  },
   completeSubmitBtn: function () {
+      if (!this.checkForm()) return
       let self = this
       let data = this.data.wwdUser
       data.nowAreaIds = this.data.areaData.nowIds
@@ -342,7 +415,13 @@ Page({
                   'wwdUser.description': content.description,
                   'wwdUser.wechatNumber': content.wechatNumber,
                   'wwdUser.cardNo': content.cardNo,
-                  'wwdUser.standard': content.standard
+                  'wwdUser.standard': content.standard,
+                  'wwdUser.yearSalary': content.yearSalary,
+                    'wwdUser.monthSalary': content.monthSalary,
+                    'wwdUser.hasCar': content.hasCar,
+                    'wwdUser.hasHourse': content.hasHourse,
+                    'wwdUser.bloodType': content.bloodType,
+                    'wwdUser.maritalStatus': content.maritalStatus
               })
           }
       })

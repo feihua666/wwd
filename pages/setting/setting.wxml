@@ -1,0 +1,9 @@
+<wxs src="../../resources/common.wxs" module="common" />
+<view class='container-box'>
+    <view class='view-item-box'>
+        <text>展示到列表</text>
+        <view class='item-box'>
+            <switch checked='{{showInList}}' bindchange="setShowInList"/>
+        </view>
+    </view>
+</view>

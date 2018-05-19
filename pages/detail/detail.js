@@ -5,8 +5,9 @@ Page({
         picUrls:[],
         wwdUser:{},
         userArea:{},
-        constellations:[],
-        educations:[]
+        buttonText:'加载中',
+        buttonDisable:true,
+        wwdUserId:''
     },
     imagePreview: function(e){
         let self = this
@@ -20,10 +21,25 @@ Page({
           urls: urls // 需要预览的图片http链接列表
       })
     },
+    // 有意思按钮
+    bindSubmitBtn:function(){
+        // 查询我是否对他有意思
+        httpUtil.post('/wwd/user/current/enjoy/' + this.data.wwdUserId, {
+            success: response => {
+                self.setData({
+                    buttonText: '已对 Ta 有意思',
+                    buttonDisable: true
+                })
+
+            }
+        })
+    },
     onLoad: function (options) {
         let self = this
         let wwdUserId = options.wwdUserId
-
+        self.setData({
+            wwdUserId:wwdUserId
+        })
         httpUtil.get('/wwd/user/'+ wwdUserId +'/pic',{
             success:response => {
                 let content = response.data.data.content
@@ -54,7 +70,7 @@ Page({
           }
         })
 
-        httpUtil.get('/wwd/user/current/area', {
+        httpUtil.get('/wwd/user/' + wwdUserId +'/area', {
           success: response => {
             let content = response.data.data.content
             self.setData({
@@ -62,50 +78,35 @@ Page({
             })
           }
         })
-
-        //学历
-        wx.getStorage({
-          key: 'wwd_dic_education_level',
-          success: function (res) {
-            console.log(res.data)
-            self.setData({
-              educations: res.data
-            })
-          },
-          fail: function () {
-            dicUtil.getDictsByType('education_level', function (res) {
-              let educations = res.data.data.content
-              self.setData({
-                educations: educations
-              })
-              wx.setStorage({
-                key: "wwd_dic_education_level",
-                data: educations
-              })
-            })
-          }
-        })
-        //星座
-        wx.getStorage({
-          key: 'wwd_dic_constellation_type',
-          success: function (res) {
-            console.log(res.data)
-            self.setData({
-              constellations: res.data
-            })
-          },
-          fail: function () {
-            dicUtil.getDictsByType('constellation_type', function (res) {
-              let constellations = res.data.data.content
-              self.setData({
-                constellations: constellations
-              })
-              wx.setStorage({
-                key: "wwd_dic_constellation_type",
-                data: constellations
-              })
-            })
-          }
+        // 查询我是否对他有意思
+        httpUtil.get('/wwd/user/current/enjoy/' + wwdUserId, {
+            success: response => {
+                let content = response.data.data.content
+                // 存在数据表示已有意思
+                if (content){
+                    self.setData({
+                        buttonText: '已对 Ta 有意思',
+                        buttonDisable: true
+                    })
+                }
+                //不存在数据，可以点击有意思
+                else{
+                    self.setData({
+                        buttonText: '有意思',
+                        buttonDisable: false
+                    })
+                }
+            },
+            fail: res=>{
+                // 不存在，可以点击有意思
+                let status = res.statusCode
+                if (status ==404 ){
+                    self.setData({
+                        buttonText: '有意思',
+                        buttonDisable: false
+                    })
+                }
+            }
         })
     }
 })

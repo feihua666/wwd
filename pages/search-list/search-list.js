@@ -159,9 +159,9 @@ Page({
         }
       },
       fail: function () {
-        wx.showModal({
-          title: '提示',
-          content: '暂时没有匹配的数据',
+        wx.showToast({
+            title: '无匹配数据',
+            icon:'none'
         })
       }
     })

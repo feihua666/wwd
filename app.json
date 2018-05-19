@@ -9,7 +9,8 @@
         "pages/my/myfriends/myfriends",
         "pages/info/info",
         "pages/tagedit/tagedit",
-        "pages/enjoy/enjoy"
+        "pages/enjoy/enjoy",
+        "pages/setting/setting"
     ],
     "window": {
         "navigationBarBackgroundColor": "#fff",

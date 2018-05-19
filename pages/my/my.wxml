@@ -47,7 +47,7 @@
       <view class='view-item'>
       <text>设置</text>
       <view class='arrow-box'>
-        <navigator url='../my/myfriends/myfriends'>
+        <navigator url='/pages/setting/setting'>
             <text class='iconfont icon-youjiantou'></text>
         </navigator>
       </view>

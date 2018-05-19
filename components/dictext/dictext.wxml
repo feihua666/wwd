@@ -1,0 +1,1 @@
+<text class='dictext' wx:if="{{name}}">{{name}}</text>

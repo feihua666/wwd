@@ -28,7 +28,7 @@
           </view>
           <view class='info-item info-birthday-box'>
             <text class='iconfont icon-xingzuo'></text>
-            <text class='icon-text-lable'> {{common.getDictLabelByValue(wwdUser.constellation,constellations)}}</text>
+            <dictext class='icon-text-lable' value="{{wwdUser.constellation}}" dict-type='constellation_type'></dictext>
           </view>
           <view class='info-item info-shape-box'>
             <text class='iconfont icon-shengao'></text>
@@ -44,7 +44,7 @@
         <view class='info-box-item-3'>
           <view class='info-college-box'>
             <text class='iconfont icon-daxuemingcheng'></text>
-            <text class='icon-text-lable'>{{common.getDictLabelByValue(wwdUser.education,educations)}}</text>
+            <dictext class='icon-text-lable' value="{{wwdUser.education}}" dict-type='education_level'></dictext>
             <text class='icon-text-lable'>{{wwdUser.college}}</text>
             <text class='icon-text-lable'>{{wwdUser.major}}</text>
           </view>
@@ -73,31 +73,32 @@
       <view class='info-marital-status-box'>
         <view>
           <text class='iconfont icon-cheliang'></text>
-          <text class='icon-text-lable'>{{wwdUser.maritalStatus}}</text>
+          <dictext class='icon-text-lable' value="{{wwdUser.hasCar}}" dict-type='has_car_status'></dictext>
         </view>
         <view>
           <text class='iconfont icon-icon-test1'></text>
-          <text class='icon-text-lable'>{{wwdUser.hasHourse}}</text>
+          <dictext class='icon-text-lable' value="{{wwdUser.hasHourse}}" dict-type='has_hourse_status'></dictext>
         </view>
       </view>
       <view class='info-salary-box'>
         <view>
           <text class='iconfont icon-qianmoney125'></text>
-          <text class='icon-text-lable'>{{wwdUser.monthSalary}} </text>
+          <text class='icon-text-lable' wx:if='{{wwdUser.monthSalary}}'>{{wwdUser.monthSalary}} </text>
+          
         </view>
         <view>
           <text class='iconfont icon-qianmoney113'></text>
-          <text class='icon-text-lable'>{{wwdUser.yearSalary}}</text>
+          <text class='icon-text-lable'  wx:if='{{wwdUser.yearSalary}}'>{{wwdUser.yearSalary}}</text>
         </view>
       </view>
       <view class='info-smoking-box'>
         <view>
           <text class='iconfont icon-chouyan'></text>
-          <text class='icon-text-lable'>{{wwdUser.smoking}}</text>
+          <dictext class='icon-text-lable' value="{{wwdUser.smoking}}" dict-type='smoking_status'></dictext>
         </view>
         <view>
           <text class='iconfont icon-hejiu'></text>
-          <text class='icon-text-lable'>{{wwdUser.drinking}}</text>
+          <dictext class='icon-text-lable' value="{{wwdUser.drinking}}" dict-type='drinking_status'></dictext>
         </view>
       </view>
     </view>
@@ -122,4 +123,6 @@
       </view>
     </view>
   </view>
+  <button style='margin:15px;' wx:if="{{'married' == wwdUser.maritalStatus}}" disabled='{{true}}'>对方已婚</button>
+    <button style='margin:15px;' bindtap='bindSubmitBtn' wx:else disabled='{{buttonDisable}}'>{{buttonText}}</button>
 </view>
