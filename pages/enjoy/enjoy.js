@@ -1,66 +1,49 @@
-// pages/enjoy/enjoy.js
+const httpUtil = require('../../utils/httpUtil.js')
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+    listData: [],
+    listPic: [],
+    status:'1'
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-  
+  bindTitleClick:function(e){
+      let id = e.currentTarget.id
+      this.setData({
+        status:id
+      })
   },
+  loadData: function (complete) {
+    let self = this
+    httpUtil.get('/wwd/user/current/enjoys/'+self.data.status, {
+      data: {},
+      success: function (response) {
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
+        if (complete && typeof complete == 'function') {
+          complete()
+        }
+
+        let content = response.data.data.content
+        let listPic = response.data.data.pic
+    
+        self.setData({
+          listData: content,
+          listPic: listPic,
+          isHidden: true
+        })
+      },
+      fail: function (e) {
+        self.setData({
+          isHidden: false
+        })
+      }
+    })
   },
+  onLoad: function () {
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
+    this.loadData()
   }
 })

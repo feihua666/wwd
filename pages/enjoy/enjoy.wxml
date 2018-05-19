@@ -1,2 +1,56 @@
-<!--pages/enjoy/enjoy.wxml-->
-<text>pages/enjoy/enjoy.wxml</text>
+<wxs src="../../resources/common.wxs" module="common" />
+<view class='container-box'>
+  <view class='tab-title-box'>
+    <view class="tab-title-item {{status=='1'?'active':''}}" id='1' bindtap='bindTitleClick'>
+      <view class='tab-title-item-text'>
+        <view class='tab-title-item-image'>
+          <image src='../../resources/images/wdsyys-04.png'></image>
+        </view>
+      </view>
+      <view class='tab-title-item-text'>
+        <text>谁对我有意思</text>
+      </view>
+    </view>
+    <view class="tab-title-item {{status=='2'?'active':''}}" id='2' style='border-left: 1px groove;' bindtap='bindTitleClick'>
+      <view class='tab-title-item-text'>
+        <view class='tab-title-item-image'>
+          <image src='../../resources/images/sdwyys-04.png'></image>
+        </view>
+      </view>
+      <view class='tab-title-item-text'>
+        <text>我对谁有意思</text>
+      </view>
+    </view>
+    <view class="tab-title-item {{status=='3'?'active':''}}" id='3' style='border-left:  1px  groove;' bindtap='bindTitleClick'>
+      <view class='tab-title-item-text'>
+        <view class='tab-title-item-image'>
+          <image src='../../resources/images/yys-02.png'></image>
+        </view>
+      </view>
+      <view class='tab-title-item-text'>
+        <text>真有意思</text>
+      </view>
+    </view>
+  </view>
+  <view class='tab-content-box'>
+    <view wx:for="{{listData}}" wx:for-index="userIndex" wx:for-item="userItem" wx:key="{{userItem.id}}" class="view-item-box">
+      <view class='view-item-info-box'>
+        <view class='view-item-info-photo-box' wx:for="{{listPic}}" wx:for-index="picIndex" wx:key="{{userItem.id}}" wx:for-item="picItem" wx:if="{{picItem.wwdUserId == userItem.id}}">
+          <image class='view-item-info-photo' src='{{picItem.picUrl}}' mode="aspectFill" lazy-load="{{true}}"></image>
+        </view>
+        <view class='view-item-info-nickname-box'>
+          <text class='view-item-text-nickname'>{{userItem.nickname}}</text>
+        </view>
+        <view class='view-item-info-gender-box'>
+          <text class='view-item-gender'> {{common.getGender(userItem.gender,true)}}</text>
+        </view>
+        <navigator url='../../detail/detail?wwdUserId={{userItem.id}}' class='view-item-arrow-box'>
+          <view class='view-item-arrow-box-1'>
+            <text class='info-label'>查看资料</text>
+            <text class='iconfont icon-youjiantou'></text>
+          </view>
+        </navigator>
+      </view>
+    </view>
+  </view>
+</view>
