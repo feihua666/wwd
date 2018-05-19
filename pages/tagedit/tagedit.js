@@ -7,7 +7,9 @@ Page({
    */
   data: {
       tag: null, // 已保存的
-      dict: null // 待选择的
+      dict: null, // 待选择的
+      tagSelected:[], //已选择的
+      tagSelf:null    //自定义的
   },
     checkboxChange: function (e) {
         //选中的数组
