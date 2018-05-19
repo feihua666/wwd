@@ -15,16 +15,13 @@ Page({
       this.setData({
         status:id
       })
+      this.loadData()
   },
-  loadData: function (complete) {
+  loadData: function () {
     let self = this
     httpUtil.get('/wwd/user/current/enjoys/'+self.data.status, {
       data: {},
       success: function (response) {
-
-        if (complete && typeof complete == 'function') {
-          complete()
-        }
 
         let content = response.data.data.content
         let listPic = response.data.data.pic
@@ -37,7 +34,9 @@ Page({
       },
       fail: function (e) {
         self.setData({
-          isHidden: false
+            listData: [],
+            listPic: [],
+            isHidden: false
         })
       }
     })

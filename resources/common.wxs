@@ -26,6 +26,7 @@ var getDictLabelByValue = function(value,dicts){
     return ''
 }
 var getFileUrl = function(path,downloadUrl){
+    console.log(path,downloadUrl)
     if (path){
         if (path.indexOf('http') == 0) {
             return path

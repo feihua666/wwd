@@ -11,6 +11,8 @@ for (let i = 16; i <= 80; i++) {
 
 Page({
   data: {
+
+      appConfig: getApp().globalData.config,
     ageMultiIndex: [4, 15],
     ageMultiArray: [ageArray, ageArray],
     ageRange: [],
@@ -31,13 +33,9 @@ Page({
     , constellations: []
     , education: ''
     , gender: ''
-    , keyword: ''
+    , keyword: '',
+    searchType:'' // pulldown,pullup,cancelSearch,confirmSearch
   },
-  isPullDownRefresh: function () {
-    //是否下拉刷新
-    return this.data.searchForm.pageNo < this.data.searchForm.pageNum ? true : false
-  }
-  ,
   bindMultiAgeChange: function (e) {
     //年龄
     let min = e.detail.value[0] <= e.detail.value[1] ? e.detail.value[0] : e.detail.value[1]
@@ -85,6 +83,7 @@ Page({
       isFilterExpanded: !this.data.isFilterExpanded
     })
   },
+  // 确定搜索
   filterChanged: function (e) {
     //搜索
     this.setData({
@@ -105,7 +104,7 @@ Page({
       education: '', //学历
       keyword: ''   //关键字
     })
-    this.loadData(1)
+    //this.loadData(1)
   }
   ,
   toggleProfileInfoBox: function (e) {
@@ -114,7 +113,7 @@ Page({
       profileInfoBoxShow: !this.data.profileInfoBoxShow
     })
   },
-  loadData: function (pageNo, complete) {
+  loadData: function (pageNo,searchtype) {
 
     let self = this
     httpUtil.get('/wwd/users', {
@@ -130,11 +129,6 @@ Page({
         keyword: ''   //关键字
       },
       success: function (response) {
-
-        if (complete && typeof complete == 'function') {
-          complete()
-        }
-
         let content = response.data.data.content
         if (content && content.length > 0) {
           if (pageNo > 1) {
@@ -159,32 +153,33 @@ Page({
         }
       },
       fail: function () {
-        wx.showToast({
-            title: '无匹配数据',
-            icon:'none'
-        })
+          if (searchtype == 'pullup'){
+              self.setData({
+                  loadMoreShow: false
+              })
+          }
+          if (searchtype == 'confirmSearch'){
+              wx.showToast({
+                  title: '无匹配数据',
+                  icon: 'none'
+              })
+          }
       }
     })
   },
   //下拉刷新
   onPullDownRefresh: function () {
-    if (this.isPullDownRefresh()) {
-      this.loadData(1, wx.stopPullDownRefresh)
-    }
+      this.loadData(1,'pulldown')
   },
   onReachBottom: function () {
     let self = this
     if (self.data.loadMoreShow) {
       return
     }
-
-    if (this.isPullDownRefresh()) {
-      console.log("show")
       self.setData({
-        loadMoreShow: true
+        loadMoreShow: true,
       })
-      this.loadData(this.data.searchForm.pageNo + 1)
-    }
+      this.loadData(this.data.searchForm.pageNo + 1, 'pullup')
   },
   onLoad: function () {
     let self = this
@@ -192,7 +187,6 @@ Page({
     wx.getStorage({
       key: 'wwd_dic_gender',
       success: function (res) {
-        console.log(res.data)
         self.setData({
           genders: res.data
         })
@@ -214,7 +208,6 @@ Page({
     wx.getStorage({
       key: 'wwd_dic_education_level',
       success: function (res) {
-        console.log(res.data)
         self.setData({
           educations: res.data
         })
@@ -236,7 +229,6 @@ Page({
     wx.getStorage({
       key: 'wwd_dic_constellation_type',
       success: function (res) {
-        console.log(res.data)
         self.setData({
           constellations: res.data
         })
