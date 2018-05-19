@@ -1,5 +1,6 @@
 {
   "pages": [
+
     "pages/index/index",
     "pages/search-list/search-list",
     "pages/login/login",
@@ -8,7 +9,8 @@
     "pages/my/my",
     "pages/my/myfriends/myfriends",
     "pages/info/info",
-    "pages/tagedit/tagedit"
+        "pages/tagedit/tagedit"
+    
   ],
   "window": {
     "navigationBarBackgroundColor": "#fff",

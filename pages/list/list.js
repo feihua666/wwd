@@ -85,7 +85,6 @@ Page({
             return
         }
         if (this.isPullDownRefresh()) {
-            console.log("show")
             self.setData({
                 loadMoreShow: true
             })

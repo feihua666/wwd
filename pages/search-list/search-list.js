@@ -178,7 +178,6 @@ Page({
         }
 
         if (this.isPullDownRefresh()) {
-            console.log("show")
             self.setData({
                 loadMoreShow: true
             })
@@ -191,7 +190,6 @@ Page({
         wx.getStorage({
             key: 'wwd_dic_gender',
             success: function (res) {
-                console.log(res.data)
                 self.setData({
                     genders: res.data
                 })
@@ -213,7 +211,6 @@ Page({
         wx.getStorage({
             key: 'wwd_dic_education_level',
             success: function (res) {
-                console.log(res.data)
                 self.setData({
                     educations: res.data
                 })

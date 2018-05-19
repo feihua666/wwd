@@ -3,11 +3,16 @@
 .container-box{
     padding: 15px;
     color: #D1D1D1;
+    font-size: 0.6rem;
 }
 .tag-item{
     margin: 5px;
-    padding: 5px;
+    padding: 4px;
     display:inline-block;
     border:1px solid #D1D1D1;
-    border-radius: 2px;
+    border-radius: 5px;
+}
+.tag-item-select{
+    border:1px solid #000000;
+    color: #000000;
 }

@@ -195,23 +195,23 @@ module.exports.getBirthDayEnd = getBirthDayEnd
             <label>性格</label>
             
                 <view class='arrow-box'>
-                <navigator url='../tagedit/tagedit?type=nature_type'>
+                <navigator url='../tagedit/tagedit?type=nature_type&id={{tag.nature.id}}'>
                     <text class='iconfont icon-youjiantou'></text>
                 </navigator>
                 </view>
 
-            <text class='item-input'> {{tag.nature}}s</text>
+            <text class='item-input'> {{tag.natureText}}</text>
 
 
         </view>
         <view class='item-hobby-box'>
             <label>爱好</label>
             <view class='arrow-box'>
-                <navigator url='../tagedit/tagedit?type=nature_type'>
+                <navigator url='../tagedit/tagedit?type=hobby_type&id={{tag.hobby.id}}'>
                     <text class='iconfont icon-youjiantou'></text>
                 </navigator>
             </view>
-            <text class='item-input'>sss sws sfsfs fsdfsd sdsdsss sws sfsfs</text>
+            <text class='item-input'>{{tag.hobbyText}}</text>
 
 
         </view>
@@ -219,44 +219,44 @@ module.exports.getBirthDayEnd = getBirthDayEnd
             <label>食物</label>
 
             <view class='arrow-box'>
-                <navigator url='../tagedit/tagedit?type=nature_type'>
+                <navigator url='../tagedit/tagedit?type=food_type&id={{tag.food.id}}'>
                     <text class='iconfont icon-youjiantou'></text>
                 </navigator>
             </view>
-            <text class='item-input'>sss sws sfsfs fsdfsd sdsd</text>
+            <text class='item-input'>{{tag.foodText}}</text>
 
         </view>
         <view class='item-movie-box'>
             <label>电影</label>
 
             <view class='arrow-box'>
-                <navigator url='../tagedit/tagedit?type=nature_type'>
+                <navigator url='../tagedit/tagedit?type=movie_type&id={{tag.movie.id}}'>
                     <text class='iconfont icon-youjiantou'></text>
                 </navigator>
             </view>
-            <text class='item-input'>sss sws sfsfs fsdfsd sdsd</text>
+            <text class='item-input'>{{tag.movieText}}</text>
 
         </view>
         <view class='item-trip-box'>
             <label>旅游</label>
 
             <view class='arrow-box'>
-                <navigator url='../tagedit/tagedit?type=nature_type'>
+                <navigator url='../tagedit/tagedit?type=trip_type&id={{tag.trip.id}}'>
                     <text class='iconfont icon-youjiantou'></text>
                 </navigator>
             </view>
-            <text class='item-input'>sss sws sfsfs fsdfsd sdsd</text>
+            <text class='item-input'>{{tag.tripText}}</text>
 
         </view>
         <view class='item-sport-box'>
             <label>运动</label>
 
             <view class='arrow-box'>
-                <navigator url='../tagedit/tagedit?type=nature_type'>
+                <navigator url='../tagedit/tagedit?type=sport_type&id={{tag.sport.id}}'>
                     <text class='iconfont icon-youjiantou'></text>
                 </navigator>
             </view>
-            <text class='item-input'>sss sws sfsfs fsdfsd sdsd</text>
+            <text class='item-input'>{{tag.sportText}}</text>
 
         </view>
     </view>

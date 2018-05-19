@@ -38,12 +38,18 @@ Page({
           standard:null
       },
       tag:{
-          nature:[],
-          food:[],
-          movie:[],
-          trip:[],
-          sport:[],
-          hobby:[]
+          natureText:[],
+          nature:{},
+          foodText:[],
+          food: {},
+          movieText:[],
+          movie: {},
+          tripText:[],
+          trip: {},
+          sportText:[],
+          sport: {},
+          hobbyText:[],
+          hobby: {}
       }
   
     }, 
@@ -66,7 +72,6 @@ Page({
       this.setData({
           'wwdUser': this.data.wwdUser
       })
-      console.log(this.data.wwdUser)
   },
   bindNowPickerChange:function(e){
       let value = e.detail.value
@@ -160,6 +165,106 @@ Page({
           }
       })
   },
+  getTagTextByType:function(type,item,callback){
+
+      dictUtil.getDictsByType(type, function (response) {
+          let content = response.data.data.content
+          let type = {}
+          for (let j = 0; j < content.length; j++) {
+              type[content[j].value] = content[j].name
+          }
+          let _nature = []
+          if (item.selfContent) {
+              _nature.push(item.selfContent)
+          }
+          if (item.content) {
+              let _dictItem = item.content.split(',')
+              if (_dictItem) {
+                  for (let m = 0; m < _dictItem.length; m++) {
+                      _nature.push(type[_dictItem[m]])
+                  }
+              }
+
+          }
+          callback(_nature)
+          
+      })
+  },
+  loadTags:function(){
+      let self = this
+      httpUtil.get('/wwd/user/current/tags', {
+          success: res => {
+              let tagContent = res.data.data.content
+              if (tagContent) {
+                  for (let i = 0; i < tagContent.length; i++) {
+                      let item = tagContent[i]
+                      //性格
+                      if (item.type == 'nature_type') {
+                          self.getTagTextByType('nature_type',item,function(text){
+                            // 
+                            self.setData({
+                                'tag.natureText': text,
+                                'tag.nature': item
+                            })
+                        })
+                      }
+                      //爱好
+                      if (item.type == 'hobby_type') {
+                          self.getTagTextByType('hobby_type', item, function (text) {
+                              // 
+                              self.setData({
+                                  'tag.hobbyText': text,
+                                  'tag.hobby': item
+                              })
+                          })
+                      }
+                      //电影
+                      if (item.type == 'movie_type') {
+                          self.getTagTextByType('movie_type', item, function (text) {
+                              // 
+                              self.setData({
+                                  'tag.movieText': text,
+                                  'tag.movie': item
+                              })
+                          })
+                      }
+                      //食物
+                      if (item.type == 'food_type') {
+                          self.getTagTextByType('food_type', item, function (text) {
+                              // 
+                              self.setData({
+                                  'tag.foodText': text,
+                                  'tag.food': item
+                              })
+                          })
+                      }
+                      //旅行
+                      if (item.type == 'trip_type') {
+                          self.getTagTextByType('trip_type', item, function (text) {
+                              // 
+                              self.setData({
+                                  'tag.tripText': text,
+                                  'tag.trip': item
+                              })
+                          })
+                      }
+                      //运动
+                      if (item.type == 'sport_type') {
+                          self.getTagTextByType('sport_type', item, function (text) {
+                              // 
+                              self.setData({
+                                  'tag.sportText': text,
+                                  'tag.sport': item
+                              })
+                          })
+                      }
+                  }
+
+              }
+
+          }
+      })
+  },
   completeSubmitBtn: function () {
       let self = this
       let data = this.data.wwdUser
@@ -180,6 +285,9 @@ Page({
               })
           }
       })
+  },
+  onShow: function () {
+      this.loadTags()
   },
   /**
    * 生命周期函数--监听页面加载
@@ -238,49 +346,6 @@ Page({
               })
           }
       })
-
-      httpUtil.get('/wwd/user/current/tag',{
-          success:res => {
-              let tagContent = response.data.data.content
-              if(tagContent){
-                  for(let i=0;i<tagContent.length;i++){
-                      let item = tagContent[i]
-                      //性格
-                    if(item.type == 'nature_type'){
-
-                        dictUtil.getDictsByType('nature_type', function (response) {
-                            let content = response.data.data.content
-                            let type = {}
-                            for(let j=0;j<content.length;j++){
-                                type[content[j].value] = content[j].name
-                            }
-                            let _nature = []
-                            if(item.selfContent){
-                                _nature.push(item.selfContent)
-                            }
-                            if (item.content) {
-                                let _dictItem = item.content.split(',')
-                                if (_dictItem){
-                                    for (let m = 0; m < _dictItem.length;m++){
-                                        _nature.push(type[_dictItem[m]])
-                                    }
-                                }
-                                
-                            }
-
-                            // 
-                            self.setData({
-                                'tag.nature': _nature
-                            })
-                        })
-                    }
-                  }
-
-              }
-
-          }
-      })
-
 
   }
 })

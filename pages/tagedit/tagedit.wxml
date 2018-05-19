@@ -1,10 +1,26 @@
+<wxs module='tagedit'>
+var isChecked = function(dictItem,selected){
+    if (selected){
+        for(var i=0 ; i < selected.length; i++){
+            if(dictItem.value == selected[i]){
+                return true;
+            }
+        }
+    }
+    return false
+
+}
+module.exports.isChecked = isChecked
+</wxs>
 <view class="container-box">
     <view class='tag-box'>
         <checkbox-group bindchange="checkboxChange">
-            <label class='tag-item'
+            <label class="tag-item {{tagedit.isChecked(item,tagSelected) ? 'tag-item-select':''}}"
              wx:for="{{dict}}" wx:for-index="index" wx:for-item="item" wx:key="{{item.id}}"
+             data-value='{{item.value}}'
+             bindtap='checkboxChange'
               >
-               <checkbox value="{{item.value}}" checked="{{item.checked}}"/>{{item.name}}
+               {{item.name}}
               </label>
         </checkbox-group>
     </view>
