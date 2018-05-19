@@ -23,7 +23,7 @@ Page({
     onLoad: function (options) {
         let self = this
         let wwdUserId = options.wwdUserId
-        wwdUserId ='12eb930b5b1a11e888314439c4325934';
+
         httpUtil.get('/wwd/user/'+ wwdUserId +'/pic',{
             success:response => {
                 let content = response.data.data.content
