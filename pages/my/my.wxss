@@ -12,7 +12,6 @@ page {
 .header-info-box {
   height: 100rpx;
   line-height: 100rpx;
-  width: 90%;
   display: flex;
   justify-content: space-between;
 }
@@ -53,12 +52,6 @@ page {
   justify-content: center;
 }
 
-.navigator-arrow-box {
-  width: 25%;
-  height: 100%;
-  display: flex;
-  justify-content: flex-end;
-}
 
 .info-label {
   font-size: 0.8rem;
@@ -67,7 +60,6 @@ page {
 
 .view-item {
   height: 50rpx;
-  width: 90%;
   font-size: 0.8rem;
 }
 
@@ -98,22 +90,8 @@ page {
   text-align: center;
 }
 
-.navigator-invited-friends {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-
-.navigator-invited-friends .invited-friends-text {
-  width: 80%;
-  height: 100%;
-}
-
-.navigator-invited-friends .arrow-box {
-  width: 20%;
-  height: 100%;
-  text-align: right;
+.arrow-box {
+  float: right;
 }
 
 .container-box>view {

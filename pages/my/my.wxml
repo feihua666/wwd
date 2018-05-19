@@ -26,12 +26,31 @@
       <button open-type='share' bindtap='invitedFriendsBtn' size='mini'>邀请</button>
     </view>
   </view>
-  <view class='view-item  invited-friends-box'>
-    <navigator url='../my/myfriends/myfriends' class='navigator-invited-friends'>
-      <text class='invited-friends-text'>我邀请的朋友</text>
+  <view class='view-item'>
+      <text>我邀请的朋友</text>
       <view class='arrow-box'>
-        <text class='iconfont icon-youjiantou'></text>
+        <navigator url='../my/myfriends/myfriends'>
+            <text class='iconfont icon-youjiantou'></text>
+        </navigator>
       </view>
-    </navigator>
+
+  </view>
+    <view class='view-item'>
+      <text>有意思</text>
+      <view class='arrow-box'>
+        <navigator url='/pages/enjoy/enjoy'>
+            <text class='iconfont icon-youjiantou'></text>
+        </navigator>
+      </view>
+
+  </view>
+      <view class='view-item'>
+      <text>设置</text>
+      <view class='arrow-box'>
+        <navigator url='../my/myfriends/myfriends'>
+            <text class='iconfont icon-youjiantou'></text>
+        </navigator>
+      </view>
+
   </view>
 </view>
