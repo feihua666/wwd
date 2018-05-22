@@ -20,8 +20,8 @@
   <scroll-view scroll-y class="scroll-view-container-box">
     <view wx:for="{{listData}}" wx:for-index="userIndex" wx:for-item="userItem" wx:key="{{userItem.wwdUserDto.id}}" class="view-item-box">
       <navigator url='../detail/detail?wwdUserId={{userItem.wwdUserDto.id}}'>
-        <view class="view-item-img-box" wx:key="{{userItem.wwdUserDto.id}}">
-          <image src="{{common.getFileUrl(userItem.wwdUserPicDtos[0].picOriginUrl,appConfig.file.downloadUrl)}}" class="view-item-img" mode="aspectFill" lazy-load="{{true}}"></image>
+        <view  wx:for="{{userItem.wwdUserPicDtos}}" wx:for-index="picIndx" wx:for-item="picDto" class="view-item-img-box" wx:key="{{userItem.wwdUserDto.id}}">
+          <image wx:if="{{picDto.type=='main'}}"  src="{{common.getFileUrl(picDto.picOriginUrl,appConfig.file.downloadUrl)}}" class="view-item-img" mode="aspectFill" lazy-load="{{true}}"></image>
         </view>
         <view class="view-item-info-box">
           <view class='view-item-info-box-1'>

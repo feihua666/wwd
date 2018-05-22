@@ -5,6 +5,7 @@ const app = getApp()
 
 Page({
   data: {
+    appConfig: getApp().globalData.config,
     listData: [],
     listPic: [],
     userInfo: {},
