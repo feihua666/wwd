@@ -1,5 +1,5 @@
 const httpUtil = require('../../utils/httpUtil.js')
-const dicUtil = require('../../utils/dicUtil.js')
+const dictUtil = require('../../utils/dictUtil.js')
 //获取应用实例
 const app = getApp()
 
@@ -90,7 +90,7 @@ Page({
       isFilterExpanded: false
     })
 
-    this.loadData(1)
+    this.loadData(1,'confirmSearch')
   },
   filterCancel: function (e) {
     //取消搜索
@@ -194,7 +194,7 @@ Page({
         })
       },
       fail: function () {
-        dicUtil.getDictsByType('gender', function (res) {
+        dictUtil.getDictsByType('gender', function (res) {
           let genders = res.data.data.content
           self.setData({
             genders: genders
@@ -215,7 +215,7 @@ Page({
         })
       },
       fail: function () {
-        dicUtil.getDictsByType('education_level', function (res) {
+        dictUtil.getDictsByType('education_level', function (res) {
           let educations = res.data.data.content
           self.setData({
             educations: educations
@@ -236,7 +236,7 @@ Page({
         })
       },
       fail: function () {
-        dicUtil.getDictsByType('constellation_type', function (res) {
+        dictUtil.getDictsByType('constellation_type', function (res) {
           let constellations = res.data.data.content
           self.setData({
             constellations: constellations

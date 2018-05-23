@@ -23,7 +23,7 @@
 }
 
 .iconfont, .view-item-info-box {
-  font-size: 0.7rem;
+  font-size: 0.8rem !important;
 }
 
 .container-box .view-item-info-box view {
@@ -32,17 +32,22 @@
 
 .container-box .profile-box {
   position: fixed;
-  width: 30px;
+  width: 50px;
   right: 3px;
   top: 5px;
   z-index: 1000;
   text-align: center;
   box-shadow: 1px 1px 1px #aaa;
   padding: 2px 0;
+    background-color: #f2f2f2;
+}
+.profile-box .iconfont{
+     font-size: 1.2rem !important;
 }
 
 .profile-info-box {
   margin-top: 5px;
+
 }
 
 .profile-line {

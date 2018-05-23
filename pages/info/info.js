@@ -1,6 +1,6 @@
 // pages/info/info.js
-const dictUtil = require('../../utils/dicUtil.js')
 const httpUtil = require('../../utils/httpUtil.js')
+const storageUtil = require('../../utils/storageUtil.js')
 Page({
 
   /**
@@ -13,9 +13,7 @@ Page({
       ],
       areaData:{
           nowIds:[],
-          nowNames: [],
-          homeIds:[],
-          homeNames: []
+          homeIds:[]
       },
       wwdUser:{
           name:"",
@@ -28,7 +26,7 @@ Page({
           profession:'',
           height:null,
           weight:null,
-          looks:'',
+          looks:null,
           shape:'',
           smoking:'',
           drinking:null,
@@ -84,16 +82,14 @@ Page({
       let value = e.detail.value
       let name = e.detail.name
       this.setData({
-          'areaData.nowIds': value,
-          'areaData.nowNames': name ? name : []
+          'areaData.nowIds': value
       })
   },
   bindHomePickerChange: function (e) {
       let value = e.detail.value
       let name = e.detail.name
       this.setData({
-          'areaData.homeIds': value,
-          'areaData.homeNames': name ? name : []
+          'areaData.homeIds': value
       })
   },
   // 选择照片并上传
@@ -174,11 +170,11 @@ Page({
   },
   getTagTextByType:function(type,item,callback){
 
-      dictUtil.getDictsByType(type, function (response) {
-          let content = response.data.data.content
-          let type = {}
+
+        let content = storageUtil.getStorageDict(type)
+          let _type = {}
           for (let j = 0; j < content.length; j++) {
-              type[content[j].value] = content[j].name
+              _type[content[j].value] = content[j].name
           }
           let _nature = []
           if (item.selfContent) {
@@ -188,14 +184,11 @@ Page({
               let _dictItem = item.content.split(',')
               if (_dictItem) {
                   for (let m = 0; m < _dictItem.length; m++) {
-                      _nature.push(type[_dictItem[m]])
+                      _nature.push(_type[_dictItem[m]])
                   }
               }
-
           }
           callback(_nature)
-          
-      })
   },
   loadTags:function(){
       let self = this
@@ -342,9 +335,7 @@ Page({
       let self = this
       let data = this.data.wwdUser
       data.nowAreaIds = this.data.areaData.nowIds
-      data.nowAreaNames = this.data.areaData.nowNames
       data.homeAreaIds = this.data.areaData.homeIds
-      data.homeAreaNames = this.data.areaData.homeNames
       
       httpUtil.put('/wwd/user/current', {
           data: data,
@@ -360,7 +351,7 @@ Page({
       })
   },
   onShow: function () {
-      this.loadTags()
+      
   },
   /**
    * 生命周期函数--监听页面加载
@@ -371,6 +362,7 @@ Page({
     self.setData({
         submitBtnDisable:false
     })
+    this.loadTags()
       self.loadPicData()
     // 加载区域
       httpUtil.get('/wwd/user/current/area', {

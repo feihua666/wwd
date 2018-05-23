@@ -2,14 +2,17 @@ const app = getApp()
 const httpUtil = require('./httpUtil.js')
 
 const getAreas = function (data, success) {
-    httpUtil.get('/base/areas/', {
+    httpUtil.get('/base/areas', {
         data: data,
         success: success
     })
 }
 const getAreaById = function (id, success) {
+
     httpUtil.get('/base/area/' + id, {
-        data: data,
+        data:{
+            t:new Date().getTime()
+        },
         success: success
     })
 }

@@ -1,4 +1,4 @@
-const dictUtil = require('../../utils/dicUtil.js')
+const storageUtil = require('../../utils/storageUtil.js')
 Component({
   /**
    * 组件的属性列表
@@ -21,22 +21,19 @@ Component({
   methods: {
 
   },
-  ready: function () {
+  attached: function () {
       let self = this
-      dictUtil.getDictsByType(self.properties.dictType, function (response) {
-          let content = response.data.data.content
-          if (self.properties.value) {
-              for (let i = 0; i < content.length; i++) {
-                  if (self.properties.value == content[i].value) {
-                      self.setData({
-                          'name': content[i].name
-                      })
-                      break
-                  }
+      let dict = storageUtil.getStorageDict(self.properties.dictType)
+
+      if (self.properties.value) {
+          for (let i = 0; i < dict.length; i++) {
+              if (self.properties.value == dict[i].value) {
+                  self.setData({
+                      'name': dict[i].name
+                  })
+                  break
               }
           }
-
-      })
-
+      }
   }
 })

@@ -1,4 +1,5 @@
 const areaUtil = require('../../utils/areaUtil.js')
+const storageUtil = require('../../utils/storageUtil.js')
 Component({
   /**
    * 组件的属性列表
@@ -6,7 +7,12 @@ Component({
   properties: {
       value:{
           type: Array,
-          value:[]
+          value:[],
+          observer:function(newValue,oldValue){
+              let self = this
+                  // 还没有初始化
+                self.selectByValue(newValue)
+          }
       }
   },
 
@@ -26,15 +32,26 @@ Component({
    */
   methods: {
       loadProvince:function(success){
-
           let self = this
-
+          let proviceStorage = storageUtil.storage('province')
+          if (proviceStorage){
+              self.data.range[0] = proviceStorage
+              self.setData({
+                  range: self.data.range
+              })
+              if (success) {
+                  success(proviceStorage[0].id)
+              }
+              return
+          }
           //加载省
           areaUtil.getAreas({
               type: 'province',
-              t:new Date().getTime()
+              t: new Date().getTime()
           }, function (r) {
               let content = r.data.data.content
+              //把省放入缓存
+              storageUtil.storage('province', content)
               self.data.range[0] = content
               self.setData({
                   range: self.data.range
@@ -46,13 +63,29 @@ Component({
       },
       loadCity: function (parentId, success){
           let self = this
+          //检查缓存
+          let cityStorage = storageUtil.storage('city' + parentId)
+          if (cityStorage) {
+              self.data.range[1] = cityStorage
+              self.setData({
+                  range: self.data.range
+              })
+              if (success) {
+                  success(cityStorage[0].id)
+              }
+              return
+          }
+
           //加载市
           areaUtil.getAreas({
               type: 'city',
-              t:new Date().getTime(),
-              parentId: parentId
+              parentId: parentId,
+              t: new Date().getTime()
           }, function (r) {
               let content = r.data.data.content
+                //保存在缓存
+              storageUtil.storage('city' + parentId,content)
+
               self.data.range[1] = content
               self.setData({
                   range: self.data.range
@@ -64,13 +97,32 @@ Component({
       },
       loadDistrict: function (parentId, success){
           let self = this
+
+          //检查缓存
+          let districtStorage = storageUtil.storage('district' + parentId)
+          console.log('loadDistrict',districtStorage)
+          if (districtStorage) {
+              self.data.range[2] = districtStorage
+              self.setData({
+                  range: self.data.range
+              })
+              if (success) {
+                  success(districtStorage[0].id)
+              }
+              return
+          }
+
           //加载区
           areaUtil.getAreas({
               type: 'district',
-              t: new Date().getTime(),
-              parentId: parentId
+              parentId: parentId,
+              t: new Date().getTime()
           }, function (r) {
               let content = r.data.data.content
+
+            //缓存住
+              storageUtil.storage('district' + parentId, content)
+
               self.data.range[2] = content
               self.setData({
                   range: self.data.range
@@ -81,25 +133,18 @@ Component({
           })
       },
       bindChange:function(e){
+          let self = this
           let index = e.detail.value
           this.setData({
               'index': e.detail.value
           })
-          this.setData({
-              value: [
-                  this.data.range[0][this.data.index[0]][this.data.rangeValue],
-                  this.data.range[1][this.data.index[1]][this.data.rangeValue],
-                  this.data.range[2][this.data.index[2]][this.data.rangeValue]
-              ],
-              name: [
-                  this.data.range[0][this.data.index[0]][this.data.rangeKey],
-                  this.data.range[1][this.data.index[1]][this.data.rangeKey],
-                  this.data.range[2][this.data.index[2]][this.data.rangeKey]
-              ]
-          })
+          //this.setValue()
           var myEventDetail = {
-               value: this.properties.value ,
-               name: this.data.name
+              value:[
+                  self.data.range[0][self.data.index[0]][self.data.rangeValue],
+                  self.data.range[1][self.data.index[1]][self.data.rangeValue],
+                  self.data.range[2][self.data.index[2]][self.data.rangeValue]
+              ]
              } // detail对象，提供给事件监听函数
           var myEventOption = { } // 触发事件的选项
           this.triggerEvent('change', myEventDetail, myEventOption)
@@ -132,64 +177,93 @@ Component({
                   parentId = self.data.range[2][valueIndex].id
                   break;
           }
-      }
-  },
-
-  ready: function () {
-      let self = this
-      this.loadProvince(function (parentId){
-          if (self.properties.value[0]){
-              parentId = self.properties.value[0]
-          }
-          self.loadCity(parentId,function(parentId){
-              if (self.properties.value[1]) {
-                  parentId = self.properties.value[1]
-              }
-              self.loadDistrict(parentId,function(){
-
-                  if (self.data.range) {
-                      // 省
-                      for (let i = 0; i < self.data.range[0].length; i++) {
-                          if (self.properties.value[0] == self.data.range[0][i][self.data.rangeValue]) {
-                              self.data.index[0] = i
-                              self.setData({
-                                  'index': self.data.index
-                              })
-                              break
-                          }
-                      }
-                      // 市
-                      for (let i = 0; i < self.data.range[1].length; i++) {
-                          if (self.properties.value[1] == self.data.range[1][i][self.data.rangeValue]) {
-                              self.data.index[1] = i
-                              self.setData({
-                                  'index': self.data.index
-                              })
-                              break
-                          }
-                      }
-                      // 区
-                      for (let i = 0; i < self.data.range[2].length; i++) {
-                          if (self.properties.value[2] == self.data.range[2][i][self.data.rangeValue]) {
-                              self.data.index[2] = i
-                              self.setData({
-                                  'index': self.data.index
-                              })
-                              break
-                          }
-                      }
-                  }
-                  if (self.properties.value && self.properties.value.length>0){
-                      self.bindChange({
-                          detail: {
-                              value: self.data.index
-                          }
+      },
+      setIndexByValue:function(value){
+          let self = this
+          if (self.data.range) {
+              // 省
+              for (let i = 0; i < self.data.range[0].length; i++) {
+                  if (value[0] == self.data.range[0][i][self.data.rangeValue]) {
+                      self.data.index[0] = i
+                      self.setData({
+                          'index': self.data.index
                       })
+                      break
+                  }
+              }
+              // 市
+              for (let i = 0; i < self.data.range[1].length; i++) {
+                  if (value[1] == self.data.range[1][i][self.data.rangeValue]) {
+                      self.data.index[1] = i
+                      self.setData({
+                          'index': self.data.index
+                      })
+                      break
+                  }
+              }
+              // 区
+              for (let i = 0; i < self.data.range[2].length; i++) {
+                  if (value[2] == self.data.range[2][i][self.data.rangeValue]) {
+                      self.data.index[2] = i
+                      self.setData({
+                          'index': self.data.index
+                      })
+                      break
+                  }
+              }
+          }
+      },
+      setNameByValue:function(value){
+          let self = this
+          //设置显示值
+          if (value.length != 0 && value[0] && value[1] && value[2]) {
+              self.setData({
+                  name: [
+                      self.data.range[0][self.data.index[0]][self.data.rangeKey],
+                      self.data.range[1][self.data.index[1]][self.data.rangeKey],
+                      self.data.range[2][self.data.index[2]][self.data.rangeKey]
+                  ]
+              })
+          }
+
+      },
+      selectByValue:function(value){
+          let self = this
+          if (self.data.range[0].length > 0 && self.data.range[1].length > 0 && self.data.range[2].length > 0) {
+              if (value.length > 0) {
+                  self.setIndexByValue(value)
+                  self.setNameByValue(value)
+              }
+          } else {
+              this.initRange(value, function () {
+                  if (value.length > 0 && self.data.range[0].length > 0){
+                      self.setIndexByValue(value)
+                      self.setNameByValue(value)
                   }
 
               })
+          }
+      },
+      initRange:function(value,callback){
+          let self = this
+          this.loadProvince(function (parentId) {
+              if (value[0]) {
+                  parentId = value[0]
+              }
+              self.loadCity(parentId, function (parentId) {
+                  if (value[1]) {
+                      parentId = value[1]
+                  }
+                  self.loadDistrict(parentId, function () {
+                      callback()
+                  })
+              })
           })
-      })
+      }
+  },
 
+  attached: function () {
+      let self = this
+      
   }
 })

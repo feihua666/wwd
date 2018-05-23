@@ -1,6 +1,9 @@
 const httpUtil = require('../../utils/httpUtil.js')
+const dictUtil = require('../../utils/dictUtil.js')
 const config = require('../../config/config.js')
+const storageUtil = require('../../utils/storageUtil.js')
 const app = getApp()
+
 Page({
 
   /**
@@ -18,14 +21,46 @@ Page({
 
     httpUtil.get('/base/user/current',{
         success:function(res){
+            // 成功跳转到列表页面
             wx.redirectTo({
                 url: '/pages/search-list/search-list'
             })
         },
-        loginSuccess: res => {
-            wx.redirectTo({
-                url: '/pages/search-list/search-list'
-            })
+        fail: res => {
+            // 不成功
+            // 如果是用户未登录
+            let status = res.statusCode
+            if (status == 401 && 'E401_100002' == res.data.code) {
+                // 尝试登录
+                httpUtil.login({
+                    data: {
+                        action: 'login'
+                    },
+                    success: function (res) {
+                        wx.showToast({
+                            title: '登录成功',
+                            icon: 'none'
+                        })
+                        // 登录成功跳转到列表页面
+                        // 先加载字典信息等缓存数据
+                        dictUtil.getDictsByType(app.globalData.config.dict,function(res){
+                            let content = res.data.data.content
+                            storageUtil.setStorageDict(content)
+                            wx.redirectTo({
+                                url: '/pages/search-list/search-list'
+                            })
+                        })
+
+                    },
+                    fail: function (res) {
+                        //登录失败，绑定邀请码
+                        wx.redirectTo({
+                            url: '/pages/login/login'
+                        })
+                    }
+                })
+            }
+            
         }
     })
 
