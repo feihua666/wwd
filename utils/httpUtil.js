@@ -6,7 +6,7 @@ const isArray = function(obj) {
         return Object.prototype.toString.call(obj) === "[object Array]";
     }
 }  
-const request = function (url, data, success, fail, header,loginSuccess, method) {
+const request = function (url, data, success, fail, header, method) {
     let _url = url
     if(_url.indexOf('http') !== 0){
         _url = app.globalData.config.host + url
@@ -40,33 +40,9 @@ const request = function (url, data, success, fail, header,loginSuccess, method)
                 }
 
             } else {
-                // 需要登录
-                if (status == 401 && 'E401_100002' == res.data.code) {
-                    _login({
-                        data: {
-                            action: 'login'
-                        },
-                        success:function(res){
-                            wx.showToast({
-                                title: '登录成功',
-                                icon:'none'
-                            })
-                            if (typeof loginSuccess == 'function'){
-                                loginSuccess(res)
-                            }
-                        },
-                        fail:function(res){
-                            //登录失败，绑定邀请码
-                            wx.redirectTo({
-                                url: '/pages/login/login'
-                            })
-                        }
-                    })
-                } else {
-                    if (fail && typeof fail == 'function') {
-                        fail(res)
+                if (fail && typeof fail == 'function') {
+                    fail(res)
 
-                    }
                 }
 
             }
@@ -101,7 +77,7 @@ const _get = function(url,options){
             header[key] = options.header[key]
         }
     }
-    request(url, options.data, options.success, options.fail, header, options.loginSuccess,'GET')
+    request(url, options.data, options.success, options.fail, header,'GET')
 }
 const _post = function (url, options) {
     let header = {
@@ -116,7 +92,7 @@ const _post = function (url, options) {
             header[key] = options.header[key]
         }
     }
-    request(url, options.data, options.success, options.fail, header, options.loginSuccess, 'POST')
+    request(url, options.data, options.success, options.fail, header, 'POST')
 }
 const _put = function (url, options) {
     let header = {
@@ -131,7 +107,7 @@ const _put = function (url, options) {
             header[key] = options.header[key]
         }
     }
-    request(url, options.data, options.success, options.fail, header, options.loginSuccess, 'PUT')
+    request(url, options.data, options.success, options.fail, header, 'PUT')
 }
 const _delete = function (url, options) {
     let header = {
@@ -146,7 +122,7 @@ const _delete = function (url, options) {
             header[key] = options.header[key]
         }
     }
-    request(url, options.data, options.success, options.fail, header, options.loginSuccess, 'DELETE')
+    request(url, options.data, options.success, options.fail, header, 'DELETE')
 }
 const _uploadFile = function(url,options){
     let _url = url

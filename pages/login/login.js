@@ -30,6 +30,7 @@ Page({
             let param = {}
             param.nickname = userInfo.nickName
             param.photo = userInfo.avatarUrl
+            param.inviteCode = self.data.inviteCode
             let gender = userInfo.gender
             if (gender == '1') {
                 param.gender = 'male'

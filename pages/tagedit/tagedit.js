@@ -1,4 +1,4 @@
-const dictUtil = require('../../utils/dicUtil.js')
+const storageUtil = require('../../utils/storageUtil.js')
 const httpUtil = require('../../utils/httpUtil.js')
 Page({
 
@@ -11,9 +11,13 @@ Page({
       tagSelf:null,    //自定义的
       addOrUpdate:null,
       type:null,
-      id:null
+      id:null,
+      isUpdateChange:false //标记是否有修改
   },
     checkboxChange: function (e) {
+        this.setData({
+            isUpdateChange:true
+        })
         //选中的数组
         let value = e.currentTarget.dataset.value
         let i=0;
@@ -50,7 +54,8 @@ Page({
   onLoad: function (options) {
     let self = this
     self.setData({
-            type: options.type
+            type: options.type,
+            isUpdateChange:false
     })
     let id = options.id
     if (id){
@@ -63,9 +68,7 @@ Page({
         })
     }
     //加载字典
-    dictUtil.getDictsByType(self.data.type, function (response) {
-        let content = response.data.data.content
-
+        let content = storageUtil.getStorageDict(self.data.type)
         self.setData({
             dict: content
         })
@@ -83,11 +86,9 @@ Page({
                 })
             }
         })
-
-    })
   },
   // 保存
-    save:function(){
+    save:function(success){
         let self = this
         let arrayStr = ''
         for (let i = 0; i < self.data.tagSelected.length; i++) {
@@ -103,17 +104,15 @@ Page({
         if (self.data.addOrUpdate == 'add'){
             httpUtil.post('/wwd/user/current/tag/' + self.data.type, {
                 data:data,
-                success: res => {
-                    
-                }
+                success: success
             })
         } else if (self.data.addOrUpdate == 'update') {
-            httpUtil.put('/wwd/user/current/tag/' + self.data.type, {
-                data: data,
-                success: res => {
-
-                }
-            })
+            if (self.data.isUpdateChange){
+                httpUtil.put('/wwd/user/current/tag/' + self.data.type, {
+                    data: data,
+                    success: success
+                })
+            }
         }
     },
   /**
@@ -137,7 +136,12 @@ Page({
       let currpage = pages[pages.length - 1] //当前页面
         let prevPage = pages[pages.length - 2] //上一个页面（父页面）
         //判断是否更改，如果没有更新，不再调用
-      this.save()
+    let self = this
+      this.save(function(){
+          if (self.data.isUpdateChange && self.data.addOrUpdate == 'update'){
+              prevPage.loadTags()
+          }
+      })
   }
 
 })
