@@ -1,6 +1,9 @@
 {
-    
-    "navigationBarTitleText": "汪汪队",
-    "enablePullDownRefresh": true,
-    "onReachBottomDistance":30
+  "usingComponents": {
+    "dictpicker": "/components/dictpicker/dictpicker",
+    "areapicker": "/components/areapicker/areapicker"
+  },
+  "navigationBarTitleText": "汪汪队",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 30
 }

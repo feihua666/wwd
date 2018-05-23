@@ -45,7 +45,7 @@ Page({
                 success:res => {
                     //登录完成，跳转到列表页面
                     wx.redirectTo({
-                      url: '/pages/search-list/search-list'
+                      url: '/pages/list/list'
                     })
                 },
                 fail: res => {

@@ -1,0 +1,114 @@
+<view class="page">
+  <view class="page__hd">
+    <view class="weui-search-bar">
+      <view class="weui-search-bar__form">
+        <view class="weui-search-bar__box">
+          <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+          <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{keyword}}" focus="{{inputShowed}}" bindinput="inputTyping" />
+          <view class="weui-icon-clear" wx:if="{{keyword.length > 0}}" bindtap="clearInput">
+            <icon type="clear" size="14"></icon>
+          </view>
+        </view>
+        <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+          <icon class="weui-icon-search" type="search" size="14"></icon>
+          <view class="weui-search-bar__text">搜索</view>
+        </label>
+      </view>
+      <view class="weui-search-bar__cancel-btn" bindtap="searchTap">
+         <text class='iconfont icon-sousuo'></text> 
+      </view>
+    </view>
+    <view class="weui-cells searchbar-result" hidden='true'>
+      <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">
+          <view>实时搜索文本</view>
+        </view>
+      </navigator>
+    </view>
+  </view>
+  <view class="page__bd page__bd_spacing">
+    <view class="weui-flex">
+      <view class="weui-flex__item item-title">
+        <view class="placeholder">性别</view>
+      </view>
+    </view>
+    <view class="weui-flex">
+      <view class="weui-flex__item {{gender == currentGender.value ? 'active' : ''}}" wx:for="{{genders}}" wx:key="id" data-id="{{currentGender.value}}" wx:for-item="currentGender" bindtap="bindGenderChange">
+        <view class="placeholder">
+          <text class='gender'>{{currentGender.name}}</text>
+          <text class='iconfont icon-gou1 confirm-icon'></text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="page__bd page__bd_spacing">
+    <view class="weui-flex">
+      <view class="weui-flex__item item-title">
+        <view class="placeholder">年龄</view>
+      </view>
+    </view>
+    <view class="weui-flex">
+      <view class="weui-flex__item">
+        <picker mode="multiSelector" bindchange="bindMultiAgeChange" value="{{ageMultiIndex}}" range="{{ageMultiArray}}">
+          <view class="placeholder picker">
+            <text class='age'>{{ageMultiArray[0][ageMultiIndex[0]]}} </text>岁 --
+            <text class='age'>{{ageMultiArray[1][ageMultiIndex[1]]}}</text> 岁
+          </view>
+        </picker>
+      </view>
+    </view>
+  </view>
+  <view class="page__bd page__bd_spacing">
+    <view class="weui-flex">
+      <view class="weui-flex__item item-title">
+        <view class="placeholder">学历</view>
+      </view>
+    </view>
+    <view class="weui-flex">
+      <view wx:for="{{educations}}" wx:key="id" data-id="{{currentEducation.value}}" wx:for-item="currentEducation" bindtap="bindEducationChange" class="weui-flex__item {{education == currentEducation.value ? 'active' : ''}}">
+        <view class="placeholder">
+          <text>{{currentEducation.name}}</text>
+          <text class='iconfont icon-gou1 confirm-icon'></text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="page__bd page__bd_spacing">
+    <view class="weui-flex">
+      <view class="weui-flex__item item-title">
+        <view class="placeholder">目前在</view>
+      </view>
+    </view>
+
+    <view class="weui-flex">
+      <view class="weui-flex__item">
+        <view class="placeholder">
+          <areapicker class='item-input' bindchange="bindNowPickerChange" value='{{nowArea}}'>
+
+          </areapicker>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="page__bd page__bd_spacing">
+    <view class="weui-flex">
+      <view class="weui-flex__item item-title">
+        <view class="placeholder">家乡在</view>
+      </view>
+    </view>
+    <view class="weui-flex">
+      <view class="weui-flex__item">
+        <view class="placeholder">
+          <areapicker class='item-input' bindchange="bindHomePickerChange" value='{{homeArea}}'>
+
+          </areapicker>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- <view class="weui-btn-area">
+    <button class="weui-btn" type="default" bindtap="showTopTips">
+      <text class='iconfont icon-sousuo'></text>
+    </button>
+  </view> -->
+</view>

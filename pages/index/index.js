@@ -23,7 +23,7 @@ Page({
         success:function(res){
             // 成功跳转到列表页面
             wx.redirectTo({
-                url: '/pages/search-list/search-list'
+                url: '/pages/list/list'
             })
         },
         fail: res => {
@@ -47,7 +47,7 @@ Page({
                             let content = res.data.data.content
                             storageUtil.setStorageDict(content)
                             wx.redirectTo({
-                                url: '/pages/search-list/search-list'
+                                url: '/pages/list/list'
                             })
                         })
 
