@@ -178,7 +178,12 @@ Page({
   onShow: function () {
     if (this.data.searchtype == 'confirmSearch') {
       this.loadData(1, this.data.searchtype)
-      console.log(this)
+      this.setData({
+        searchtype: ""
+      })
     }
+  },
+  onUnload: function () {
+   
   }
 })
