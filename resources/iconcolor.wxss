@@ -1,0 +1,31 @@
+/* icon css  start */
+
+.icon-nan:before {
+  color: #73a6ff;
+}
+
+.icon-nv {
+  color: #fa8cec;
+}
+
+.icon-weizhi:before {
+  color: #e36554;
+}
+
+.icon-fl-jia:before {
+  color: #1acad8;
+}
+
+.icon-shengri:before {
+  color: #84b51e;
+}
+
+.icon-xingzuo {
+  color: #ffbd5a;
+}
+
+.icon-daxuemingcheng {
+  color: #d81e06;
+}
+
+/* inco css end  */

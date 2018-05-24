@@ -1,5 +1,4 @@
-@import "../../../resources/common.wxss";
-@import "../../../resources/icon/iconfont.wxss";
+
 
 page {
   background-color: #fafafa;

@@ -2,5 +2,5 @@
     "usingComponents": {
         "dictext": "/components/dictext/dictext"
     },
-    "navigationBarTitleText": "详情"
+    "navigationBarTitleText": "详细资料"
 }

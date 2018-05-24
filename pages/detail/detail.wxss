@@ -1,5 +1,3 @@
-@import "../../resources/common.wxss";
-@import "../../resources/icon/iconfont.wxss";
 
 .info-box {
   padding: 0.5rem;

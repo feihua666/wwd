@@ -21,6 +21,8 @@ Page({
 
     httpUtil.get('/base/user/current',{
         success:function(res){
+            app.globalData.userInfo = res.data.data.content
+           
             // 成功跳转到列表页面
             wx.redirectTo({
                 url: '/pages/list/list'

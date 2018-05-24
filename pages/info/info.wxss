@@ -1,5 +1,4 @@
-@import "../../resources/common.wxss";
-@import "../../resources/icon/iconfont.wxss";
+
 .container-box{
     padding:2px 15px;
 }

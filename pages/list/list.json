@@ -1,9 +1,10 @@
 {
   "usingComponents": {
     "dictpicker": "/components/dictpicker/dictpicker",
-    "areapicker": "/components/areapicker/areapicker"
+    "areapicker": "/components/areapicker/areapicker",
+    "dictext":"/components/dictext/dictext"
   },
   "navigationBarTitleText": "汪汪队",
   "enablePullDownRefresh": true,
-  "onReachBottomDistance": 30
+  "onReachBottomDistance": 50
 }

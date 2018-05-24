@@ -1,65 +1,113 @@
 <wxs src="../../resources/common.wxs" module="common" />
-<view class="container-box">
-  <view class="profile-box">
-    <view class='profile-tab-box'>
-      <text class='iconfont icon-liebiao' bindtap='toggleProfileInfoBox'></text>
-    </view>
-    <view class='profile-info-box' hidden='{{!profileInfoBoxShow}}'>
-      <view class='profile-line horizontal-line'></view>
-      <navigator url='../my/my'>
-        <view class='profile-info-my-box'>
-          <text class='iconfont icon-xingmingyonghumingnicheng'></text>
+<view class="page">
+    <view class='page_hd'  style='position:fixed;top:0;left:0;z-index:1000;width:100%;'>
+        <!-- 搜索 -->
+        <view class='weui-flex'>
+            <view class="weui-flex__item">
+                    <view class="weui-search-bar">
+                    <navigator url='../my/my' class='user-head-photo-sm circle'style='margin-right:5px;'>
+                        <image class='user-head-photo-sm circle' style='border:1px solid #fff' src='{{common.getFileUrl(userInfo.photo,appConfig.file.downloadUrl)}}'  mode="aspectFill"></image>
+                    </navigator>
+                        <view class="weui-search-bar__form">
+                        <navigator url='/pages/filter/filter'>
+                            <view class="weui-search-bar__box">
+                                <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+                                <input type="text" class="weui-search-bar__input" />
+                            </view>
+                            <label class="weui-search-bar__label">
+                                <icon class="weui-icon-search" type="search" size="14"></icon>
+                                <view class="weui-search-bar__text">搜索</view>
+                            </label>
+                            </navigator>
+                        </view>
+                        
+                    </view>
+            </view>
         </view>
-      </navigator>
-      <view class='profile-line horizontal-line'></view>
-      <view class='profile-info-search-box' bindtap='bindFilterToggle'>
-        <text class='iconfont icon-sousuo'></text>
-      </view>
     </view>
-  </view>
-  <scroll-view scroll-y class="scroll-view-container-box">
-    <view wx:for="{{listData}}" wx:for-index="userIndex" wx:for-item="userItem" wx:key="{{userItem.wwdUserDto.id}}" class="view-item-box">
-      <navigator url='../detail/detail?wwdUserId={{userItem.wwdUserDto.id}}'>
-        <view  wx:for="{{userItem.wwdUserPicDtos}}" wx:for-index="picIndx" wx:for-item="picDto" class="view-item-img-box" wx:key="{{userItem.wwdUserDto.id}}">
-          <image wx:if="{{picDto.type=='main'}}"  src="{{common.getFileUrl(picDto.picOriginUrl,appConfig.file.downloadUrl)}}" class="view-item-img" mode="aspectFill" lazy-load="{{true}}"></image>
+  <view class="page__bd">
+
+    <view class='search-spacing' style='height:40px;'></view>
+
+    <!-- 遍历数据 容器为panel -->
+    <view class='item-box'  style='position:relative;margin-top:50px;'  wx:for="{{listData}}" wx:for-index="userIndex" wx:for-item="userItem" wx:key="{{userItem.wwdUserDto.id}}">
+            <view style='position:absolute;left:0;top:-30px;z-index:50;'>
+            <image class='user-head-photo circle' style='border:1px solid #fff' src='{{common.getFileUrl(userInfo.photo,appConfig.file.downloadUrl)}}'  mode="aspectFill"></image>
         </view>
-        <view class="view-item-info-box">
-          <view class='view-item-info-box-1'>
-            <view>
-              <text class="view-item-info-gender iconfont {{common.getGender(userItem.wwdUserDto.gender)}}"></text>
-              <text class="view-item-info-nickname"> {{userItem.wwdUserDto.nickname}}</text>
-            </view>
-          </view>
-          <view class='view-item-info-box-2'>
-            <view class='nowPosition'>
-              <text class=' iconfont icon-weizhi'></text>
-              <text class="view-item-info-nowPosition"> {{userItem.wwdUserAreaDto.nowProvinceName}}</text>
-            </view>
-            <view class='homePosition'>
-              <text class=' iconfont icon-fl-jia'></text>
-              <text class="view-item-info-homePosition"> {{userItem.wwdUserAreaDto.homeProvinceName}}  {{userItem.wwdUserAreaDto.homeCityName}}</text>
-            </view>
-          </view>
-          <view class='view-item-info-box-3'>
-            <view class='birthday'>
-              <text class=' iconfont icon-shengri'></text>
-              <text class="view-item-info-birthday">{{common.getYear(userItem.wwdUserDto.birthDay)}}年</text>
-            </view>
-            <view class='constellation'>
-              <text class=' iconfont icon-xingzuo'></text>
-              <text class="view-item-info-constellation"> {{common.getDictLabelByValue(userItem.wwdUserDto.constellation,constellations)}}</text>
-            </view>
-            <view class='college'>
-              <text class='iconfont icon-daxuemingcheng'></text>
-              <text class="view-item-info-college"> {{userItem.wwdUserDto.college}} </text>
-            </view>
-            <view class='education'>
-              <text class="view-item-info-education"> {{common.getDictLabelByValue(userItem.wwdUserDto.education,educations)}}</text>
-            </view>
-          </view>
+    <view  class="weui-panel">
+
+        <view class="weui-panel__hd" style='padding-left:70px;'>
+            <text class="view-item-info-gender iconfont {{common.getGender(userItem.wwdUserDto.gender)}}"></text>
+            <text class="view-item-info-nickname"> {{userItem.wwdUserDto.nickname}}</text>
         </view>
-      </navigator>
-    </view>
-    <view class="load-more" hidden="{{!loadMoreShow}}">正在载入...</view>
-  </scroll-view>
-</view>
+        <view class="weui-panel__bd">
+            <view class="weui-media-box">
+                <view class="weui-media-box__bd weui-flex">
+                    <!-- 现在城市 -->
+                    <view class="weui-media-box__desc weui-flex__item">
+                        <text class=' iconfont icon-weizhi'></text>
+                        <text class="view-item-info-nowPosition"> {{userItem.wwdUserAreaDto.nowProvinceName}} {{userItem.wwdUserAreaDto.nowCityName}}</text>
+                    </view>
+                    <!-- 家乡城市 -->
+                    <view class="weui-media-box__desc weui-flex__item">
+                        <text class=' iconfont icon-fl-jia'></text>
+                        <text class="view-item-info-homePosition"> {{userItem.wwdUserAreaDto.homeProvinceName}}  {{userItem.wwdUserAreaDto.homeCityName}}
+                        </text>
+                    </view>
+                </view>
+            </view>
+            <view class="weui-media-box">
+                <view class="weui-media-box__bd weui-flex">
+                    <!-- 哪年 -->
+                    <view class="weui-media-box__desc weui-flex__item">
+                        <text class=' iconfont icon-shengri'></text>
+                        <text class="view-item-info-birthday"> {{common.getYear(userItem.wwdUserDto.birthDay)}}年</text>
+                    </view>
+                    <!-- 星座 -->
+                    <view class="weui-media-box__desc weui-flex__item">
+                        <text class=' iconfont icon-xingzuo'></text>
+                        <dictext class="view-item-info-constellation" dict-type="constellation_type" value="{{userItem.wwdUserDto.constellation}}"></dictext>
+                    </view>
+                </view>
+            </view>
+            <view class="weui-media-box">
+                <view class="weui-media-box__bd weui-flex">
+                    <!-- 学校 -->
+                    <view class="weui-media-box__desc weui-flex__item">
+                        <text class='iconfont icon-daxuemingcheng'></text>
+                        <text class="view-item-info-college"> {{userItem.wwdUserDto.college}} </text>
+                    </view>
+                    <!-- 学历 -->
+                    <view class="weui-media-box__desc weui-flex__item">
+                        <dictext class="view-item-info-education" dict-type='education_level' value="{{userItem.wwdUserDto.education}}"></dictext>
+                    </view>
+                </view>
+            </view>
+            <view class="weui-media-box">
+                <view class="weui-media-box__bd">
+                    <view class="view-item-img-box" wx:if="{{picDto.type=='main'}}" wx:for="{{userItem.wwdUserPicDtos}}" wx:for-index="picIndx" wx:for-item="picDto"  wx:key="{{userItem.wwdUserDto.id}}">
+                        <image style='width:100%;' wx:if="{{picDto.type=='main'}}"  src="{{common.getFileUrl(picDto.picOriginUrl,appConfig.file.downloadUrl)}}" class="view-item-img" mode="aspectFill" lazy-load="{{true}}"></image>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="weui-panel__ft">
+            <navigator url='../detail/detail?wwdUserId={{userItem.wwdUserDto.id}}'>
+                <view class="weui-cell weui-cell_access weui-cell_link">
+                    <view class="weui-cell__bd">查看资料</view>
+                    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                </view>
+            </navigator>
+        </view>
+        </view>
+        </view><!-- item-box -->
+
+        <view class="weui-loadmore" hidden='{{!loadMoreShow}}'>
+            <view class="weui-loading"></view>
+            <view class="weui-loadmore__tips">正在加载...</view>
+        </view>
+        <view class="weui-loadmore weui-loadmore_line" hidden='{{noMoreDataShow}}'>
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+        </view>
+  </view><!-- page-bd -->
+</view><!-- page -->

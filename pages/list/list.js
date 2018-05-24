@@ -1,11 +1,11 @@
 const httpUtil = require('../../utils/httpUtil.js')
-const dicUtil = require('../../utils/dictUtil.js')
 //获取应用实例
 const app = getApp()
 
 Page({
   data: {
-    appConfig: getApp().globalData.config,
+    appConfig: app.globalData.config,
+    userInfo: app.globalData.userInfo,
     ageRange: [],
     homeArea: [], //["16e00c91fb3611e794174439c4325934", "194b5a34fb3611e794174439c4325934", "19798ea6fb3611e794174439c4325934"]
     nowArea: [],
@@ -14,13 +14,8 @@ Page({
       pageNo: 1,
       pageNum: 0
     },
-    userInfo: {},
-    loadMoreShow: false,
-    profileInfoBoxShow: false,
-    currentGender: '',
-    genders: [],
-    educations: [],
-    constellations: [],
+    loadMoreShow: true,
+    noMoreDataShow:false,
     education: '',
     gender: '',
     keyword: '',
@@ -31,15 +26,13 @@ Page({
       url: '../filter/filter',
     })
   },
-  toggleProfileInfoBox: function (e) {
-    //显示右侧下拉导航
-    this.setData({
-      profileInfoBoxShow: !this.data.profileInfoBoxShow
-    })
-  },
   loadData: function (pageNo, searchtype) {
     //加载数据
     let self = this
+    self.setData({
+        loadMoreShow: true,
+        noMoreDataShow: false
+    })
     httpUtil.get('/wwd/users', {
       data: {
         pageable: true,
@@ -72,7 +65,8 @@ Page({
           })
         } else {
           self.setData({
-            loadMoreShow: true
+            loadMoreShow: false,
+            noMoreDataShow:true
           })
         }
         wx.stopPullDownRefresh();
@@ -109,68 +103,8 @@ Page({
   },
   onLoad: function () {
     let self = this
-    //性别
-    wx.getStorage({
-      key: 'wwd_dic_gender',
-      success: function (res) {
-        self.setData({
-          genders: res.data
-        })
-      },
-      fail: function () {
-        dicUtil.getDictsByType('gender', function (res) {
-          let genders = res.data.data.content
-          self.setData({
-            genders: genders
-          })
-          wx.setStorage({
-            key: "wwd_dic_gender",
-            data: genders
-          })
-        })
-      }
-    })
-    //学历
-    wx.getStorage({
-      key: 'wwd_dic_education_level',
-      success: function (res) {
-        self.setData({
-          educations: res.data
-        })
-      },
-      fail: function () {
-        dicUtil.getDictsByType('education_level', function (res) {
-          let educations = res.data.data.content
-          self.setData({
-            educations: educations
-          })
-          wx.setStorage({
-            key: "wwd_dic_education_level",
-            data: educations
-          })
-        })
-      }
-    })
-    //星座
-    wx.getStorage({
-      key: 'wwd_dic_constellation_type',
-      success: function (res) {
-        self.setData({
-          constellations: res.data
-        })
-      },
-      fail: function () {
-        dicUtil.getDictsByType('constellation_type', function (res) {
-          let constellations = res.data.data.content
-          self.setData({
-            constellations: constellations
-          })
-          wx.setStorage({
-            key: "wwd_dic_constellation_type",
-            data: constellations
-          })
-        })
-      }
+    self.setData({
+        userInfo: app.globalData.userInfo
     })
     //加载页面列表
     this.loadData(1)

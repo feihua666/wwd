@@ -1,17 +1,33 @@
 <wxs src="../../resources/common.wxs" module="common" />
-<view class="container-box">
-  <view class='pic-box'>
+<view class="page">
+<!-- 图片相册 -->
+  <view class='page__hd'>
     <swiper autoplay="{{true}}" indicator-dots="{{true}}" style='height:250px;'>
       <block wx:for="{{picUrls}}" wx:for-index="picUrlIndex" wx:for-item="picUrlItem" wx:key="{{picUrlItem.id}}">
         <swiper-item>
-          <image bindtap="imagePreview" src="{{common.getFileUrl(picUrlItem.picOriginUrl,appConfig.file.downloadUrl)}}" data-src="{{common.getFileUrl(picUrlItem.picOriginUrl,appConfig.file.downloadUrl)}}" class="slide-image" mode="aspectFill" style='width:100%;'
-          />
+          <image bindtap="imagePreview"  style='width:100%;height:250px;' src="{{common.getFileUrl(picUrlItem.picOriginUrl,appConfig.file.downloadUrl)}}" data-src="{{common.getFileUrl(picUrlItem.picOriginUrl,appConfig.file.downloadUrl)}}" class="slide-image" mode="aspectFill"/>
         </swiper-item>
       </block>
     </swiper>
-
   </view>
-  <view class='info-box'>
+    <image class='user-head-photo circle' style='border:1px solid #fff; position:absolute;right:5px;top:220px;' src='{{common.getFileUrl(userInfo.photo,appConfig.file.downloadUrl)}}'  mode="aspectFill"></image>
+  <view class='page__bd'>
+        <view class="weui-panel">
+            <view class="weui-panel__bd">
+                <view class="weui-media-box weui-media-box_text">
+                    <view class="weui-media-box__title weui-media-box__title_in-text">
+                        <text class="view-item-info-gender iconfont {{common.getGender(wwdUser.gender)}}"></text>
+                        <text class='info-name icon-text-lable'> {{wwdUser.nickname}}</text>
+                    </view>
+                    <view class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</view>
+                    <view class="weui-media-box__info">
+                        <view class="weui-media-box__info__meta">文字来源</view>
+                        <view class="weui-media-box__info__meta">时间</view>
+                        <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">其它信息</view>
+                    </view>
+                </view>
+            </view>
+        </view>
     <!-- 基本信息  -->
     <view class='base-info-box'>
       <view class='base-info-box-item'>
