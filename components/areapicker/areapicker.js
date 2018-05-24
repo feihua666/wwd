@@ -13,6 +13,10 @@ Component({
                   // 还没有初始化
                 self.selectByValue(newValue)
           }
+      },
+      defaultvalue:{
+        type: Array,
+        value: ['请选择', '', '']
       }
   },
 
@@ -100,7 +104,6 @@ Component({
 
           //检查缓存
           let districtStorage = storageUtil.storage('district' + parentId)
-          console.log('loadDistrict',districtStorage)
           if (districtStorage) {
               self.data.range[2] = districtStorage
               self.setData({
@@ -228,7 +231,12 @@ Component({
 
       },
       selectByValue:function(value){
-          let self = this
+        let self = this
+        if (value && value.length==0) {
+          self.setData({
+            'name': ''
+          })
+        }
           this.initRange(value, function () {
               if (value.length > 0 && self.data.range[0].length > 0) {
                   self.setIndexByValue(value)

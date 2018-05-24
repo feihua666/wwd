@@ -1,4 +1,5 @@
 const httpUtil = require('../../utils/httpUtil.js')
+const storageUtil = require('../../utils/storageUtil.js')
 const ageArray = []
 
 for (let i = 16; i <= 80; i++) {
@@ -10,55 +11,102 @@ Page({
     ageMultiIndex: [4, 15],
     ageMultiArray: [ageArray, ageArray],
     ageRange: [],
-    homeArea: [], //["16e00c91fb3611e794174439c4325934", "194b5a34fb3611e794174439c4325934", "19798ea6fb3611e794174439c4325934"]
+    homeArea: [],
     nowArea: [],
     inputShowed: false,
+    searchbarResultShowed: true,
     keyword: '',
-    educations: [],
     education: '',
     gender: '',
-    genders: [{ value: '', name: '全部' }, { value: 'male', name: '男' }, { value: 'female', name: '女' }]
-  },
-  loadData:function(t,r){
-
-    t.setData({
-      profileInfoBoxShow: false,
-      searchtype: 'confirmSearch',
-      gender: r.data.gender,     //性别
-      ageRange: r.data.ageRange, //年龄
-      homeArea: r.data.homeArea, //家乡
-      nowArea: r.data.nowArea,    //现地址
-      educations: r.data.educations, //学历
-      education: r.data.education, //学历
-      keyword: r.data.keyword   //关键字  
-    })
-  
+    localKeywords: [],
+    keywordIndex: null
   },
   showInput: function (e) {
+    //显示输入框
     this.setData({
       inputShowed: true
     });
   },
   searchTap: function (e) {
-    let pages = getCurrentPages();
-    let prevPage = pages[pages.length - 2];  //上一个页面
-
-    this.loadData(prevPage,this)
+    //搜索
     wx.navigateBack()
   },
   clearInput: function (e) {
+    //清除搜索框内容
     this.setData({
       keyword: ""
     });
   },
-  inputTyping: function (e) {
+  inputChange: function (e) {
+    //绑定搜索框内容
+    let searchbarResultShowed = true
+    if (this.data.localKeywords.length > 0) {
+      searchbarResultShowed = false
+    }
     this.setData({
-      keyword: e.detail.value
-    });
+      keyword: e.detail.value, searchbarResultShowed: searchbarResultShowed
+    })
+  },
+  inputBindfocus: function (e) {
+    //搜索框聚焦处理
+    if (this.data.localKeywords.length > 0) {
+      this.setData({ searchbarResultShowed: false })
+    }
+  },
+  chooseKeyword: function (e) {
+    //选择历史关键字
+    let self = this
+    self.setData({ searchbarResultShowed: !self.data.searchbarResultShowed, keyword: self.data.localKeywords[e.currentTarget.id], keywordIndex: e.currentTarget.id })
+  },
+  searchbarResultToggle: function (e) {
+    //隐藏关键字历史搜索记录
+    this.setData({ searchbarResultShowed: !this.data.searchbarResultShowed })
+  },
+  clearSearchbarResult: function (e) {
+    //清除关键字历史搜索记录
+    try {
+      storageUtil.remove('localKeywords')
+      this.setData({ searchbarResultShowed: !this.data.searchbarResultShowed, localKeywords: [] })
+    } catch (e) {
+      // Do something when catch error
+    }
+  },
+  filterLabTap: function (e) {
+    //重置选择项
+    let self = this
+    let id = e.currentTarget.id
+    switch (id) {
+      case 'gender':
+        self.setData({
+          gender: ''
+        });
+        break;
+      case 'age':
+        self.setData({
+          ageRange: []
+        });
+        break;
+      case 'education':
+        self.setData({
+          education: ''
+        });
+        break;
+      case 'nowArea':
+        self.setData({
+          nowArea: []
+        });
+        break;
+      case 'homeArea':
+        self.setData({
+          homeArea: []
+        });
+        break;
+    }
   },
   bindGenderChange: function (e) {
-    let gender = this.data.gender == e.currentTarget.dataset.id ? '' : e.currentTarget.dataset.id;
     //性别
+    let gender = this.data.gender == e.detail.value ? '' : e.detail.value;
+
     this.setData({
       gender: gender
     })
@@ -81,18 +129,32 @@ Page({
     })
   },
   bindEducationChange: function (e) {
-    let education = this.data.education == e.currentTarget.dataset.id ? '' : e.currentTarget.dataset.id;
     //学历
+    let education = this.data.education == e.detail.value ? '' : e.detail.value;
+
     this.setData({
       education: education
     });
   },
+  bindNowPickerChange: function (e) {
+    //目前所在城市
+    this.setData({
+      nowArea: e.detail.value
+    })
+  },
+  bindHomePickerChange: function (e) {
+    //籍贯
+    this.setData({
+      homeArea: e.detail.value
+    })
+  }
+  ,
   onLoad: function () {
     //加载数据
     let pages = getCurrentPages();
     let prevPage = pages[pages.length - 2];  //上一个页面
 
-    this.loadData(this, prevPage)
+    this.loadData(this, prevPage, false)
     let self = this
   },
   onUnload: function () {
@@ -100,6 +162,50 @@ Page({
     let pages = getCurrentPages();
     let prevPage = pages[pages.length - 2];  //上一个页面
 
-    this.loadData(prevPage, this)
+    this.loadData(prevPage, this, true)
+  },
+  loadData: function (t, r, isSearch) {
+    //加载数据
+    let self = this
+    t.setData({
+      profileInfoBoxShow: false,
+      searchtype: 'confirmSearch',
+      gender: r.data.gender,     //性别
+      ageRange: r.data.ageRange, //年龄
+      homeArea: r.data.homeArea, //家乡
+      nowArea: r.data.nowArea,    //现地址
+      education: r.data.education, //学历
+      keyword: r.data.keyword   //关键字  
+    })
+    //设置关键字缓存
+    if (isSearch && self.data.keyword) {
+      let localKeywords = self.data.localKeywords
+      if (self.data.keywordIndex) {
+        localKeywords.splice(self.data.keywordIndex, 1);
+      }
+      if (localKeywords.length > 7) {
+        localKeywords.shift(self.data.keyword)
+      } else {
+        localKeywords.unshift(self.data.keyword)
+      }
+      //
+      try {
+        storageUtil.storage('localKeywords', localKeywords)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    //获取关键字缓存
+    else if (!isSearch) {
+      try {
+        let value = storageUtil.storage('localKeywords')
+        if (value) {
+          console.log(value)
+          self.setData({ localKeywords: value })
+        }
+      } catch (e) {
+        // Do something when catch error
+      }
+    }
   }
 });

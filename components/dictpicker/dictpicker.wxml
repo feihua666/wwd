@@ -1,4 +1,4 @@
-<picker bindchange="bindChange" range="{{range}}" value="{{index}}" range-key="{{rangeKey}}">
+<picker  defaultvalue='{{defaultvalue}}'  bindchange="bindChange" range="{{range}}" value="{{index}}" range-key="{{rangeKey}}">
 <text wx:if="{{name}}">{{name}}</text>
-<text wx:else>点击选择</text>
+<text wx:else>{{defaultvalue[0]}}</text>
 </picker>
