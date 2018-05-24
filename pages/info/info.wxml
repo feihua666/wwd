@@ -33,276 +33,359 @@ module.exports.getNormalPic = getNormalPic
 module.exports.getBirthDayEnd = getBirthDayEnd
 </wxs>
 <wxs src="../../resources/common.wxs" module="common" />
-<view class='container-box'>
-    <view class='photo-album-box'>
-        <view class='item-title-box'>
-            <text class='item-title'>照片展示</text>
-            <text class='item-title-hit'> (秀出你的风采)</text>
-        </view>
-        <view class='album-box'>
-            <view class='img-item-main-box'>
-                <image
-                 src='{{common.getFileUrl(ablum.getMainPic(picData).picOriginUrl,appConfig.file.downloadUrl)}}'
-                 bindtap='imagePreview'
-                 data-src="{{common.getFileUrl(ablum.getMainPic(picData).picOriginUrl,appConfig.file.downloadUrl)}}"
-                 mode="aspectFill"></image>
 
-                <view class='img-delete' bindtap='deleteImage' hidden='{{!ablum.getMainPic(picData).picOriginUrl}}' data-pic-id='{{ablum.getMainPic(picData).id}}'>
-                <text class='iconfont icon-shanchu'></text>
-                </view>
-                <view class='img-add' hidden='{{ablum.getMainPic(picData).picOriginUrl}}' data-seq='{{0}}' bindtap='chooseImage' data-type='main' data-pic-id='{{ablum.getMainPic(picData).id}}'>
-                    <text class='iconfont icon-jia'></text>
-                </view>
-                
-            </view>
-            <view class='img-item-other-box'>
-                <view class='img-item-box' wx:for="{{ablum.getNormalPic(picData)}}" wx:for-index="picIndex" wx:for-item="picItem" wx:key="{{picIndex.id}}">
-                    <image
-                    src='{{common.getFileUrl(picItem.picOriginUrl,appConfig.file.downloadUrl)}}' 
-                    bindtap='imagePreview' 
-                    data-src="{{common.getFileUrl(picItem.picOriginUrl,appConfig.file.downloadUrl)}}" 
-                    mode="aspectFill"></image>
+<view class='page'>
+    <view class='page__bd'>
+        <view class='weui-panel'>
+            <view class="weui-panel__hd">相册上传</view>
+            <view class="weui-panel__bd">
 
-                    <view class='img-delete' bindtap='deleteImage' hidden='{{!picItem.picOriginUrl}}' data-pic-id='{{picItem.id}}'>
-                    <text class='iconfont icon-shanchu'></text>
+                <view class='album-box'>
+                    <view class='img-item-main-box' style='width:100%'>
+                        <image
+                        style='width:100%;'
+                        src='{{common.getFileUrl(ablum.getMainPic(picData).picOriginUrl,appConfig.file.downloadUrl)}}'
+                        bindtap='imagePreview'
+                        data-src="{{common.getFileUrl(ablum.getMainPic(picData).picOriginUrl,appConfig.file.downloadUrl)}}"
+                        mode="aspectFill"></image>
+
+                        <view class='img-delete' bindtap='deleteImage' hidden='{{!ablum.getMainPic(picData).picOriginUrl}}' data-pic-id='{{ablum.getMainPic(picData).id}}'>
+                        <text class='iconfont icon-shanchu'></text>
+                        </view>
+                        <view class='img-add' hidden='{{ablum.getMainPic(picData).picOriginUrl}}' data-seq='{{0}}' bindtap='chooseImage' data-type='main' data-pic-id='{{ablum.getMainPic(picData).id}}'>
+                            <text class='iconfont icon-jia'></text>
+                        </view>
+                        
                     </view>
-                    <view class='img-add' hidden='{{picItem.picOriginUrl}}' data-seq='{{1}}' bindtap='chooseImage' data-type='normal' data-pic-id='{{picItem.id}}'>
-                        <text class='iconfont icon-jia'></text>
+                    <view class='img-item-other-box weui-flex'>
+                        <view class='img-item-box weui-flex__item' wx:for="{{ablum.getNormalPic(picData)}}" wx:for-index="picIndex" wx:for-item="picItem" wx:key="{{picIndex.id}}">
+                            <image
+                            style='width:100%;height:50px;'
+                            src='{{common.getFileUrl(picItem.picOriginUrl,appConfig.file.downloadUrl)}}' 
+                            bindtap='imagePreview' 
+                            data-src="{{common.getFileUrl(picItem.picOriginUrl,appConfig.file.downloadUrl)}}" 
+                            mode="aspectFill"></image>
+
+                            <view class='img-delete' bindtap='deleteImage' hidden='{{!picItem.picOriginUrl}}' data-pic-id='{{picItem.id}}'>
+                            <text class='iconfont icon-shanchu'></text>
+                            </view>
+                            <view class='img-add' hidden='{{picItem.picOriginUrl}}' data-seq='{{1}}' bindtap='chooseImage' data-type='normal' data-pic-id='{{picItem.id}}'>
+                                <text class='iconfont icon-jia'></text>
+                            </view>
+                        </view>
                     </view>
                 </view>
             </view>
         </view>
+        <view class='weui-panel'>
+            <view class="weui-panel__hd">基本信息</view>
+            <view class="weui-panel__bd">
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">婚姻状况</view>
+                        <view class="weui-cell__ft">
+                            <dictpicker  class='item-input' bindchange='reverseBindWwdUserValue' data-attr-name='maritalStatus' dict-type="married_status" value="{{wwdUser.maritalStatus}}">
+                            </dictpicker>
+                        </view>
+                    </view>
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">微信号</view>
+                        <view class="weui-cell__ft">
+                            <input class='item-input' type='text' bindinput='reverseBindWwdUserValue' data-attr-name='wechatNumber' placeholder="未填写" value="{{wwdUser.wechatNumber}}"></input>
+                        </view>
+                    </view>
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">姓名</view>
+                        <view class="weui-cell__ft">
+                            <input class='item-input' type='text' bindinput='reverseBindWwdUserValue' data-attr-name='name' placeholder="未填写" value="{{wwdUser.name}}" maxlength="20"></input>
+                        </view>
+                    </view>
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">性别</view>
+                        <view class="weui-cell__ft">
+                                <dictpicker  class='item-input' bindchange='reverseBindWwdUserValue' data-attr-name='gender' dict-type="gender" value="{{wwdUser.gender}}"></dictpicker>
 
-    </view>
-    <view class='horizontal-line'></view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class='weui-panel'>
+            <view class="weui-panel__bd">
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">生日</view>
+                        <view class="weui-cell__ft">
+                            <picker  class='item-input' mode="date" bindchange='reverseBindWwdUserValue' data-attr-name='birthDay' start="1973-01-01" end="{{ablum.getBirthDayEnd()}}" value="{{wwdUser.birthDay}}">
+                                <text wx:if="{{wwdUser.birthDay}}">{{wwdUser.birthDay}}</text>
+                                <text wx:else>点击选择</text>
+                            </picker>
+                        </view>
+                    </view>
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">星座</view>
+                        <view class="weui-cell__ft">
+                            <dictpicker  class='item-input' dict-type='constellation_type' bindchange='reverseBindWwdUserValue' data-attr-name='constellation' value="{{wwdUser.constellation}}">
+                            </dictpicker>
+                        </view>
+                    </view>
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">血型</view>
+                        <view class="weui-cell__ft">
+                            <dictpicker  class='item-input' dict-type='blood_type' bindchange='reverseBindWwdUserValue' data-attr-name='bloodType' value="{{wwdUser.bloodType}}">
+                            </dictpicker>
+                        </view>
+                    </view>
+                    
+                </view>
+            </view>
+        </view>
+        <view class='weui-panel'>
+            <view class="weui-panel__bd">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">学校</view>
+                    <view class="weui-cell__ft">
+                            <input class='item-input' type='text' bindinput='reverseBindWwdUserValue' data-attr-name='college' placeholder="未填写" value="{{wwdUser.college}}" maxlength="25"></input>
 
-    <view class='basic-info-box'>
-        <view class='item-wechat-number-box'>
-            <label>婚姻状况</label>
-                <dictpicker  class='item-input' bindchange='reverseBindWwdUserValue' data-attr-name='maritalStatus' dict-type="married_status" value="{{wwdUser.maritalStatus}}">
-                </dictpicker>
-        </view>
-
-            <view class='item-wechat-number-box'>
-            <label>微信号</label>
-            <input class='item-input' type='text' bindinput='reverseBindWwdUserValue' data-attr-name='wechatNumber' placeholder="未填写" value="{{wwdUser.wechatNumber}}"></input>
-        </view>
-        <view class='item-cardno-box'>
-            <label>汪汪队卡号</label>
-            <input class='item-input' type='text' bindinput='reverseBindWwdUserValue' data-attr-name='cardNo' placeholder="未填写" value="{{wwdUser.cardNo}}"></input>
-        </view>
-        <view class='item-title-box'>
-            <text class='item-title'>我的基本信息</text>
-        </view>
-        <view class='item-name-box'>
-            <label>姓名</label>
-            <input class='item-input' type='text' bindinput='reverseBindWwdUserValue' data-attr-name='name' placeholder="未填写" value="{{wwdUser.name}}" maxlength="20"></input>
-        </view>
-        <view class='item-gender-box'>
-            <label>性别</label>
-            <dictpicker  class='item-input' bindchange='reverseBindWwdUserValue' data-attr-name='gender' dict-type="gender" value="{{wwdUser.gender}}">
-            </dictpicker>
-        </view>
-
-        <view class='horizontal-line'></view>
-
-        <view class='item-birthday-box'>
-            <label>生日</label>
-            <picker  class='item-input' mode="date" bindchange='reverseBindWwdUserValue' data-attr-name='birthDay' start="1973-01-01" end="{{ablum.getBirthDayEnd()}}" value="{{wwdUser.birthDay}}">
-                <text wx:if="{{wwdUser.birthDay}}">{{wwdUser.birthDay}}</text>
-                <text wx:else>点击选择</text>
-            </picker>
-        </view>
-
-        <view class='item-constellation-box'>
-            <label>星座</label>
-            <dictpicker  class='item-input' dict-type='constellation_type' bindchange='reverseBindWwdUserValue' data-attr-name='constellation' value="{{wwdUser.constellation}}">
-            </dictpicker>
-        </view>
-        <view class='item-constellation-box'>
-            <label>血型</label>
-            <dictpicker  class='item-input' dict-type='blood_type' bindchange='reverseBindWwdUserValue' data-attr-name='bloodType' value="{{wwdUser.bloodType}}">
-            </dictpicker>
-        </view>
-        <view class='horizontal-line'></view>
-
-        <view class='item-college-box'>
-            <label>学校</label>
-            <input class='item-input' type='text' bindinput='reverseBindWwdUserValue' data-attr-name='college' placeholder="未填写" value="{{wwdUser.college}}" maxlength="25"></input>
-        </view>
-        <view class='item-major-box'>
-            <label>专业</label>
-            <input class='item-input' type='text' bindinput='reverseBindWwdUserValue' data-attr-name='major' placeholder="未填写" value="{{wwdUser.major}}" maxlength="25"></input>
-        </view>
-        <view class='item-education-box'>
-            <label>学历</label>
-            <dictpicker  class='item-input' dict-type='education_level' bindchange='reverseBindWwdUserValue' data-attr-name='education' value="{{wwdUser.education}}">
-            </dictpicker>
-        </view>
-        <view class='item-profession-box'>
-            <label>职业</label>
-            <input class='item-input' type='text' bindinput='reverseBindWwdUserValue' data-attr-name='profession' placeholder="未填写" value="{{wwdUser.profession}}" maxlength="25"></input>
-        </view>
-
-         <view class='horizontal-line'></view>
-
-        <view class='item-profession-box'>
-            <label>月薪</label>
-            <input class='item-input' type='text' bindinput='reverseBindWwdUserValue' data-attr-name='monthSalary' placeholder="未填写" value="{{wwdUser.monthSalary}}" maxlength="25"></input>
-        </view>
-        <view class='item-profession-box'>
-            <label>年薪</label>
-            <input class='item-input' type='text' bindinput='reverseBindWwdUserValue' data-attr-name='yearSalary' placeholder="未填写" value="{{wwdUser.yearSalary}}" maxlength="25"></input>
-        </view>
-        <view class='item-education-box'>
-            <label>车</label>
-            <dictpicker  class='item-input' dict-type='has_car_status' bindchange='reverseBindWwdUserValue' data-attr-name='hasCar' value="{{wwdUser.hasCar}}">
-            </dictpicker>
-        </view>
-                <view class='item-education-box'>
-            <label>房</label>
-            <dictpicker  class='item-input' dict-type='has_hourse_status' bindchange='reverseBindWwdUserValue' data-attr-name='hasHourse' value="{{wwdUser.hasHourse}}">
-            </dictpicker>
-        </view>
-
-        <view class='horizontal-line'></view>
-        
-        <view class='item-height-box'>
-            <label>身高(cm)</label>
-            <input class='item-input' type='number' bindinput='reverseBindWwdUserValue' data-attr-name='height' placeholder="未填写" value="{{wwdUser.height}}" maxlength="3"></input>
-        </view>
-        <view class='item-weight-box'>
-            <label>体重(kg)</label>
-            <input class='item-input' type='number' bindinput='reverseBindWwdUserValue' data-attr-name='weight' placeholder="未填写" value="{{wwdUser.weight}}" maxlength="4"></input>
-        </view>
-        <view class='item-looks-box'>
-            <label>相貌</label>
-            <dictpicker  class='item-input' dict-type='looks_type' bindchange='reverseBindWwdUserValue' data-attr-name='looks' value="{{wwdUser.looks}}">
+                    </view>
+                </view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">专业</view>
+                        <view class="weui-cell__ft">
+                            <input class='item-input' type='text' bindinput='reverseBindWwdUserValue' data-attr-name='major' placeholder="未填写" value="{{wwdUser.major}}" maxlength="25"></input>
+                        </view>
+                    </view>
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">学历</view>
+                        <view class="weui-cell__ft">
+                            <dictpicker  class='item-input' dict-type='education_level' bindchange='reverseBindWwdUserValue' data-attr-name='education' value="{{wwdUser.education}}"></dictpicker>
+                        </view>
+                    </view>
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">职业</view>
+                        <view class="weui-cell__ft">
+                            <input class='item-input' type='text' bindinput='reverseBindWwdUserValue' data-attr-name='profession' placeholder="未填写" value="{{wwdUser.profession}}" maxlength="25"></input>
+                        </view>
+                    </view>
                 
-            </dictpicker>
+                </view>
+            </view>
         </view>
-        <view class='item-shape-box'>
-            <label>体型</label>
-            <dictpicker  class='item-input' dict-type='shape_status' bindchange='reverseBindWwdUserValue' data-attr-name='shape' value="{{wwdUser.shape}}">
-            </dictpicker>
-        </view>
-
-        <view class='horizontal-line'></view>
-
-        <view class='item-smoking-box'>
-            <label>抽烟</label>
-            <dictpicker  class='item-input' dict-type='smoking_status' bindchange='reverseBindWwdUserValue' data-attr-name='smoking' value="{{wwdUser.smoking}}">
+        <view class='weui-panel'>
+            <view class="weui-panel__bd">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">车</view>
+                    <view class="weui-cell__ft">
+                            <dictpicker  class='item-input' dict-type='has_car_status' bindchange='reverseBindWwdUserValue' data-attr-name='hasCar' value="{{wwdUser.hasCar}}">
+                            </dictpicker>
+                    </view>
+                </view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">房</view>
+                        <view class="weui-cell__ft">
+                            <dictpicker  class='item-input' dict-type='has_hourse_status' bindchange='reverseBindWwdUserValue' data-attr-name='hasHourse' value="{{wwdUser.hasHourse}}">
+                            </dictpicker>
+                        </view>
+                    </view>
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">月薪</view>
+                        <view class="weui-cell__ft">
+                            <input class='item-input' type='text' bindinput='reverseBindWwdUserValue' data-attr-name='monthSalary' placeholder="未填写" value="{{wwdUser.monthSalary}}" maxlength="25"></input>
+                        </view>
+                    </view>
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">年薪</view>
+                        <view class="weui-cell__ft">
+                            <input class='item-input' type='text' bindinput='reverseBindWwdUserValue' data-attr-name='yearSalary' placeholder="未填写" value="{{wwdUser.yearSalary}}" maxlength="25"></input>
+                        </view>
+                    </view>
                 
-            </dictpicker>
+                </view>
+            </view>
         </view>
-        <view class='item-drinking-box'>
-            <label>喝酒</label>
-            <dictpicker  class='item-input' dict-type='drinking_status' bindchange='reverseBindWwdUserValue' data-attr-name='drinking' value="{{wwdUser.drinking}}">
+        <view class='weui-panel'>
+            <view class="weui-panel__bd">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">身高(cm)</view>
+                    <view class="weui-cell__ft">
+                            <input class='item-input' type='number' bindinput='reverseBindWwdUserValue' data-attr-name='height' placeholder="未填写" value="{{wwdUser.height}}" maxlength="3"></input>
+                    </view>
+                </view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">体重(kg)</view>
+                        <view class="weui-cell__ft">
+                            <input class='item-input' type='number' bindinput='reverseBindWwdUserValue' data-attr-name='weight' placeholder="未填写" value="{{wwdUser.weight}}" maxlength="4"></input>
+                        </view>
+                    </view>
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">相貌</view>
+                        <view class="weui-cell__ft">
+                            <dictpicker  class='item-input' dict-type='looks_type' bindchange='reverseBindWwdUserValue' data-attr-name='looks' value="{{wwdUser.looks}}">
+                
+                            </dictpicker>
+                        </view>
+                    </view>
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">体型</view>
+                        <view class="weui-cell__ft">
+                            <dictpicker  class='item-input' dict-type='shape_status' bindchange='reverseBindWwdUserValue' data-attr-name='shape' value="{{wwdUser.shape}}">
+                            </dictpicker>
+                        </view>
+                    </view>
+                
+                </view>
+            </view>
+        </view>
+        <view class='weui-panel'>
+            <view class="weui-panel__bd">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">抽烟</view>
+                    <view class="weui-cell__ft">
+                            <dictpicker  class='item-input' dict-type='smoking_status' bindchange='reverseBindWwdUserValue' data-attr-name='smoking' value="{{wwdUser.smoking}}">
+                
+                            </dictpicker>
+                    </view>
+                </view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">喝酒</view>
+                        <view class="weui-cell__ft">
+                            <dictpicker  class='item-input' dict-type='drinking_status' bindchange='reverseBindWwdUserValue' data-attr-name='drinking' value="{{wwdUser.drinking}}">
                
-            </dictpicker>
-        </view>
-
-        <view class='horizontal-line'></view>
-
-        <view class='item-now-position-box'>
-            <label>目前在</label>
-            <areapicker  class='item-input'  bindchange="bindNowPickerChange" value='{{areaData.nowIds}}'>
-            
-            </areapicker>
-        </view>
-        <view class='item-home-position-box'>
-            <label>家乡在</label>
-            <areapicker  class='item-input'  bindchange="bindHomePickerChange" value='{{areaData.homeIds}}'>
-            
-            </areapicker>
-        </view>
-    </view>
-    <view class='horizontal-line'></view>
-    <view class='hobby-box'>
-        <view class='item-title-box'>
-            <text class='item-title'>标签</text>
-        </view>
-        <view class='item-nature-box'>
-            <label>性格</label>
-            
-                <view class='arrow-box'>
-                <navigator url='../tagedit/tagedit?type=nature_type&id={{tag.nature.id}}'>
-                    <text class='iconfont icon-youjiantou'></text>
-                </navigator>
+                            </dictpicker>
+                        </view>
+                    </view>                                   
                 </view>
-
-            <text class='item-input'> {{tag.natureText}}</text>
-
-
-        </view>
-        <view class='item-hobby-box'>
-            <label>爱好</label>
-            <view class='arrow-box'>
-                <navigator url='../tagedit/tagedit?type=hobby_type&id={{tag.hobby.id}}'>
-                    <text class='iconfont icon-youjiantou'></text>
-                </navigator>
             </view>
-            <text class='item-input'>{{tag.hobbyText}}</text>
-
-
         </view>
-        <view class='item-food-box'>
-            <label>食物</label>
-
-            <view class='arrow-box'>
-                <navigator url='../tagedit/tagedit?type=food_type&id={{tag.food.id}}'>
-                    <text class='iconfont icon-youjiantou'></text>
-                </navigator>
+        <view class='weui-panel'>
+            <view class="weui-panel__bd">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">目前在</view>
+                    <view class="weui-cell__ft">
+                            <areapicker  class='item-input'  bindchange="bindNowPickerChange" value='{{areaData.nowIds}}'>
+            
+                            </areapicker>
+                    </view>
+                </view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">家乡在</view>
+                        <view class="weui-cell__ft">
+                            <areapicker  class='item-input'  bindchange="bindHomePickerChange" value='{{areaData.homeIds}}'>
+            
+                            </areapicker>
+                        </view>
+                    </view>                                   
+                </view>
             </view>
-            <text class='item-input'>{{tag.foodText}}</text>
-
         </view>
-        <view class='item-movie-box'>
-            <label>电影</label>
 
-            <view class='arrow-box'>
-                <navigator url='../tagedit/tagedit?type=movie_type&id={{tag.movie.id}}'>
-                    <text class='iconfont icon-youjiantou'></text>
-                </navigator>
+       <view class='weui-panel'>
+        <view class="weui-panel__hd">标签信息</view>
+            <view class="weui-panel__bd">
+                <view class="weui-cells weui-cells_after-title">
+                    <navigator url="../tagedit/tagedit?type=nature_type&id={{tag.nature.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                        <view class="weui-cell__bd">性格</view>
+                        <view class="weui-cell__ft weui-cell__ft_in-access">
+                             {{tag.natureText}}
+                        </view> 
+                    </navigator>    
+
+                    <navigator url="../tagedit/tagedit?type=hobby_type&id={{tag.hobby.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                        <view class="weui-cell__bd">爱好</view>
+                        <view class="weui-cell__ft weui-cell__ft_in-access">
+                            {{tag.hobbyText}}
+                        </view> 
+                    </navigator>    
+
+                    <navigator url="../tagedit/tagedit?type=food_type&id={{tag.food.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                        <view class="weui-cell__bd">食物</view>
+                        <view class="weui-cell__ft weui-cell__ft_in-access">
+                            {{tag.foodText}}
+                        </view> 
+                    </navigator>  
+
+                    <navigator url="../tagedit/tagedit?type=movie_type&id={{tag.movie.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                        <view class="weui-cell__bd">电影</view>
+                        <view class="weui-cell__ft weui-cell__ft_in-access">
+                            {{tag.movieText}}
+                        </view> 
+                    </navigator> 
+
+                    <navigator url="../tagedit/tagedit?type=trip_type&id={{tag.trip.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                        <view class="weui-cell__bd">旅游</view>
+                        <view class="weui-cell__ft weui-cell__ft_in-access">
+                            {{tag.tripText}}
+                        </view> 
+                    </navigator>    
+
+                    <navigator url="../tagedit/tagedit?type=sport_type&id={{tag.sport.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                        <view class="weui-cell__bd">运动</view>
+                        <view class="weui-cell__ft weui-cell__ft_in-access">
+                            {{tag.sportText}}
+                        </view> 
+                    </navigator>                      
+                </view>
             </view>
-            <text class='item-input'>{{tag.movieText}}</text>
-
         </view>
-        <view class='item-trip-box'>
-            <label>旅游</label>
-
-            <view class='arrow-box'>
-                <navigator url='../tagedit/tagedit?type=trip_type&id={{tag.trip.id}}'>
-                    <text class='iconfont icon-youjiantou'></text>
-                </navigator>
+        <view class='weui-panel'>
+            <view class="weui-panel__bd">
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">目前在</view>
+                    <view class="weui-cell__ft">
+                            <areapicker  class='item-input'  bindchange="bindNowPickerChange" value='{{areaData.nowIds}}'>
+            
+                            </areapicker>
+                    </view>
+                </view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">家乡在</view>
+                        <view class="weui-cell__ft">
+                            <areapicker  class='item-input'  bindchange="bindHomePickerChange" value='{{areaData.homeIds}}'>
+            
+                            </areapicker>
+                        </view>
+                    </view>                                   
+                </view>
             </view>
-            <text class='item-input'>{{tag.tripText}}</text>
-
         </view>
-        <view class='item-sport-box'>
-            <label>运动</label>
-
-            <view class='arrow-box'>
-                <navigator url='../tagedit/tagedit?type=sport_type&id={{tag.sport.id}}'>
-                    <text class='iconfont icon-youjiantou'></text>
-                </navigator>
+        <view class='weui-panel'>
+        <view class="weui-panel__hd">个人介绍</view>
+            <view class="weui-panel__bd">
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">
+                            <textarea class='item-input-textarea' placeholder="关于我自己的人生" maxlength="1000" bindinput='reverseBindWwdUserValue' data-attr-name='description' value="{{wwdUser.description}}"></textarea>
+                            <view class="weui-textarea-counter">限1000</view>
+                        </view>
+                    </view>
+                </view>
             </view>
-            <text class='item-input'>{{tag.sportText}}</text>
-
         </view>
+
+        <view class='weui-panel'>
+        <view class="weui-panel__hd">择偶标准</view>
+            <view class="weui-panel__bd">
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">
+                            <textarea class='item-input-textarea' placeholder="关于理想中的他/她" maxlength="1000" bindinput='reverseBindWwdUserValue' data-attr-name='standard' value="{{wwdUser.standard}}"></textarea>
+                            <view class="weui-textarea-counter">限1000</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+
+
+
+
+
+        <button class="weui-btn" style='margin:15px;' type="primary" bindtap='completeSubmitBtn' disabled='{{submitBtnDisable}}'>完 成</button>
     </view>
-    <view class='horizontal-line'></view>
-    <view class='about-me-box'>
-        <view class='item-title-box'>
-            <text class='item-title'>关于我</text>
-        </view>
-        <textarea class='item-input-textarea' placeholder="关于我自己的人生" maxlength="1000" bindinput='reverseBindWwdUserValue' data-attr-name='description' value="{{wwdUser.description}}"></textarea>
-    </view>
-    <view class='about-you-box'>
-        <view class='item-title-box'>
-            <text class='item-title'>关于你</text>
-        </view>
-        <textarea class='item-input-textarea' placeholder="关于理想中的他/她" maxlength="1000" bindinput='reverseBindWwdUserValue' data-attr-name='standard' value="{{wwdUser.standard}}"></textarea>
-    </view>
-    <button class='submit-btn' bindtap='completeSubmitBtn' disabled='{{submitBtnDisable}}'>完 成</button>
 </view>

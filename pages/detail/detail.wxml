@@ -19,126 +19,142 @@
                         <text class="view-item-info-gender iconfont {{common.getGender(wwdUser.gender)}}"></text>
                         <text class='info-name icon-text-lable'> {{wwdUser.nickname}}</text>
                     </view>
-                    <view class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</view>
-                    <view class="weui-media-box__info">
-                        <view class="weui-media-box__info__meta">文字来源</view>
-                        <view class="weui-media-box__info__meta">时间</view>
-                        <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">其它信息</view>
+                    <view class="weui-media-box__bd weui-flex">
+                        <!-- 生日 -->
+                        <view class="weui-media-box__desc weui-flex__item">
+                            <text class=' iconfont icon-shengri'></text>
+                            <text class='icon-text-lable'>{{common.getYear(wwdUser.birthDay)}}年</text>
+                        </view>
+                        <!-- 星座 -->
+                        <view class="weui-media-box__desc weui-flex__item">
+                             <text class='iconfont icon-xingzuo'></text>
+                            <dictext class='icon-text-lable' value="{{wwdUser.constellation}}" dict-type='constellation_type'></dictext>
+                            
+                        </view>
+                        <!-- 身高 -->
+                        <view class="weui-media-box__desc weui-flex__item">
+                             <text class='iconfont icon-shengao'></text>
+                            <text class='icon-text-lable'>{{wwdUser.height}}cm</text>
+                        </view>
+                        <!-- 体重 -->
+                        <view class="weui-media-box__desc weui-flex__item">
+                             <text class='iconfont icon-tizhong'></text>
+                            <text class='icon-text-lable'>{{wwdUser.weight}}kg</text>
+                        </view>
+                    </view>
+
+                    <view class="weui-media-box__bd weui-flex" style='margin-top:15px;'>
+                        <!-- 学校信息 -->
+                        <view class="weui-media-box__desc weui-flex__item">
+                            <text class='iconfont icon-daxuemingcheng'></text>
+                            <dictext class='icon-text-lable' value="{{wwdUser.education}}" dict-type='education_level'></dictext>
+                            <text class='icon-text-lable'>{{wwdUser.college}}</text>
+                            <text class='icon-text-lable'>{{wwdUser.major}}</text>
+                        </view>
+                        
+                    </view>
+                    <view class="weui-media-box__bd weui-flex" style='margin-top:15px;'>
+                        <!-- 现在城市 -->
+                        <view class="weui-media-box__desc weui-flex__item">
+                            <text class='iconfont icon-weizhi'></text>
+                            <text class='icon-text-lable'>{{userArea.nowProvinceName}} {{userArea.nowCityName}} {{userArea.nowDistrictName}}</text>
+                        </view>
+                        
+                    </view>
+                     <view class="weui-media-box__bd weui-flex" style='margin-top:15px;'>
+                    
+                        <!-- 家乡城市 -->
+                        <view class="weui-media-box__desc weui-flex__item">
+                            <text class='iconfont icon-fl-jia'></text>
+                            <text class='icon-text-lable'>{{userArea.homeProvinceName}} {{userArea.homeCityName}} {{userArea.homeDistrictName}}</text>
+                        </view>
+                    </view>
+                </view>
+                
+            </view>
+        </view>
+        <view class="weui-panel">
+            <view class="weui-panel__hd">
+                <text class='iconfont icon-111'></text>
+                <text> 生活信息</text>
+            </view>
+
+            <view class="weui-panel__bd">
+                <view class="weui-media-box weui-media-box_text">
+                    <view class="weui-media-box__bd weui-flex">
+                        <!-- 车 -->
+                        <view class="weui-media-box__desc weui-flex__item">
+                            <text class='iconfont icon-cheliang'></text>
+                            <dictext class='icon-text-lable' value="{{wwdUser.hasCar}}" dict-type='has_car_status'></dictext>
+                        </view>
+                        <!-- 房 -->
+                        <view class="weui-media-box__desc weui-flex__item">
+                            <text class='iconfont icon-icon-test1'></text>
+                            <dictext class='icon-text-lable' value="{{wwdUser.hasHourse}}" dict-type='has_hourse_status'></dictext>
+                        </view>
+                        
+                    </view>
+                    <view class="weui-media-box__bd weui-flex" style='margin-top:15px;'>
+                        
+                        <!-- 抽烟 -->
+                        <view class="weui-media-box__desc weui-flex__item">
+                            <text class='iconfont icon-chouyan'></text>
+                            <dictext class='icon-text-lable' value="{{wwdUser.smoking}}" dict-type='smoking_status'></dictext>
+                        </view>
+                        <!-- 喝酒 -->
+                        <view class="weui-media-box__desc weui-flex__item">
+                            <text class='iconfont icon-hejiu'></text>
+                            <dictext class='icon-text-lable' value="{{wwdUser.drinking}}" dict-type='drinking_status'></dictext>
+                        </view>
+                    </view>
+                    <view class="weui-media-box__bd weui-flex" style='margin-top:15px;'>
+                        <!-- 月薪 -->
+                        <view class="weui-media-box__desc weui-flex__item">
+                            <text class='iconfont icon-qianmoney125'></text>
+                            <text class='icon-text-lable' wx:if='{{wwdUser.monthSalary}}'>{{wwdUser.monthSalary}} </text>
+                        </view>
+                        <!-- 年薪 -->
+                        <view class="weui-media-box__desc weui-flex__item">
+                            <text class='iconfont icon-qianmoney113'></text>
+                            <text class='icon-text-lable'  wx:if='{{wwdUser.yearSalary}}'>{{wwdUser.yearSalary}}</text>
+                        </view>
+                        
                     </view>
                 </view>
             </view>
         </view>
-    <!-- 基本信息  -->
-    <view class='base-info-box'>
-      <view class='base-info-box-item'>
-        <view class='info-box-item-1'>
-          <text class="view-item-info-gender iconfont {{common.getGender(wwdUser.gender)}}"></text>
-          <text class='info-name icon-text-lable'> {{wwdUser.nickname}}</text>
+
+
+        <view class="weui-panel">
+            <view class="weui-panel__hd">
+                <text class='iconfont icon-icongerenjieshao01'></text>
+                <text> 个人介绍</text>
+            </view>
+
+            <view class="weui-panel__bd">
+                <view class="weui-media-box weui-media-box_text">
+                    <view class="weui-media-box__desc" style='overflow:auto;display:block;'>
+                        <text>{{wwdUser.description}}</text>
+                    </view>
+                </view>
+            </view>
         </view>
-      </view>
-      <view class='base-info-box-item'>
-        <view class='info-box-item-2'>
-          <view class='info-item info-birthday-box'>
-            <text class=' iconfont icon-shengri'></text>
-            <text class='icon-text-lable'>{{common.getYear(wwdUser.birthDay)}}年</text>
-          </view>
-          <view class='info-item info-birthday-box'>
-            <text class='iconfont icon-xingzuo'></text>
-            <dictext class='icon-text-lable' value="{{wwdUser.constellation}}" dict-type='constellation_type'></dictext>
-          </view>
-          <view class='info-item info-shape-box'>
-            <text class='iconfont icon-shengao'></text>
-            <text class='icon-text-lable'>{{wwdUser.height}}cm</text>
-          </view>
-          <view class='info-item info-shape-box'>
-            <text class='iconfont icon-tizhong'></text>
-            <text class='icon-text-lable'>{{wwdUser.weight}}kg</text>
-          </view>
+        <view class="weui-panel">
+            <view class="weui-panel__hd">
+                <text class='iconfont icon-icongerenjieshao01'></text>
+                <text> 择偶标准</text>
+            </view>
+
+            <view class="weui-panel__bd">
+                <view class="weui-media-box weui-media-box_text">
+                    <view class="weui-media-box__desc" style='overflow:auto;display:block;'>
+                        <text>{{wwdUser.standard}}</text>
+                    </view>
+                </view>
+            </view>
         </view>
-      </view>
-      <view class='base-info-box-item'>
-        <view class='info-box-item-3'>
-          <view class='info-college-box'>
-            <text class='iconfont icon-daxuemingcheng'></text>
-            <dictext class='icon-text-lable' value="{{wwdUser.education}}" dict-type='education_level'></dictext>
-            <text class='icon-text-lable'>{{wwdUser.college}}</text>
-            <text class='icon-text-lable'>{{wwdUser.major}}</text>
-          </view>
-        </view>
-      </view>
-      <view class='base-info-box-item'>
-        <view class='info-box-item-4 info-position-box'>
-          <view class='info-position-box-item'>
-            <text class='iconfont icon-weizhi'></text>
-            <text class='icon-text-lable'>{{userArea.nowProvinceName}} {{userArea.nowCityName}} {{userArea.nowDistrictName}}</text>
-          </view>
-          <view class='info-position-box-item'>
-            <text class='iconfont icon-fl-jia'></text>
-            <text class='icon-text-lable'>{{userArea.homeProvinceName}} {{userArea.homeCityName}} {{userArea.homeDistrictName}}</text>
-          </view>
-        </view>
-      </view>
-      <view class='info-box-bottom'></view>
-    </view>
-    <!-- 其他信息  -->
-    <view class='other-info-box'>
-      <view class='info-description-label-box info-label-title'>
-        <text class='iconfont icon-111'></text>
-        <text>生活信息</text>
-      </view>
-      <view class='info-marital-status-box'>
-        <view>
-          <text class='iconfont icon-cheliang'></text>
-          <dictext class='icon-text-lable' value="{{wwdUser.hasCar}}" dict-type='has_car_status'></dictext>
-        </view>
-        <view>
-          <text class='iconfont icon-icon-test1'></text>
-          <dictext class='icon-text-lable' value="{{wwdUser.hasHourse}}" dict-type='has_hourse_status'></dictext>
-        </view>
-      </view>
-      <view class='info-salary-box'>
-        <view>
-          <text class='iconfont icon-qianmoney125'></text>
-          <text class='icon-text-lable' wx:if='{{wwdUser.monthSalary}}'>{{wwdUser.monthSalary}} </text>
-          
-        </view>
-        <view>
-          <text class='iconfont icon-qianmoney113'></text>
-          <text class='icon-text-lable'  wx:if='{{wwdUser.yearSalary}}'>{{wwdUser.yearSalary}}</text>
-        </view>
-      </view>
-      <view class='info-smoking-box'>
-        <view>
-          <text class='iconfont icon-chouyan'></text>
-          <dictext class='icon-text-lable' value="{{wwdUser.smoking}}" dict-type='smoking_status'></dictext>
-        </view>
-        <view>
-          <text class='iconfont icon-hejiu'></text>
-          <dictext class='icon-text-lable' value="{{wwdUser.drinking}}" dict-type='drinking_status'></dictext>
-        </view>
-      </view>
-    </view>
-    <!-- 个人介绍 -->
-    <view class='description-info-box'>
-      <view class='info-description-label-box info-label-title'>
-        <text class='iconfont icon-icongerenjieshao01'></text>
-        <text>个人介绍</text>
-      </view>
-      <view class='info-description-value-box'>
-        <text>{{wwdUser.description}}</text>
-      </view>
-    </view>
-    <!-- 择偶标准 -->
-    <view class='standard-info-box'>
-      <view class='info-standard-label-box info-label-title'>
-        <text class='iconfont icon-icongerenjieshao01'></text>
-        <text>择偶标准</text>
-      </view>
-      <view class='info-standard-value-box'>
-        <text>{{wwdUser.standard}}</text>
-      </view>
-    </view>
+
   </view>
-  <button style='margin:15px;' wx:if="{{'married' == wwdUser.maritalStatus}}" disabled='{{true}}'>对方已婚</button>
-    <button style='margin:15px;' bindtap='bindSubmitBtn' wx:else disabled='{{buttonDisable}}'>{{buttonText}}</button>
+  <button class="weui-btn" type="primary" style='margin:15px;' wx:if="{{'married' == wwdUser.maritalStatus}}" disabled='{{true}}'>对方已婚</button>
+    <button class="weui-btn" type="primary" style='margin:15px;' bindtap='bindSubmitBtn' wx:else disabled='{{buttonDisable}}'>{{buttonText}}</button>
 </view>

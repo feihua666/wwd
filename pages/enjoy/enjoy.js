@@ -7,26 +7,47 @@ Page({
    */
   data: {
     appConfig: getApp().globalData.config,
-    listData: [],
-    listPic: [],
-    status:'1'
+    activeIndex: 1,
+    sliderOffset: 0,
+    sliderLeft: 0,
+    listData1: [],
+    listPic1: [],
+    listData2: [],
+    listPic2: [],
+    listData3: [],
+    listPic3: [],
   },
-  bindTitleClick:function(e){
-      let id = e.currentTarget.id
+  tabClick:function(e){
       this.setData({
-        status:id
+          sliderOffset: e.currentTarget.offsetLeft,
+          activeIndex: e.currentTarget.id
       })
       this.loadData()
   },
   loadData: function () {
     let self = this
-    httpUtil.get('/wwd/user/current/enjoys/'+self.data.status, {
+    httpUtil.get('/wwd/user/current/enjoys/' + self.data.activeIndex, {
       data: {},
       success: function (response) {
 
         let content = response.data.data.content
         let listPic = response.data.data.pic
-    
+        if (self.data.activeIndex == "1"){
+            self.setData({
+                listData1: content,
+                listPic1: listPic
+            })
+        } else if (self.data.activeIndex == "2") {
+            self.setData({
+                listData2: content,
+                listPic2: listPic
+            })
+        }else {
+            self.setData({
+                listData3: content,
+                listPic3: listPic
+            })
+        }
         self.setData({
           listData: content,
           listPic: listPic,
@@ -34,11 +55,22 @@ Page({
         })
       },
       fail: function (e) {
-        self.setData({
-            listData: [],
-            listPic: [],
-            isHidden: false
-        })
+          if (self.data.activeIndex == "1") {
+              self.setData({
+                  listData1: [],
+                  listPic1: []
+              })
+          } else if (self.data.activeIndex == "2") {
+              self.setData({
+                  listData2: [],
+                  listPic2: []
+              })
+          } else {
+              self.setData({
+                  listData3: [],
+                  listPic3: []
+              })
+          }
       }
     })
   },

@@ -1,9 +1,13 @@
 <wxs src="../../resources/common.wxs" module="common" />
-<view class='container-box'>
-    <view class='view-item-box'>
-        <text>展示到列表</text>
-        <view class='item-box'>
-            <switch checked='{{showInList}}' bindchange="setShowInList"/>
+<view class='page'>
+    <view class='page__bd'>
+        <view class="weui-cells weui-cells_after-title" style='margin-top:15px;'>
+            <view class="weui-cell weui-cell_switch">
+                <view class="weui-cell__bd">展示到列表</view>
+                <view class="weui-cell__ft">
+                    <switch checked='{{showInList}}' bindchange="setShowInList"/>
+                </view>
+            </view>
         </view>
     </view>
 </view>

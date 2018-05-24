@@ -7,19 +7,7 @@ Page({
   data: {
     appConfig: getApp().globalData.config,
     listData: [],
-    listPic: [],
-    userInfo: {},
-    isHidden: true
-  },
-  onShareAppMessage: function (res) {
-    if (res.from === 'button') {
-      // 来自页面内转发按钮
-    }
-    return {
-      title: '汪汪队',
-      path: '/pages/index/index'
-      // , imageUrl: '/resources/images/yy.jpg'
-    }
+    listPic: []
   },
   loadData: function (complete) {
     let self = this
@@ -27,27 +15,22 @@ Page({
       data: {},
       success: function (response) {
 
-        if (complete && typeof complete == 'function') {
-          complete()
-        }
-
         let content = response.data.data.content
         let listPic = response.data.data.pic
         self.setData({
           listData: content,
-          listPic: listPic,
-          isHidden: true
+          listPic: listPic
         })
       },
       fail: function (e) {
-        self.setData({
-          isHidden: false
-        })
+          self.setData({
+              listData: [],
+              listPic: []
+          })
       }
     })
   },
   onLoad: function () {
-
     this.loadData()
   }
 })

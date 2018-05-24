@@ -19,34 +19,17 @@ Page({
             isUpdateChange:true
         })
         //选中的数组
-        let value = e.currentTarget.dataset.value
-        let i=0;
-        let exist = false
-        for(;i < this.data.tagSelected.length;i++){
-            if (value == this.data.tagSelected[i]){
-                exist = true
-                break
-            }
-        }
-        
-        if (exist){
-            this.data.tagSelected.splice(i,1)
-            this.setData({
-                tagSelected: this.data.tagSelected
+        let value = e.detail.value
+        if(value.length > 5){
+            wx.showToast({
+                title: '最多选择5个',
+                icon: 'none'
             })
-        }else{
-            if (this.data.tagSelected.length == 5) {
-                wx.showToast({
-                    title: '最多选择5个',
-                    icon: 'none'
-                })
-                return
-            }
-            this.data.tagSelected.push(value)
-            this.setData({
-                tagSelected: this.data.tagSelected
-            })
+            return
         }
+        this.setData({
+            tagSelected: value
+        })
     },
   /**
    * 生命周期函数--监听页面加载

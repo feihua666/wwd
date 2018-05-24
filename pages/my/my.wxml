@@ -1,56 +1,39 @@
 <wxs src="../../resources/common.wxs" module="common" />
-<view class='container-box'>
-  <view class='header-info-box'>
-    <view class='header-info-photo-box'>
-      <image class='header-info-photo' src='{{photoUrl}}' mode="aspectFill" lazy-load="{{true}}"></image>
-    </view>
-    <view class='header-info-name-box'>
-      <text>{{nickname}}</text>
-    </view>
-    <view class='header-info-gender-box'>
-      <text> {{common.getGender(gender,true)}}</text>
+<view class='page'>
+    <view class='page__bd'>
+        <view class="weui-cells weui-cells_after-title" style='margin-top:15px;'>
+            <navigator url="../info/info" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__hd">
+                    <image class='user-head-photo circle' src="{{photoUrl}}" mode="aspectFill"  lazy-load="{{true}}"></image>
+                </view>
+                <view class="weui-cell__bd"> {{nickname}} {{common.getGender(gender,true)}}</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">完善资料</view>
+            </navigator>
+        </view>
+        <view class="weui-cells weui-cells_after-title" style='margin-top:15px;'>
+            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">我的邀请码</view>
+                <view class="weui-cell__ft" bindtap='setClipboard'>{{inviteCode}}</view>
+            </view>
+            <navigator url="../my/myfriends/myfriends" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">我邀请的朋友</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+        </view>
+
+        <view class="weui-cells weui-cells_after-title" style='margin-top:15px;'>
+            <navigator url="/pages/enjoy/enjoy" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">有意思</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+        </view>
+
+        <view class="weui-cells weui-cells_after-title" style='margin-top:15px;'>
+            <navigator url="/pages/setting/setting" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">设置</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+        </view>
     </view>
 
-    <navigator url='../info/info' class='navigator-arrow-box'>
-      <view class='arrow-box'>
-        <text class='info-label'>完善资料</text>
-        <text class='iconfont icon-youjiantou'></text>
-      </view>
-    </navigator>
-  </view>
-  <view class='view-item invite-code-box'>
-    <text class='invite-code-label'>我的邀请码</text>
-    <text class='invite-code'> {{inviteCode}}</text>
-    <view class='invite-btn'>
-      <button hidden='{{!inviteCode}}' bindtap='setClipboard'  size='mini'>复制</button>
-      <button open-type='share' bindtap='invitedFriendsBtn' size='mini'>邀请</button>
-    </view>
-  </view>
-  <view class='view-item'>
-      <text>我邀请的朋友</text>
-      <view class='arrow-box'>
-        <navigator url='../my/myfriends/myfriends'>
-            <text class='iconfont icon-youjiantou'></text>
-        </navigator>
-      </view>
-
-  </view>
-    <view class='view-item'>
-      <text>有意思</text>
-      <view class='arrow-box'>
-        <navigator url='/pages/enjoy/enjoy'>
-            <text class='iconfont icon-youjiantou'></text>
-        </navigator>
-      </view>
-
-  </view>
-      <view class='view-item'>
-      <text>设置</text>
-      <view class='arrow-box'>
-        <navigator url='/pages/setting/setting'>
-            <text class='iconfont icon-youjiantou'></text>
-        </navigator>
-      </view>
-
-  </view>
 </view>

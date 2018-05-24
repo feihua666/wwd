@@ -1,44 +1,11 @@
 
-.container-box{
-    padding:2px 15px;
-}
-.horizontal-line{
-    background-color: #C3C3C3;
-}
-.item-title-box{
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-.item-title-hit{
-    font-size: 0.7rem;
-    color: #C3C3C3;
-}
-.img-item-other-box{
-    display:flex;
-    flex-direction:row;
-    justify-content: center;
+.img-item-box,.img-item-main-box{
+    position:relative;
+
 }
 .img-item-box{
-    width: 25%;
-    height: 50px;
     margin: 5px  5px;
-}
-.img-item-box:first-child{
-    margin-left: 0;
-}
-.img-item-box:last-child{
-    margin-right: 0;
-}
-.img-item-main-box>image{
-    width: 100%;
-}
-.img-item-box>image{
-    height: 50px;
-    width: 100%;
-}
-.img-item-main-box,.img-item-box{
-    position:relative;
-    border: 1px solid #CCCEDC;
+        border: 1px solid #CCCEDC;
 }
 .img-delete{
     position:absolute;
@@ -49,6 +16,7 @@
     position:absolute;
     left:50%;top:50%;
 }
+
 .img-add .iconfont{
     color:#CCCEDC;
 }
@@ -65,56 +33,4 @@
 }
 .img-item-box .img-add .iconfont{
     font-size:1.1rem;
-}
-
-.item-name-box,
-.item-gender-box,
-.item-birthday-box,
-.item-constellation-box,
-.item-college-box,
-.item-major-box,
-.item-education-box,
-.item-profession-box,
-.item-height-box,
-.item-weight-box,
-.item-looks-box,
-.item-shape-box,
-.item-smoking-box,
-.item-drinking-box,
-.item-now-position-box,
-.item-home-position-box,
-.item-wechat-number-box,
-.item-cardno-box
-{
-    padding: 10px 0;
-}
-.basic-info-box label{
-    font-size: 0.75rem;
-}
-.item-input{
-    font-size: 0.7rem;
-    color:grey;
-    float:right;
-    text-align:right;
-}
-.item-input-textarea{
-     font-size: 0.75rem;
-     color:grey;
-}
-.submit-btn{
-    margin: 15px auto;
-}
-.item-input-textarea{
-    border:1px solid #fafafa;width:100%;
-}
-.item-sport-box,
-.item-trip-box,
-.item-movie-box,
-.item-food-box,
-.item-nature-box,
-.item-hobby-box{
-    margin: 15px 0;
-}
-.arrow-box{
-    float: right;
 }

@@ -12,16 +12,21 @@ var isChecked = function(dictItem,selected){
 }
 module.exports.isChecked = isChecked
 </wxs>
-<view class="container-box">
-    <view class='tag-box'>
-        <checkbox-group bindchange="checkboxChange">
-            <label class="tag-item {{tagedit.isChecked(item,tagSelected) ? 'tag-item-select':''}}"
-             wx:for="{{dict}}" wx:for-index="index" wx:for-item="item" wx:key="{{item.id}}"
-             data-value='{{item.value}}'
-             bindtap='checkboxChange'
-              >
-               {{item.name}}
-              </label>
-        </checkbox-group>
+
+<view  class='page'>
+    <view class='page__bd'>
+        <view class="weui-cells weui-cells_after-title">
+            <checkbox-group bindchange="checkboxChange">
+                <label class="weui-cell weui-check__label" wx:for="{{dict}}" wx:for-index="index" wx:for-item="item" wx:key="{{item.id}}">
+                    <checkbox class="weui-check" value="{{item.value}}" checked="{{tagedit.isChecked(item,tagSelected)}}"/>
+
+                    <view class="weui-cell__hd weui-check__hd_in-checkbox">
+                        <icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!tagedit.isChecked(item,tagSelected)}}"></icon>
+                        <icon class="weui-icon-checkbox_success" type="success" size="23" wx:if="{{tagedit.isChecked(item,tagSelected)}}"></icon>
+                    </view>
+                    <view class="weui-cell__bd">{{item.name}}</view>
+                </label>
+            </checkbox-group>
+        </view>
     </view>
 </view>
