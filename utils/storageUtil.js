@@ -31,11 +31,18 @@ const setStorageDict = function (data,type) {
 }
 // 清除
 const clear = function(){
-    wx.clearStorageSync()
+  wx.clearStorageSync()
+}
+// 清除
+const remove = function (key) {
+  if (key) {
+    wx.removeStorageSync(key)
+  }
 }
 module.exports = {
     storage: storage,
     getStorageDict: getStorageDict,
     setStorageDict: setStorageDict,
-    clear: clear
+    clear: clear,
+    remove: remove
 }

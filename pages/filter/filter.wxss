@@ -32,20 +32,21 @@
 }
 /* icon css  */
 
-.page__bd page__bd_spacing,.weui-flex__item{
-  height:80rpx;
-}
-.placeholder{
-    margin: 5px;
-    text-align: center;
-    height: 2.3em;
-    line-height: 2.3em;
-    color:  darkgrey;
-}
-
 .searchbar-result{
+    position:absolute;
     margin-top: 0;
     font-size: 14px;
+    z-index: 99;
+    width: 100%;
+
+}
+.searchbar-result .searchbar-result-shadow {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0.5;
+  z-index: -1;
 }
 .searchbar-result:before{
     display: none;
@@ -53,18 +54,20 @@
 .weui-cell{
     padding: 12px 15px 12px 35px;
 }
-.weui-flex__item.active .confirm-icon{
+
+.weui-cell__bd.active .confirm-icon{
   display: inline;
-}
-.weui-flex__item.item-title{
-   font-size: 14px;
-}
-.gender,.age{
-  font-size: 22px;
 }
 
 .confirm-icon{
   font-size: 0.7rem;
   color: green;
   display: none;
+}
+.searchbar-result-list{
+  font-size: 0.8rem;
+}
+.searchbar-result-title{
+  display: flex;
+  justify-content: space-between
 }
