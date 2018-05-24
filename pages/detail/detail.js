@@ -23,7 +23,8 @@ Page({
     },
     // 有意思按钮
     bindSubmitBtn:function(){
-        // 查询我是否对他有意思
+        let self = this
+        // 发起对他有意思
         httpUtil.post('/wwd/user/current/enjoy/' + this.data.wwdUserId, {
             success: response => {
                 self.setData({

@@ -1,4 +1,4 @@
-const host = 'http://localhost:8080'
+const host = 'https://h.xhlang.com'
 module.exports = {
     host: host,
     cookieKey:'cookieKey',

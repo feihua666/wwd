@@ -229,20 +229,13 @@ Component({
       },
       selectByValue:function(value){
           let self = this
-          if (self.data.range[0].length > 0 && self.data.range[1].length > 0 && self.data.range[2].length > 0) {
-              if (value.length > 0) {
+          this.initRange(value, function () {
+              if (value.length > 0 && self.data.range[0].length > 0) {
                   self.setIndexByValue(value)
                   self.setNameByValue(value)
               }
-          } else {
-              this.initRange(value, function () {
-                  if (value.length > 0 && self.data.range[0].length > 0){
-                      self.setIndexByValue(value)
-                      self.setNameByValue(value)
-                  }
 
-              })
-          }
+          })
       },
       initRange:function(value,callback){
           let self = this

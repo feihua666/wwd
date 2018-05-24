@@ -4,7 +4,13 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    value:null,
+    value:{
+        type:String,
+        observer: function (newVal, oldVal) {
+
+            this.selectByValue(newVal)
+        }
+    },
     dictType: String
   },
 
@@ -19,21 +25,22 @@ Component({
    * 组件的方法列表
    */
   methods: {
+    selectByValue:function(value){
+        let self = this
+        let dict = storageUtil.getStorageDict(self.properties.dictType)
 
+        if (value) {
+            for (let i = 0; i < dict.length; i++) {
+                if (value == dict[i].value) {
+                    self.setData({
+                        'name': dict[i].name
+                    })
+                    break
+                }
+            }
+        }
+    }
   },
   attached: function () {
-      let self = this
-      let dict = storageUtil.getStorageDict(self.properties.dictType)
-
-      if (self.properties.value) {
-          for (let i = 0; i < dict.length; i++) {
-              if (self.properties.value == dict[i].value) {
-                  self.setData({
-                      'name': dict[i].name
-                  })
-                  break
-              }
-          }
-      }
   }
 })
