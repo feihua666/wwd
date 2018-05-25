@@ -155,7 +155,6 @@ Page({
     let prevPage = pages[pages.length - 2];  //上一个页面
 
     this.loadData(this, prevPage, false)
-    let self = this
   },
   onUnload: function () {
     //返回设置数据
@@ -208,4 +207,4 @@ Page({
       }
     }
   }
-});
+})

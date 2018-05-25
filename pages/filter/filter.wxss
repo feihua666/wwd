@@ -1,34 +1,13 @@
 @import "../../resources/icon/iconfont.wxss";
 /* icon css  */
-.icon-nan:before {
-  color: #73a6ff;
-}
-
-.icon-nv {
-  color: #fa8cec;
-}
-
-.icon-weizhi:before {
-  color: #e36554;
-}
-
-.icon-fl-jia:before {
-  color: #1acad8;
-}
-
-.icon-shengri:before {
-  color: #84b51e;
-}
-
-.icon-xingzuo {
-  color: #ffbd5a;
-}
-
-.icon-daxuemingcheng {
-  color: #d81e06;
-}
 .icon-sousuo{
   font-size: 1.3rem;
+}
+
+.confirm-icon{
+  font-size: 0.7rem;
+  color: green;
+  display: none;
 }
 /* icon css  */
 
@@ -59,11 +38,6 @@
   display: inline;
 }
 
-.confirm-icon{
-  font-size: 0.7rem;
-  color: green;
-  display: none;
-}
 .searchbar-result-list{
   font-size: 0.8rem;
 }
