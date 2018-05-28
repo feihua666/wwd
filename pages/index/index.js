@@ -43,11 +43,24 @@ Page({
                             title: '登录成功',
                             icon: 'none'
                         })
+                        wx.showLoading({
+                            title: '跳转中...'
+                        })
+                        //再获取一次用户信息
+                        if (!app.globalData.userInfo){
+                            httpUtil.get('/base/user/current', {
+                                success: res => {
+                                    app.globalData.userInfo = res.data.data.content
+                                }
+                            })
+                        }
+                        
                         // 登录成功跳转到列表页面
                         // 先加载字典信息等缓存数据
                         dictUtil.getDictsByType(app.globalData.config.dict,function(res){
                             let content = res.data.data.content
                             storageUtil.setStorageDict(content)
+                            wx.hideLoading()
                             wx.redirectTo({
                                 url: '/pages/list/list'
                             })

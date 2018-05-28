@@ -165,6 +165,11 @@ Page({
                   })
               }
 
+          },
+          fail: res => {
+              self.setData({
+                  picData: []
+              })
           }
       })
   },

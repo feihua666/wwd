@@ -1,10 +1,10 @@
 <view class='container-box'>
     <view class='form-box'>
     <view class='form-item-box'>
-        <input type='text' value='{{inviteCode}}' bindinput="bindInviteCodeInput" placeholder="邀请码" class='invite-code-input'></input>
+        <input type='text' value='{{inviteCode}}' bindinput="bindInviteCodeInput" placeholder="邀请码" class="weui-input"></input>
     </view>
     <view class='form-item-box'>
-        <button open-type='getUserInfo' bindgetuserinfo='bindgetuserinfo'>授权微信登录并开始使用</button>
+        <button class="weui-btn" type="primary" disabled='{{disableBtn}}' open-type='getUserInfo' bindgetuserinfo='bindgetuserinfo'>授权微信登录并开始使用</button>
     </view>
     </view>
 </view>

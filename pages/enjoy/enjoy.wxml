@@ -5,20 +5,20 @@
             <view class="weui-navbar">
                 <view id="1" class="weui-navbar__item {{activeIndex == 1 ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
                     <view class="weui-navbar__title">
-                        <text class=' iconfont icon-xinshuai'></text> 我对谁有意思
+                        <text class=' iconfont icon-xinshuai'></text><text decode="{{true}}">&nbsp;</text>对谁有意思
                     </view>
                 </view>
                 <view id="2" class="weui-navbar__item {{activeIndex == 2 ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
                     <view class="weui-navbar__title">
-                        <text class=' iconfont icon-xinshuai'></text> 谁对我有意思
+                        <text class=' iconfont icon-xinshuai'></text><text decode="{{true}}">&nbsp;</text>对我有意思
                     </view>
                 </view>
                 <view id="3" class="weui-navbar__item {{activeIndex == 3 ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
                     <view class="weui-navbar__title">
-                        <text class=' iconfont icon-yijian-chuanxin-001'></text> 真有意思
+                        <text class=' iconfont icon-yijian-chuanxin-001'></text><text decode="{{true}}">&nbsp;</text>真的有意思
                     </view>
                 </view>
-                <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+                <view class="weui-navbar__slider" style="width:33.3333%;left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
             </view>
             <view class="weui-tab__panel">
                 <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
@@ -28,7 +28,7 @@
                             <view class="weui-cell__hd" wx:for="{{listPic1}}" wx:for-index="picIndex" wx:key="{{userItem.id}}" wx:for-item="picItem" wx:if="{{picItem.wwdUserId == userItem.id}}">
                                 <image class='user-head-photo circle' src="{{common.getFileUrl(picItem.picUrl,appConfig.file.downloadUrl)}}" mode="aspectFill"  lazy-load="{{true}}"></image>
                             </view>
-                            <view class="weui-cell__bd"> {{userItem.nickname}} {{common.getGender(userItem.gender,true)}}</view>
+                            <view class="weui-cell__bd"><text decode="{{true}}">&nbsp;</text>{{userItem.nickname}}<text decode="{{true}}">&nbsp;</text>{{common.getGender(userItem.gender,true)}}</view>
                             <view class="weui-cell__ft weui-cell__ft_in-access">查看资料</view>
                         </navigator>
                     </view>
@@ -42,7 +42,7 @@
                             <view class="weui-cell__hd" wx:for="{{listPic2}}" wx:for-index="picIndex" wx:key="{{userItem.id}}" wx:for-item="picItem" wx:if="{{picItem.wwdUserId == userItem.id}}">
                                 <image class='user-head-photo circle' src="{{common.getFileUrl(picItem.picUrl,appConfig.file.downloadUrl)}}" mode="aspectFill"  lazy-load="{{true}}"></image>
                             </view>
-                            <view class="weui-cell__bd"> {{userItem.nickname}} {{common.getGender(userItem.gender,true)}}</view>
+                            <view class="weui-cell__bd"><text decode="{{true}}">&nbsp;</text>{{userItem.nickname}}<text decode="{{true}}">&nbsp;</text>{{common.getGender(userItem.gender,true)}}</view>
                             <view class="weui-cell__ft weui-cell__ft_in-access">查看资料</view>
                         </navigator>
                     </view>
@@ -52,11 +52,12 @@
                 </view>
                 <view class="weui-tab__content" hidden="{{activeIndex != 3}}">
                     <view class="weui-cells weui-cells_after-title" style='margin-top:15px;' wx:for="{{listData3}}" wx:for-index="userIndex" wx:for-item="userItem" wx:key="{{userItem.id}}">
-                        <navigator url="/pages/detail/detail?wwdUserId={{userItem.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                        <navigator url="/pages/detail/detail?wwdUserId={{userItem.id}}&showWechatNumber=true" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                             <view class="weui-cell__hd" wx:for="{{listPic3}}" wx:for-index="picIndex" wx:key="{{userItem.id}}" wx:for-item="picItem" wx:if="{{picItem.wwdUserId == userItem.id}}">
                                 <image class='user-head-photo circle' src="{{common.getFileUrl(picItem.picUrl,appConfig.file.downloadUrl)}}" mode="aspectFill"  lazy-load="{{true}}"></image>
                             </view>
-                            <view class="weui-cell__bd"> {{userItem.nickname}} {{common.getGender(userItem.gender,true)}}</view>
+                            <view class="weui-cell__bd"><text decode="{{true}}">&nbsp;</text>{{userItem.nickname}}<text decode="{{true}}">&nbsp;</text>{{common.getGender(userItem.gender,true)}}
+                             </view>
                             <view class="weui-cell__ft weui-cell__ft_in-access">查看资料</view>
                         </navigator>
                     </view>

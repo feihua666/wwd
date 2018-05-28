@@ -73,9 +73,21 @@ Component({
   },
 
   attached: function () {
+
     this.setData({
       "range": storageUtil.getStorageDict(this.properties.dictType)
     })
+    if ('gender' == this.properties.dictType){
+        for (let i = 0; i < this.data.range.length;i++){
+            if (this.data.range[i].value == 'unknown'){
+                this.data.range.splice(i,1)
+            }
+        }
+        this.setData({
+            range:this.data.range
+        })
+    }
+
   },
   ready: function () {
 

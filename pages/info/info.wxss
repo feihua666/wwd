@@ -1,3 +1,6 @@
+.weui-panel__hd {
+position:static;
+}
 
 .img-item-box,.img-item-main-box{
     position:relative;

@@ -1,5 +1,6 @@
 <wxs src="../../resources/common.wxs" module="common" />
 <view class="page">
+
     <view class='page_hd'  style='position:fixed;top:0;left:0;z-index:1000;width:100%;'>
         <!-- 搜索 -->
         <view class='weui-flex'>
@@ -31,8 +32,8 @@
 
     <!-- 遍历数据 容器为panel -->
     <view class='item-box'  style='position:relative;margin-top:50px;'  wx:for="{{listData}}" wx:for-index="userIndex" wx:for-item="userItem" wx:key="{{userItem.wwdUserDto.id}}">
-            <view style='position:absolute;left:0;top:-30px;z-index:50;'>
-            <image class='user-head-photo circle' style='border:1px solid #fff' src='{{common.getFileUrl(userInfo.photo,appConfig.file.downloadUrl)}}'  mode="aspectFill"></image>
+            <view style='position:absolute;left:5px;top:-30px;z-index:50;'>
+            <image class='user-head-photo circle' style='border:1px solid #fff' src='{{common.getFileUrl(photo[userItem.wwdUserDto.userId],appConfig.file.downloadUrl)}}'  mode="aspectFill"></image>
         </view>
     <view  class="weui-panel">
 
@@ -44,12 +45,12 @@
             <view class="weui-media-box">
                 <view class="weui-media-box__bd weui-flex">
                     <!-- 现在城市 -->
-                    <view class="weui-media-box__desc weui-flex__item">
+                    <view class="weui-media-box__desc weui-flex__item" style='display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;'>
                         <text class=' iconfont icon-weizhi'></text>
                         <text class="view-item-info-nowPosition"> {{userItem.wwdUserAreaDto.nowProvinceName}} {{userItem.wwdUserAreaDto.nowCityName}}</text>
                     </view>
                     <!-- 家乡城市 -->
-                    <view class="weui-media-box__desc weui-flex__item">
+                    <view class="weui-media-box__desc weui-flex__item" style='display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;'>
                         <text class=' iconfont icon-fl-jia'></text>
                         <text class="view-item-info-homePosition"> {{userItem.wwdUserAreaDto.homeProvinceName}}  {{userItem.wwdUserAreaDto.homeCityName}}
                         </text>
@@ -66,6 +67,7 @@
                     <!-- 星座 -->
                     <view class="weui-media-box__desc weui-flex__item">
                         <text class=' iconfont icon-xingzuo'></text>
+                        <text decode="{{true}}">&nbsp;</text>
                         <dictext class="view-item-info-constellation" dict-type="constellation_type" value="{{userItem.wwdUserDto.constellation}}"></dictext>
                     </view>
                 </view>
@@ -75,11 +77,9 @@
                     <!-- 学校 -->
                     <view class="weui-media-box__desc weui-flex__item">
                         <text class='iconfont icon-daxuemingcheng'></text>
+                        <text decode="{{true}}">&nbsp;</text>
+                        <dictext class="view-item-info-education" dict-type='education_level' value="{{userItem.wwdUserDto.education}}"> </dictext>
                         <text class="view-item-info-college"> {{userItem.wwdUserDto.college}} </text>
-                    </view>
-                    <!-- 学历 -->
-                    <view class="weui-media-box__desc weui-flex__item">
-                        <dictext class="view-item-info-education" dict-type='education_level' value="{{userItem.wwdUserDto.education}}"></dictext>
                     </view>
                 </view>
             </view>
@@ -102,12 +102,12 @@
         </view>
         </view><!-- item-box -->
 
-        <view class="weui-loadmore" hidden='{{!loadMoreShow}}'>
+        <view class="weui-loadmore" wx:if="{{listData.length > 5}}" hidden='{{!loadMoreShow}}'>
             <view class="weui-loading"></view>
             <view class="weui-loadmore__tips">正在加载...</view>
         </view>
-        <view class="weui-loadmore weui-loadmore_line" hidden='{{noMoreDataShow}}'>
-            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+        <view wx:if="{{listData.length == 0}}" class="weui-loadmore weui-loadmore_line" hidden='{{noMoreDataShow}}'>
+                        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
         </view>
   </view><!-- page-bd -->
 </view><!-- page -->

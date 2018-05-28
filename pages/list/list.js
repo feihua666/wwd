@@ -10,12 +10,12 @@ Page({
     homeArea: [], //["16e00c91fb3611e794174439c4325934", "194b5a34fb3611e794174439c4325934", "19798ea6fb3611e794174439c4325934"]
     nowArea: [],
     listData: [],
+    photo:{},
     searchForm: {
       pageNo: 1,
       pageNum: 0
     },
     loadMoreShow: true,
-    noMoreDataShow:false,
     education: '',
     gender: '',
     keyword: '',
@@ -30,13 +30,13 @@ Page({
     //加载数据
     let self = this
     self.setData({
-        loadMoreShow: true,
-        noMoreDataShow: false
+        loadMoreShow: true
     })
     httpUtil.get('/wwd/users', {
       data: {
         pageable: true,
         pageNo: pageNo,
+        pageSize:15,
         includePic: true,
         gender: self.data.gender,     //性别
         ageRange: self.data.ageRange, //年龄
@@ -47,7 +47,17 @@ Page({
       },
       success: function (response) {
         let content = response.data.data.content
-        if (content && content.length > 0) {
+        if (content){
+            for(let i=0;i<content.length;i++){
+                let wwdUserPicDtos  = content[i].wwdUserPicDtos
+                for (let j = 0; j < wwdUserPicDtos.length;j++){
+                    if (wwdUserPicDtos[j].picOriginUrl)
+                    wwdUserPicDtos[j].picOriginUrl = wwdUserPicDtos[j].picOriginUrl.replace(/\\/g, '/')
+                    if (wwdUserPicDtos[j].picThumbUrl)
+                    wwdUserPicDtos[j].picThumbUrl = wwdUserPicDtos[j].picThumbUrl.replace(/\\/g, '/')
+                }
+            }
+        }
           if (pageNo > 1) {
             self.data.listData.push.apply(self.data.listData, content)
             self.setData({
@@ -58,17 +68,21 @@ Page({
               listData: content
             })
           }
+          let photo = response.data.data.photo
+          if(photo){
+              let _p = self.data.photo
+              for (let key in photo){
+                  _p[key] = photo[key]
+              }
+            self.setData({
+                photo:_p
+            })
+          }
+
           self.setData({
-            loadMoreShow: false,
             'searchForm.pageNo': response.data.data.page.pageNo,
             'searchForm.pageNum': response.data.data.page.pageNum
           })
-        } else {
-          self.setData({
-            loadMoreShow: false,
-            noMoreDataShow:true
-          })
-        }
         wx.stopPullDownRefresh();
       },
       fail: function () {
@@ -93,12 +107,6 @@ Page({
   },
   onReachBottom: function () {
     let self = this
-    if (self.data.loadMoreShow) {
-      return
-    }
-    self.setData({
-      loadMoreShow: true,
-    })
     this.loadData(this.data.searchForm.pageNo + 1, 'pullup')
   },
   onLoad: function () {

@@ -1,13 +1,33 @@
 const httpUtil = require('../../utils/httpUtil.js')
+const storageUtil = require('../../utils/storageUtil.js')
 Page({
     data:{
         appConfig: getApp().globalData.config,
+        photo:null,
         picUrls:[],
         wwdUser:{},
         userArea:{},
         buttonText:'加载中',
         buttonDisable:true,
-        wwdUserId:''
+        wwdUserId:'',
+        wechatNumber:'',
+        tag: {
+            natureText: [],
+            foodText: [],
+            movieText: [],
+            tripText: [],
+            sportText: [],
+            hobbyText: []
+        }
+    },
+    setClipboard: function () {
+        let self = this
+        wx.setClipboardData({
+            data: self.data.wechatNumber,
+            success: function (res) {
+
+            }
+        })
     },
     imagePreview: function(e){
         let self = this
@@ -31,6 +51,95 @@ Page({
                     buttonText: '已对 Ta 有意思',
                     buttonDisable: true
                 })
+
+            }
+        })
+    },
+    getTagTextByType: function (type, item, callback) {
+
+
+        let content = storageUtil.getStorageDict(type)
+        let _type = {}
+        for (let j = 0; j < content.length; j++) {
+            _type[content[j].value] = content[j].name
+        }
+        let _nature = []
+        if (item.selfContent) {
+            _nature.push(item.selfContent)
+        }
+        if (item.content) {
+            let _dictItem = item.content.split(',')
+            if (_dictItem) {
+                for (let m = 0; m < _dictItem.length; m++) {
+                    _nature.push(_type[_dictItem[m]])
+                }
+            }
+        }
+        callback(_nature)
+    },
+    loadTags: function () {
+        let self = this
+        httpUtil.get('/wwd/user/current/tags', {
+            success: res => {
+                let tagContent = res.data.data.content
+                    for (let i = 0; i < tagContent.length; i++) {
+                        let item = tagContent[i]
+                        //性格
+                        if (item.type == 'nature_type') {
+                            self.getTagTextByType('nature_type', item, function (text) {
+                                // 
+                                self.setData({
+                                    'tag.natureText': text
+                                })
+                            })
+                        }
+                        //爱好
+                        if (item.type == 'hobby_type') {
+                            self.getTagTextByType('hobby_type', item, function (text) {
+                                // 
+                                self.setData({
+                                    'tag.hobbyText': text
+                                })
+                            })
+                        }
+                        //电影
+                        if (item.type == 'movie_type') {
+                            self.getTagTextByType('movie_type', item, function (text) {
+                                // 
+                                self.setData({
+                                    'tag.movieText': text
+                                })
+                            })
+                        }
+                        //食物
+                        if (item.type == 'food_type') {
+                            self.getTagTextByType('food_type', item, function (text) {
+                                // 
+                                self.setData({
+                                    'tag.foodText': text
+                                })
+                            })
+                        }
+                        //旅行
+                        if (item.type == 'trip_type') {
+                            self.getTagTextByType('trip_type', item, function (text) {
+                                // 
+                                self.setData({
+                                    'tag.tripText': text
+                                })
+                            })
+                        }
+                        //运动
+                        if (item.type == 'sport_type') {
+                            self.getTagTextByType('sport_type', item, function (text) {
+                                // 
+                                self.setData({
+                                    'tag.sportText': text
+                                })
+                            })
+                        }
+                    }
+
 
             }
         })
@@ -66,7 +175,8 @@ Page({
           success: response => {
             let content = response.data.data.content
             self.setData({
-              wwdUser: content
+                wwdUser: content,
+                photo: response.data.data.photo
             })
           }
         })
@@ -79,6 +189,7 @@ Page({
             })
           }
         })
+        self.loadTags()
         // 查询我是否对他有意思
         httpUtil.get('/wwd/user/current/enjoy/' + wwdUserId, {
             success: response => {
@@ -109,5 +220,17 @@ Page({
                 }
             }
         })
+
+        //微信号
+        if ('true' == options.showWechatNumber){
+            httpUtil.get('/wwd/user/' + wwdUserId + '/wechatNumber', {
+                success: response => {
+                    let content = response.data.data.content
+                    self.setData({
+                        wechatNumber: content.wechatNumber
+                    })
+                }
+            })
+        }
     }
 })

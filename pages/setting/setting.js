@@ -17,7 +17,7 @@ Page({
         })
         if (!this.data.isverified) {
             wx.showToast({
-                title: '先完善资料才能开启哦'
+                title: '请先完善资料哦'
             })
             self.setData({
                 showInList: false

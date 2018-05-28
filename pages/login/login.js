@@ -1,4 +1,6 @@
 const httpUtil = require('../../utils/httpUtil.js')
+const dictUtil = require('../../utils/dictUtil.js')
+const storageUtil = require('../../utils/storageUtil.js')
 const app = getApp()
 Page({
 
@@ -7,7 +9,8 @@ Page({
    */
   data: {
       //邀请码
-      inviteCode:''
+      inviteCode:'',
+      disableBtn:false
   },
   bindInviteCodeInput:function(e){
     this.setData({
@@ -40,18 +43,41 @@ Page({
                 param.gender = 'unknown'
             }
             param.action = 'addAndLogin'
+            self.setData({
+                disableBtn:true
+            })
             httpUtil.login({
                 data:param,
                 success:res => {
-                    //登录完成，跳转到列表页面
-                    wx.redirectTo({
-                      url: '/pages/list/list'
+                    wx.showLoading({
+                        title: '跳转中...'
+                    })
+                    //再获取一次用户信息
+                    if (!app.globalData.userInfo) {
+                        httpUtil.get('/base/user/current', {
+                            success: res => {
+                                app.globalData.userInfo = res.data.data.content
+                            }
+                        })
+                    }
+                    // 登录成功跳转到列表页面
+                    // 先加载字典信息等缓存数据
+                    dictUtil.getDictsByType(app.globalData.config.dict, function (res) {
+                        let content = res.data.data.content
+                        storageUtil.setStorageDict(content)
+                        wx.hideLoading()
+                        wx.redirectTo({
+                            url: '/pages/list/list'
+                        })
                     })
                 },
                 fail: res => {
                     wx.showToast({
                         title: '登录失败，邀请码不正确',
                         icon: 'none'
+                    })
+                    self.setData({
+                        disableBtn: false
                     })
                 }
             })

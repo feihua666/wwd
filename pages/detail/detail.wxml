@@ -10,35 +10,44 @@
       </block>
     </swiper>
   </view>
-    <image class='user-head-photo circle' style='border:1px solid #fff; position:absolute;right:5px;top:220px;' src='{{common.getFileUrl(userInfo.photo,appConfig.file.downloadUrl)}}'  mode="aspectFill"></image>
+    <image class='user-head-photo circle' style='border:1px solid #fff; position:absolute;right:5px;top:220px;z-index:20;' src='{{common.getFileUrl(photo,appConfig.file.downloadUrl)}}'  mode="aspectFill"></image>
   <view class='page__bd'>
         <view class="weui-panel">
             <view class="weui-panel__bd">
                 <view class="weui-media-box weui-media-box_text">
                     <view class="weui-media-box__title weui-media-box__title_in-text">
                         <text class="view-item-info-gender iconfont {{common.getGender(wwdUser.gender)}}"></text>
-                        <text class='info-name icon-text-lable'> {{wwdUser.nickname}}</text>
+                        <text class='info-name icon-text-lable'><text decode="{{true}}">&nbsp;</text>{{wwdUser.nickname}}</text>
                     </view>
-                    <view class="weui-media-box__bd weui-flex">
+                    <view class="weui-media-box__bd"  wx:if="{{wechatNumber}}" >
+                        <view class="weui-media-box__desc weui-flex__item">
+                            <text bindtap='setClipboard'>微信号：{{wechatNumber}}</text>
+                        </view>
+                    </view>
+                    <view class="weui-media-box__bd weui-flex"  style='{{wechatNumber ?"margin-top:15px;":""}}'>
                         <!-- 生日 -->
                         <view class="weui-media-box__desc weui-flex__item">
                             <text class=' iconfont icon-shengri'></text>
+                            <text decode="{{true}}">&nbsp;</text>
                             <text class='icon-text-lable'>{{common.getYear(wwdUser.birthDay)}}年</text>
                         </view>
                         <!-- 星座 -->
                         <view class="weui-media-box__desc weui-flex__item">
                              <text class='iconfont icon-xingzuo'></text>
+                             <text decode="{{true}}">&nbsp;</text>
                             <dictext class='icon-text-lable' value="{{wwdUser.constellation}}" dict-type='constellation_type'></dictext>
                             
                         </view>
                         <!-- 身高 -->
                         <view class="weui-media-box__desc weui-flex__item">
                              <text class='iconfont icon-shengao'></text>
+                             <text decode="{{true}}">&nbsp;</text>
                             <text class='icon-text-lable'>{{wwdUser.height}}cm</text>
                         </view>
                         <!-- 体重 -->
                         <view class="weui-media-box__desc weui-flex__item">
                              <text class='iconfont icon-tizhong'></text>
+                             <text decode="{{true}}">&nbsp;</text>
                             <text class='icon-text-lable'>{{wwdUser.weight}}kg</text>
                         </view>
                     </view>
@@ -47,8 +56,11 @@
                         <!-- 学校信息 -->
                         <view class="weui-media-box__desc weui-flex__item">
                             <text class='iconfont icon-daxuemingcheng'></text>
+                            <text decode="{{true}}">&nbsp;</text>
                             <dictext class='icon-text-lable' value="{{wwdUser.education}}" dict-type='education_level'></dictext>
+                            <text decode="{{true}}">&nbsp;</text>
                             <text class='icon-text-lable'>{{wwdUser.college}}</text>
+                            <text decode="{{true}}">&nbsp;</text>
                             <text class='icon-text-lable'>{{wwdUser.major}}</text>
                         </view>
                         
@@ -57,6 +69,7 @@
                         <!-- 现在城市 -->
                         <view class="weui-media-box__desc weui-flex__item">
                             <text class='iconfont icon-weizhi'></text>
+                            <text decode="{{true}}">&nbsp;</text>
                             <text class='icon-text-lable'>{{userArea.nowProvinceName}} {{userArea.nowCityName}} {{userArea.nowDistrictName}}</text>
                         </view>
                         
@@ -66,6 +79,7 @@
                         <!-- 家乡城市 -->
                         <view class="weui-media-box__desc weui-flex__item">
                             <text class='iconfont icon-fl-jia'></text>
+                            <text decode="{{true}}">&nbsp;</text>
                             <text class='icon-text-lable'>{{userArea.homeProvinceName}} {{userArea.homeCityName}} {{userArea.homeDistrictName}}</text>
                         </view>
                     </view>
@@ -85,11 +99,13 @@
                         <!-- 车 -->
                         <view class="weui-media-box__desc weui-flex__item">
                             <text class='iconfont icon-cheliang'></text>
+                            <text decode="{{true}}">&nbsp;</text>
                             <dictext class='icon-text-lable' value="{{wwdUser.hasCar}}" dict-type='has_car_status'></dictext>
                         </view>
                         <!-- 房 -->
                         <view class="weui-media-box__desc weui-flex__item">
                             <text class='iconfont icon-icon-test1'></text>
+                            <text decode="{{true}}">&nbsp;</text>
                             <dictext class='icon-text-lable' value="{{wwdUser.hasHourse}}" dict-type='has_hourse_status'></dictext>
                         </view>
                         
@@ -99,11 +115,13 @@
                         <!-- 抽烟 -->
                         <view class="weui-media-box__desc weui-flex__item">
                             <text class='iconfont icon-chouyan'></text>
+                            <text decode="{{true}}">&nbsp;</text>
                             <dictext class='icon-text-lable' value="{{wwdUser.smoking}}" dict-type='smoking_status'></dictext>
                         </view>
                         <!-- 喝酒 -->
                         <view class="weui-media-box__desc weui-flex__item">
                             <text class='iconfont icon-hejiu'></text>
+                            <text decode="{{true}}">&nbsp;</text>
                             <dictext class='icon-text-lable' value="{{wwdUser.drinking}}" dict-type='drinking_status'></dictext>
                         </view>
                     </view>
@@ -111,11 +129,13 @@
                         <!-- 月薪 -->
                         <view class="weui-media-box__desc weui-flex__item">
                             <text class='iconfont icon-qianmoney125'></text>
+                            <text decode="{{true}}">&nbsp;</text>
                             <text class='icon-text-lable' wx:if='{{wwdUser.monthSalary}}'>{{wwdUser.monthSalary}} </text>
                         </view>
                         <!-- 年薪 -->
                         <view class="weui-media-box__desc weui-flex__item">
                             <text class='iconfont icon-qianmoney113'></text>
+                            <text decode="{{true}}">&nbsp;</text>
                             <text class='icon-text-lable'  wx:if='{{wwdUser.yearSalary}}'>{{wwdUser.yearSalary}}</text>
                         </view>
                         
@@ -125,6 +145,69 @@
         </view>
 
 
+
+        <view class="weui-panel">
+            <view class="weui-panel__hd">
+                <text class='iconfont icon-biaoqian'></text>
+                <text> 标签信息</text>
+            </view>
+
+            <view class="weui-panel__bd">
+                <view class="weui-media-box weui-media-box_text">
+                    <view class="weui-media-box__bd weui-flex">
+                        <!-- 性格 -->
+                        <view class="weui-media-box__desc weui-flex__item">
+                            <text class='iconfont icon-smileface'></text>
+                            <text decode="{{true}}">&nbsp;</text>
+                            <text>{{tag.natureText}}</text>
+                        </view>
+                    </view>
+                    <view class="weui-media-box__bd weui-flex" style='margin-top:20px;'>
+                        <!-- 爱好 -->
+                        <view class="weui-media-box__desc weui-flex__item">
+                            <text class='iconfont icon-xingquaihao'></text>
+                            <text decode="{{true}}">&nbsp;</text>
+                            <text>{{tag.hobbyText}}</text>
+                        </view>
+                    </view>
+                    <view class="weui-media-box__bd weui-flex" style='margin-top:20px;'>
+                        <!-- 食物 -->
+                        <view class="weui-media-box__desc weui-flex__item">
+                            <text class='iconfont icon-shiwu'></text>
+                            <text decode="{{true}}">&nbsp;</text>
+                            <text>{{tag.foodText}}</text>
+                        </view>
+                    </view>
+                    <view class="weui-media-box__bd weui-flex" style='margin-top:20px;'>
+                        <!-- 电影 -->
+                        <view class="weui-media-box__desc weui-flex__item">
+                            <text class='iconfont icon-dianying'></text>
+                            <text decode="{{true}}">&nbsp;</text>
+                            <text>{{tag.movieText}}</text>
+                        </view>
+                    </view>
+                    <view class="weui-media-box__bd weui-flex" style='margin-top:20px;'>
+                        <!-- 旅行 -->
+                        <view class="weui-media-box__desc weui-flex__item">
+                            <text class='iconfont icon-lvhang'></text>
+                            <text decode="{{true}}">&nbsp;</text>
+                            <text>{{tag.tripText}}</text>
+                        </view>
+                    </view>
+                    <view class="weui-media-box__bd weui-flex" style='margin-top:20px;'>
+                        <!-- 运动 -->
+                        <view class="weui-media-box__desc weui-flex__item">
+                            <text class='iconfont icon-yundong101'></text>
+                            <text decode="{{true}}">&nbsp;</text>
+                            <text>{{tag.sportText}}</text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+
+
+        
         <view class="weui-panel">
             <view class="weui-panel__hd">
                 <text class='iconfont icon-icongerenjieshao01'></text>
@@ -155,6 +238,8 @@
         </view>
 
   </view>
-  <button class="weui-btn" type="primary" style='margin:15px;' wx:if="{{'married' == wwdUser.maritalStatus}}" disabled='{{true}}'>对方已婚</button>
-    <button class="weui-btn" type="primary" style='margin:15px;' bindtap='bindSubmitBtn' wx:else disabled='{{buttonDisable}}'>{{buttonText}}</button>
+  <button class="weui-btn" type="primary" style='margin:20px 20px  0 20px;' wx:if="{{'married' == wwdUser.maritalStatus}}" disabled='{{true}}'>对方已婚</button>
+    <button class="weui-btn" type="primary" style='margin:20px 20px  0 20px;' bindtap='bindSubmitBtn' wx:else disabled='{{buttonDisable}}'>{{buttonText}}</button>
+
+     <view style='height:30px;'></view>
 </view>

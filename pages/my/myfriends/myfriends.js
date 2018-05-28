@@ -9,6 +9,15 @@ Page({
     listData: [],
     listPic: []
   },
+  navigate:function(e){
+      let isverified = e.currentTarget.dataset.isverified
+      let showInList = e.currentTarget.dataset.showInList
+      if ('Y' == showInList && isverified == 'Y'){
+          wx.navigateTo({
+              url: '/pages/detail/detail?wwdUserId=' + e.currentTarget.id
+          })
+      }
+  },
   loadData: function (complete) {
     let self = this
     httpUtil.get('/wwd/myfriends', {

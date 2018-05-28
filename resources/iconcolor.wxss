@@ -27,5 +27,49 @@
 .icon-daxuemingcheng {
   color: #d81e06;
 }
-
+.icon-shengao{
+    color: #E9443D;
+}
+.icon-tizhong{
+    color: #2CCEAA;
+}
+.icon-chouyan{
+    color: icon-chouyan;
+}
+.icon-hejiu{
+    color: #51C332;
+}
+.icon-qianmoney125{
+    color: #F8E8CA;
+}
+.icon-qianmoney113{
+    color: gold;
+}
+.icon-cheliang{
+    color: #246734;
+}
+.icon-icon-test1,.icon-icon-test{
+    color: #F3848F;
+}
+.icon-biaoqian{
+    color: #21B1F0;
+}
+.icon-smileface{
+    color: #EE5E7B;
+}
+.icon-xingquaihao{
+    color: #D79A93;
+}
+.icon-shiwu{
+    color: #FF5307;
+}
+.icon-dianying{
+    color: #049AA9;
+}
+.icon-lvhang{
+    color: #79C023;
+}
+.icon-yundong101{
+    color: #EA7B75;
+}
 /* inco css end  */

@@ -6,7 +6,7 @@
                 <view class="weui-cell__hd">
                     <image class='user-head-photo circle' src="{{photoUrl}}" mode="aspectFill"  lazy-load="{{true}}"></image>
                 </view>
-                <view class="weui-cell__bd"> {{nickname}} {{common.getGender(gender,true)}}</view>
+                <view class="weui-cell__bd"><text decode="{{true}}">&nbsp;</text>{{nickname}}<text decode="{{true}}">&nbsp;</text>{{common.getGender(gender,true)}}</view>
                 <view class="weui-cell__ft weui-cell__ft_in-access">完善资料</view>
             </navigator>
         </view>

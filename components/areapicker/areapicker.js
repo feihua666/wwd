@@ -183,6 +183,12 @@ Component({
       },
       setIndexByValue:function(value){
           let self = this
+          if (value.length == 0){
+              self.setData({
+                  'index': [0, 0, 0]
+              })
+              return;
+          }
           if (self.data.range) {
               // 省
               for (let i = 0; i < self.data.range[0].length; i++) {
@@ -238,7 +244,7 @@ Component({
           })
         }
           this.initRange(value, function () {
-              if (value.length > 0 && self.data.range[0].length > 0) {
+              if (self.data.range[0].length > 0) {
                   self.setIndexByValue(value)
                   self.setNameByValue(value)
               }

@@ -2,8 +2,16 @@ const app = getApp()
 const httpUtil = require('./httpUtil.js')
 
 const getAreas = function (data, success) {
+    let _data = data
+    if (_data){
+    }else{
+        _data = {
+        }
+    }
+    _data.orderby = 'sequence'
+    _data.orderable = true
     httpUtil.get('/base/areas', {
-        data: data,
+        data: _data,
         success: success
     })
 }

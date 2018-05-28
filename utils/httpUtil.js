@@ -165,6 +165,7 @@ const _login = function(options){
             let code = loginRes.code
             options.data.loginType = 'WX_MINIPROGRAM'
             options.data.type = "wwd"
+            options.data.rememberMe = 'true'
             options.data.code = code
             _post('/login', {
                 data: options.data,

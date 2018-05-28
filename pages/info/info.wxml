@@ -333,28 +333,6 @@ module.exports.getBirthDayEnd = getBirthDayEnd
             </view>
         </view>
         <view class='weui-panel'>
-            <view class="weui-panel__bd">
-                <view class="weui-cell">
-                    <view class="weui-cell__bd">目前在</view>
-                    <view class="weui-cell__ft">
-                            <areapicker  class='item-input'  bindchange="bindNowPickerChange" value='{{areaData.nowIds}}'>
-            
-                            </areapicker>
-                    </view>
-                </view>
-                <view class="weui-cells weui-cells_after-title">
-                    <view class="weui-cell">
-                        <view class="weui-cell__bd">家乡在</view>
-                        <view class="weui-cell__ft">
-                            <areapicker  class='item-input'  bindchange="bindHomePickerChange" value='{{areaData.homeIds}}'>
-            
-                            </areapicker>
-                        </view>
-                    </view>                                   
-                </view>
-            </view>
-        </view>
-        <view class='weui-panel'>
         <view class="weui-panel__hd">个人介绍</view>
             <view class="weui-panel__bd">
                 <view class="weui-cells weui-cells_after-title">
@@ -374,7 +352,7 @@ module.exports.getBirthDayEnd = getBirthDayEnd
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell">
                         <view class="weui-cell__bd">
-                            <textarea class='item-input-textarea' placeholder="关于理想中的他/她" maxlength="1000" bindinput='reverseBindWwdUserValue' data-attr-name='standard' value="{{wwdUser.standard}}"></textarea>
+                            <textarea class='item-input-textarea' cursor-spacing="{{100}}" placeholder="关于理想中的他/她" maxlength="1000" bindinput='reverseBindWwdUserValue' data-attr-name='standard' value="{{wwdUser.standard}}"></textarea>
                             <view class="weui-textarea-counter">限1000</view>
                         </view>
                     </view>
@@ -382,10 +360,7 @@ module.exports.getBirthDayEnd = getBirthDayEnd
             </view>
         </view>
 
-
-
-
-
-        <button class="weui-btn" style='margin:15px;' type="primary" bindtap='completeSubmitBtn' disabled='{{submitBtnDisable}}'>完 成</button>
+        <button class="weui-btn" style='margin:20px 20px  0 20px;' type="primary" bindtap='completeSubmitBtn' disabled='{{submitBtnDisable}}'>完 成</button>
+        <view style='height:300px;'></view>
     </view>
 </view>

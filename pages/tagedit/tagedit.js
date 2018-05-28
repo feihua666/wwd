@@ -41,7 +41,7 @@ Page({
             isUpdateChange:false
     })
     let id = options.id
-    if (id){
+    if (!!id){
         self.setData({
             addOrUpdate : 'update'
         })
@@ -121,7 +121,7 @@ Page({
         //判断是否更改，如果没有更新，不再调用
     let self = this
       this.save(function(){
-          if (self.data.isUpdateChange && self.data.addOrUpdate == 'update'){
+          if (self.data.isUpdateChange){
               prevPage.loadTags()
           }
       })
