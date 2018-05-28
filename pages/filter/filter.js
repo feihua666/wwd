@@ -8,7 +8,7 @@ for (let i = 16; i <= 80; i++) {
 
 Page({
   data: {
-    ageMultiIndex: [4, 15],
+    ageMultiIndex: [],
     ageMultiArray: [ageArray, ageArray],
     ageRange: [],
     homeArea: [],
@@ -155,7 +155,6 @@ Page({
     let prevPage = pages[pages.length - 2];  //上一个页面
 
     this.loadData(this, prevPage, false)
-    let self = this
   },
   onUnload: function () {
     //返回设置数据
@@ -170,6 +169,7 @@ Page({
     t.setData({
       profileInfoBoxShow: false,
       searchtype: 'confirmSearch',
+      ageMultiIndex: r.data.ageMultiIndex,
       gender: r.data.gender,     //性别
       ageRange: r.data.ageRange, //年龄
       homeArea: r.data.homeArea, //家乡
@@ -208,4 +208,4 @@ Page({
       }
     }
   }
-});
+})
