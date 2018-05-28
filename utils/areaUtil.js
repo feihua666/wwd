@@ -1,7 +1,7 @@
 const app = getApp()
 const httpUtil = require('./httpUtil.js')
 
-const getAreas = function (data, success) {
+const getAreas = function (data, success,fail) {
     let _data = data
     if (_data){
     }else{
@@ -12,7 +12,8 @@ const getAreas = function (data, success) {
     _data.orderable = true
     httpUtil.get('/base/areas', {
         data: _data,
-        success: success
+        success: success,
+        fail: fail
     })
 }
 const getAreaById = function (id, success) {

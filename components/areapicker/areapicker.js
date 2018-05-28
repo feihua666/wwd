@@ -97,6 +97,12 @@ Component({
               if (success) {
                   success(content[0].id)
               }
+          },function(){
+              self.data.range[1] = []
+              self.data.range[2] = []
+              self.setData({
+                  range: self.data.range
+              })
           })
       },
       loadDistrict: function (parentId, success){

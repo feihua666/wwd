@@ -78,9 +78,9 @@ Page({
         }
         callback(_nature)
     },
-    loadTags: function () {
+    loadTags: function (wwdUserId) {
         let self = this
-        httpUtil.get('/wwd/user/current/tags', {
+        httpUtil.get('/wwd/user/' + wwdUserId +'/tags', {
             success: res => {
                 let tagContent = res.data.data.content
                     for (let i = 0; i < tagContent.length; i++) {
@@ -190,7 +190,7 @@ Page({
             })
           }
         })
-        self.loadTags()
+        self.loadTags(wwdUserId)
         // 查询我是否对他有意思
         httpUtil.get('/wwd/user/current/enjoy/' + wwdUserId, {
             success: response => {
