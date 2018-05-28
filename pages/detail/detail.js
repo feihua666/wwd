@@ -1,5 +1,6 @@
 const httpUtil = require('../../utils/httpUtil.js')
 const storageUtil = require('../../utils/storageUtil.js')
+const util = require('../../utils/util.js')
 Page({
     data:{
         appConfig: getApp().globalData.config,
@@ -34,7 +35,7 @@ Page({
         let src = e.currentTarget.dataset.src
         let urls = []
         for (let i =0;i< self.data.picUrls.length;i++){
-            urls.push(self.data.picUrls[i].picOriginUrl)
+            urls.push(util.getFileUrl(self.data.picUrls[i].picOriginUrl))
         }
         wx.previewImage({
           current: src, // 当前显示图片的http链接
