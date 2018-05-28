@@ -8,7 +8,7 @@ for (let i = 16; i <= 80; i++) {
 
 Page({
   data: {
-    ageMultiIndex: [4, 15],
+    ageMultiIndex: [],
     ageMultiArray: [ageArray, ageArray],
     ageRange: [],
     homeArea: [],
@@ -169,6 +169,7 @@ Page({
     t.setData({
       profileInfoBoxShow: false,
       searchtype: 'confirmSearch',
+      ageMultiIndex: r.data.ageMultiIndex,
       gender: r.data.gender,     //性别
       ageRange: r.data.ageRange, //年龄
       homeArea: r.data.homeArea, //家乡

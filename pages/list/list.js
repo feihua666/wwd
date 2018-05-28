@@ -9,6 +9,7 @@ Page({
     ageRange: [],
     homeArea: [], //["16e00c91fb3611e794174439c4325934", "194b5a34fb3611e794174439c4325934", "19798ea6fb3611e794174439c4325934"]
     nowArea: [],
+    ageMultiIndex: [4,16],
     listData: [],
     searchForm: {
       pageNo: 1,
